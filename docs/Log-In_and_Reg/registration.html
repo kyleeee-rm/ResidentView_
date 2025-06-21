@@ -5,13 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Barangay Registration</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+      --primary-dark: #2B3209;
+      --primary-medium: #4B5320;
+      --primary-light: #6A7337;
+      --accent-green: #8A9A5B;
+      --accent-gold: #BD8F42;
+      --accent-light-gold: #D0B564;
+      --cream: #FFFFF0;
+      --dark-blue: #0B1215;
+      --shadow: rgba(43, 50, 9, 0.1);
+      --shadow-medium: rgba(43, 50, 9, 0.2);
+      --shadow-strong: rgba(43, 50, 9, 0.3);
+    }
+
     body {
-      font-family: 'Trebuchet MS', sans-serif;
-      background: linear-gradient(135deg, #800000 0%, #A4040A 25%, #B50104 50%, #800000 75%, #A4040A 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      font-family: 'Inter', sans-serif;
+      background: url('/pic/_MG_0668.jpg') center center;
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
       position: relative;
       overflow-x: hidden;
     }
@@ -23,12 +38,10 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 145, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(164, 4, 10, 0.2) 0%, transparent 50%);
-      background-size: 800px 800px, 600px 600px, 400px 400px;
-      animation: float 20s ease-in-out infinite;
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 25%, var(--primary-light) 50%, var(--primary-dark) 75%, var(--primary-medium) 100%);
+      background-size: 400% 400%;
+      opacity: 0.7;
+      animation: gradientShift 15s ease infinite;
       z-index: -1;
     }
 
@@ -40,11 +53,13 @@
       width: 100%;
       height: 100%;
       background-image: 
-        linear-gradient(45deg, transparent 30%, rgba(255, 193, 7, 0.05) 30%, rgba(255, 193, 7, 0.05) 70%, transparent 70%),
-        linear-gradient(-45deg, transparent 30%, rgba(255, 255, 145, 0.05) 30%, rgba(255, 255, 145, 0.05) 70%, transparent 70%);
-      background-size: 100px 100px, 120px 120px;
-      animation: patternMove 25s linear infinite;
-      z-index: -1;
+        radial-gradient(circle at 20% 20%, var(--accent-gold) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, var(--accent-light-gold) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, var(--accent-green) 0%, transparent 50%);
+      opacity: 0.1;
+      background-size: 800px 800px, 600px 600px, 400px 400px;
+      animation: float 20s ease-in-out infinite;
+      z-index: -2;
     }
 
     @keyframes gradientShift {
@@ -65,98 +80,156 @@
     }
 
     .heading-font {
-      font-family: 'Bebas Neue', cursive;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      color: var(--accent-light-gold);
+      text-shadow: 0 2px 4px var(--shadow-strong);
     }
     
     .bg-overlay {
       background: rgba(11, 18, 21, 0.85);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 193, 7, 0.2);
+      border: 1px solid var(--accent-gold);
+      border-opacity: 0.2;
     }
 
     .form-container {
       box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 193, 7, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 25px 50px -12px var(--shadow-strong),
+        0 0 0 1px var(--shadow-medium),
+        inset 0 1px 0 rgba(255, 255, 240, 0.1);
+    }
+
+    .form-label {
+      color: var(--cream);
+      font-weight: 600;
+      text-shadow: 0 1px 2px var(--shadow-medium);
     }
 
     .input-field {
       transition: all 0.3s ease;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 0 2px 4px var(--shadow);
+      background: var(--cream);
+      border: 2px solid var(--accent-green);
+      color: var(--dark-blue);
     }
 
     .input-field:focus {
       transform: translateY(-2px);
       box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.1),
-        0 8px 16px rgba(255, 193, 7, 0.2);
+        inset 0 2px 4px var(--shadow),
+        0 8px 16px var(--shadow-medium);
+      border-color: var(--accent-gold);
+      ring: 2px solid var(--accent-light-gold);
+    }
+
+    .input-field::placeholder {
+      color: var(--primary-medium);
+      opacity: 0.7;
     }
 
     .register-btn {
-      background: linear-gradient(135deg, #A4040A 0%, #B50104 100%);
-      box-shadow: 0 4px 15px rgba(164, 4, 10, 0.4);
+      background: linear-gradient(135deg, var(--primary-medium) 0%, var(--primary-light) 100%);
+      box-shadow: 0 4px 15px var(--shadow-medium);
       transition: all 0.3s ease;
+      color: var(--cream);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .register-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .register-btn:hover::before {
+      left: 100%;
     }
 
     .register-btn:hover {
-      background: linear-gradient(135deg, #FFC107 0%, #FEFF91 100%);
-      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+      background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-light-gold) 100%);
+      box-shadow: 0 6px 20px var(--shadow-strong);
       transform: translateY(-2px);
     }
-  </style>
-  <script>
+
+    .select-field {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23BD8F42' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.5rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+    }
+</style>
+
+<script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            maroon: '#800000',
-            deepRed: '#A4040A',
-            intenseRed: '#B50104',
-            amber: '#FFC107',
-            softYellow: '#FEFF91',
-            ivory: '#FFFFF0',
+            'primary-dark': '#2B3209',
+            'primary-medium': '#4B5320',
+            'primary-light': '#6A7337',
+            'accent-green': '#8A9A5B',
+            'accent-gold': '#BD8F42',
+            'accent-light-gold': '#D0B564',
+            'cream': '#FFFFF0',
+            'dark-blue': '#0B1215',
           }
         }
       }
     };
-  </script>
+</script>
+
 </head>
 <body class="min-h-screen flex items-center justify-center py-10">
 
-  <div class="w-full max-w-2xl bg-overlay text-ivory p-8 rounded-2xl form-container">
-    <h2 class="text-4xl heading-font text-center text-amber mb-6 tracking-widest drop-shadow-lg">REGISTRATION FORM</h2>
-    <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="w-full max-w-2xl bg-[rgba(255,255,240,0.95)] backdrop-blur-md border border-white/20 rounded-2xl shadow-2xl p-8 z-10">
+    <h2 class="text-4xl font-bold text-center mb-6 tracking-widest drop-shadow-lg text-[var(--primary-dark)]">BARANGAY REGISTRATION</h2>
+    <form action="#" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="firstName">First Name</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="firstName">First Name</label>
         <input type="text" id="firstName" name="firstName" required
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner" 
+          placeholder="Enter your first name" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="surname">Surname</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="surname">Surname</label>
         <input type="text" id="surname" name="surname" required
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Enter your surname" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="middleName">Middle Name</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="middleName">Middle Name</label>
         <input type="text" id="middleName" name="middleName"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Enter your middle name" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="age">Age</label>
-        <input type="number" id="age" name="age" min="0"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="age">Age</label>
+        <input type="number" id="age" name="age" min="0" max="120"
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Enter your age" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="sex">Sex</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="sex">Sex</label>
         <select id="sex" name="sex"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber">
-          <option value="" disabled selected>Select</option>
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner select-field">
+          <option value="" disabled selected>Select your sex</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
@@ -164,45 +237,50 @@
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="phone">Phone Number</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="phone">Phone Number</label>
         <input type="tel" id="phone" name="phone"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="09XX-XXX-XXXX" />
       </div>
 
       <div class="md:col-span-2">
-        <label class="block font-semibold text-softYellow mb-1" for="address">Address</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="address">Address</label>
         <input type="text" id="address" name="address"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Enter your complete address" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="email">Email</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="email">Email</label>
         <input type="email" id="email" name="email"
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="example@email.com" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="username">Username</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="username">Username</label>
         <input type="text" id="username" name="username" required
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Choose a username" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="password">Password</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="password">Password</label>
         <input type="password" id="password" name="password" required
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Create a password" />
       </div>
 
       <div>
-        <label class="block font-semibold text-softYellow mb-1" for="confirmPassword">Confirm Password</label>
+        <label class="block text-[var(--primary-medium)] font-semibold mb-2" for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" name="confirmPassword" required
-          class="input-field w-full px-4 py-2 border border-maroon rounded-lg focus:outline-none focus:ring-2 focus:ring-amber bg-white text-gray-800" />
+          class="w-full px-4 py-3 border border-[var(--accent-green)] rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] shadow-inner"
+          placeholder="Confirm your password" />
       </div>
 
-      <div class="md:col-span-2 mt-4">
-        <button type="submit"
-          class="register-btn w-full py-3 px-4 text-white font-bold rounded-lg transition duration-300">
-          Register
+      <div class="md:col-span-2 mt-6">
+        <button type="submit" class="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-[var(--primary-medium)] to-[var(--primary-dark)] text-[var(--cream)] font-semibold shadow-md hover:shadow-lg hover:-translate-y-1 transition duration-300">
+          Register Account
         </button>
       </div>
 
