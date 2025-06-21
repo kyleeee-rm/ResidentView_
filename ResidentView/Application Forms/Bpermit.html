@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Permit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html, body{
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        header{
+            background-color: #2B3209;
+            color: white;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .head h1{
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        .head p{
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .head h1{
+                font-size: 2rem;
+            }
+            .head p{
+                font-size: 0.9rem;
+            }
+        }
+
+        .steps-container {
+            background-color: #D0B564;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container {
+                padding: 20px 15px;
+            }
+        }
+
+        .title {
+            color: #0B1215;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid #0B1215;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .step {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .step {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .step-number {
+            color: #BD8F42;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .step h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2B3209;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 16px;
+            color: #0B1215;
+        }
+
+        #icon{
+            color: #0B1215;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 30px;
+            display: flex;
+            float: left;
+            margin: 10px;
+        }
+
+        #back-button {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        #back-button i {
+            transition: text-shadow 0.3s ease;
+        }
+
+        #back-button i:hover{
+            text-shadow: 5px 2px 8px rgba(255, 255, 240, 0.895);
+        }
+
+        body{
+            background-color: #6A7337;
+            background-image: url('marketArea.jpg');
+            background-blend-mode:soft-light;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        main{
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        #Forms{
+            background-color:#FFFFF0;
+            border-radius: 10px;
+            box-shadow: 0px 1px 16px rgb(106, 115, 55);    
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #Forms{
+                padding: 20px 15px;
+                margin: 20px auto;
+            }
+        }
+
+        .fields label{
+            display: block;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            padding-top: 15px;
+        }
+
+        .fields input[type="text"], .fields input[type="date"], .fields textarea{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .fields textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .fields {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #4B5320;
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .inline {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .full-width {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .inline-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .inline {
+                margin-bottom: 15px;
+            }
+        }
+
+        .other-reqs{
+            border-radius: 10px;
+            border: 1px solid #0B1215;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #FFFFF0;
+        }
+
+        .type {
+            margin: 20px 0;
+            padding: 15px 20px;
+            background-color: #FFFFF0;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .signature-section {
+            margin: 20px 0;
+            padding: 15px 20px;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            background-color: #FFFFF0;
+        }
+
+        .type-label {
+            color: #2B3209;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .radio-option {
+            font-size: 1rem;
+            color: #0B1215;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+        }
+
+        .fields select{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .inline {
+            flex: 1;
+        }
+
+        #Submit input[type="submit"]{
+            display:block;
+            width: 150px;
+            padding: 15px;
+            align-self: center;
+            margin: 40px auto;
+            margin-top: 50px;
+            border-radius: 50px;
+            background-color: #BD8F42;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: large;
+            border:1px solid #D0B564;
+            transition: text-shadow 0.3s ease;
+
+            &:hover{
+                background-color: #4B5320;
+                color: white;
+            }
+        }
+
+        .signature-box {
+            border: 1px solid #8A9A5B;
+            height: 60px;
+            width: 100%;
+            max-width: 300px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 5px;
+            font-style: italic;
+            color: #6A7337;
+        }
+
+        footer{
+            background-color: #FFFFF0;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        #Logo{
+            width: 150px;
+            margin: 5px;
+            padding: 15px 20px;
+        }
+
+        #Logo img{
+            width: 90%; 
+            height: auto;
+        }
+
+        footer a{
+            color: #4B5320;
+            font-style: italic;
+            text-decoration: none;
+
+            &:hover{
+                color: #2B3209;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6A7337;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out forwards;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .signature-section h4 {
+            color: #2B3209;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="/Home/index.html" id="back-button" class="flex-shrink-0 mb-4 sm:mb-0">
+            <i style="color:white;" class="fa-solid fa-arrow-left text-xl hover:scale-110 transition-transform duration-200"></i>
+        </a>
+        <div class="head flex-1 text-center px-4"> 
+            <h1 class="font-bold text-white mb-2 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">Business Permit Application Form</h1>
+            <p class="text-white text-sm sm:text-base">HOME / BUSINESS PERMIT</p>
+        </div>
+        <div class="flex-shrink-0 w-8 hidden sm:block"></div> <!-- Spacer for alignment -->
+    </header>
+
+    <main class="px-4 sm:px-6 lg:px-8">
+        <div class="steps-container">
+            <div class="title">
+                <h3 class="text-xl sm:text-2xl lg:text-3xl">PROCEDURE</h3>
+            </div>
+        
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">01</span> Choose Type</h2>
+                    <p class="text-sm sm:text-base">Select whether you're applying for a new permit or renewing an existing one.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">02</span> Fill Form</h2>
+                    <p class="text-sm sm:text-base">Complete the application form with accurate business information.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">03</span> Submit Documents</h2>
+                    <p class="text-sm sm:text-base">Prepare and submit all required documents to the Barangay Hall.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">04</span> Get Permit</h2>
+                    <p class="text-sm sm:text-base">Pay the required fees and receive your business permit certificate.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="Forms" class="mx-auto max-w-7xl">
+            <form action="" id="Submit-form">
+                <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please select your application type and provide the required information. <br></h3>
+                
+                <div id="icon" class="hover:scale-110 transition-transform duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
+                    </svg>
+                </div>            
+        
+                <p id="instruction" class="text-sm sm:text-base mb-6">Please provide accurate information for your business permit application. All fields marked with asterisk (*) are required.</p>
+            
+                <div class="fields">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                        <h4 class="text-lg font-semibold text-green-800 mb-2">Application Type</h4>
+                    </div>
+                    <!-- Application Type Selection -->
+                    <div class="type mb-6 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
+                        <label class="type-label block text-sm sm:text-base font-medium mb-4"></label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-3 rounded transition-colors duration-200">
+                                <input type="radio" name="application-type" value="new" class="w-4 h-4 text-red-600 focus:ring-red-500" required onchange="toggleSections()"> 
+                                <span class="text-sm sm:text-base font-arial">New Application</span>
+                            </label>
+                            <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-3 rounded transition-colors duration-200">
+                                <input type="radio" name="application-type" value="renewal" class="w-4 h-4 text-red-600 focus:ring-red-500" required onchange="toggleSections()"> 
+                                <span class="text-sm sm:text-base font-arial">Renewal</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Common Fields -->
+                    <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="business-name" class="block text-sm sm:text-base font-medium mb-2">Business Name: *</label>
+                            <input type="text" id="business-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                        <div class="flex-1">
+                            <label for="owner-name" class="block text-sm sm:text-base font-medium mb-2">Owner's Full Name: *</label>
+                            <input type="text" id="owner-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                    </div>
+
+                    <!-- New Application Section -->
+                    <div id="new-application-section" style="display: none;">
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                            <h4 class="text-lg font-semibold text-blue-800 mb-2">New Application Requirements</h4>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="business-type" class="block text-sm sm:text-base font-medium mb-2">Type of Business (Nature of Operation): *</label>
+                            <input type="text" id="business-type" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="e.g., Retail Store, Restaurant, Services">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="business-address" class="block text-sm sm:text-base font-medium mb-2">Business Address: *</label>
+                            <input type="text" id="business-address" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="location-sketch" class="block text-sm sm:text-base font-medium mb-2">Sketch of Location: *</label>
+                            <textarea id="location-sketch" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Describe the location and nearby landmarks (attachment required at Barangay Hall)"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="property-document" class="block text-sm sm:text-base font-medium mb-2">Lease Contract / Land Ownership Document: *</label>
+                            <select id="property-document" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200">
+                                <option value="">Select document type</option>
+                                <option value="lease-contract">Lease Contract</option>
+                                <option value="land-title">Land Title/Ownership Document</option>
+                                <option value="authorization-letter">Authorization Letter from Property Owner</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="dti-sec-new" class="block text-sm sm:text-base font-medium mb-2">DTI/SEC Registration:</label>
+                            <input type="text" id="dti-sec-new" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="If applicable - Registration Number">
+                        </div>
+                    </div>
+
+                    <!-- Renewal Section -->
+                    <div id="renewal-section" style="display: none;">
+                        <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                            <h4 class="text-lg font-semibold text-green-800 mb-2">Renewal Requirements</h4>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="last-permit" class="block text-sm sm:text-base font-medium mb-2">Last Year's Barangay Business Permit Number: *</label>
+                            <input type="text" id="last-permit" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter previous permit number">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="dti-sec-updated" class="block text-sm sm:text-base font-medium mb-2">Updated DTI/SEC Documents:</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" id="dti-updated" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                                    <span class="text-sm sm:text-base">DTI/SEC documents have been updated</span>
+                                </label>
+                                <input type="text" id="dti-sec-renewal" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="New registration number (if updated)">
+                            </div>
+                        </div>
+
+                        <div class="type mb-4 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
+                            <label class="type-label block text-sm sm:text-base font-medium mb-4">Have your business details changed since last year? *</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200">
+                                    <input type="radio" name="details-changed" value="yes" class="w-4 h-4 text-red-600 focus:ring-red-500" onchange="toggleDetailsSection()"> 
+                                    <span class="text-sm sm:text-base">Yes</span>
+                                </label>
+                                <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200">
+                                    <input type="radio" name="details-changed" value="no" class="w-4 h-4 text-red-600 focus:ring-red-500" onchange="toggleDetailsSection()"> 
+                                    <span class="text-sm sm:text-base">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="changed-details-section" style="display: none;">
+                            <div class="mb-4">
+                                <label for="changes-description" class="block text-sm sm:text-base font-medium mb-2">Please describe what has changed:</label>
+                                <textarea id="changes-description" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Describe any changes in business address, nature of operation, ownership, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="mb-4">
+                        <label for="contact-number" class="block text-sm sm:text-base font-medium mb-2">Business Contact Number: *</label>
+                        <input type="tel" id="contact-number" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm sm:text-base font-medium mb-2">Email Address:</label>
+                        <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Optional">
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Filing: *</label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+                <div class="affirmation-section">
+        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
+        <div class="mb-4">
+            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
+            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+        </div>
+        
+        <div class="checkbox-option mb-4 flex items-center gap-3">
+            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required 
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
+            <label for="truth-affirmation" class="text-sm sm:text-base font-medium leading-relaxed">
+                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
+            </label>
+        </div>
+    </div>
+
+    <!-- Penalty Warning Section -->
+    <div class="penalty-warning mt-6">
+        <h5 class="text-lg font-semibold mb-4 text-red-700">⚠️ WARNING: Penalties for Misdeclaration</h5>
+        <div class="checkbox-option mb-4 flex items-center gap-3">
+            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
+            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
+                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+            </label>
+        </div>
+        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+            <li>Criminal prosecution under the Revised Penal Code</li>
+            <li>Civil penalties and surcharges</li>
+            <li>Cancellation of the issued certificate</li>
+            <li>Additional taxes and interest on unpaid amounts</li>
+            <li>Legal action for tax evasion</li>
+        </ul>
+    </div>
+                <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4">Additional Requirements to Bring:</h3>
+                    <p class="mb-4 text-sm sm:text-base">The following documents must be submitted to the Barangay Hall along with your application form.</p>
+
+                    <div id="new-requirements" style="display: none;">
+                        <h4 class="font-semibold mb-2 text-blue-700">For New Applications:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4 mb-4">
+                            <li>Sketch of business location (hand-drawn or printed map)</li>
+                            <li>Original copy of Lease Contract or Land Ownership Document</li>
+                            <li>DTI/SEC Registration Certificate (if applicable)</li>
+                            <li>Valid ID of Business Owner</li>
+                            <li>Barangay Clearance</li>
+                        </ul>
+                    </div>
+
+                    <div id="renewal-requirements" style="display: none;">
+                        <h4 class="font-semibold mb-2 text-green-700">For Renewals:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4 mb-4">
+                            <li>Original copy of Last Year's Barangay Business Permit</li>
+                            <li>Updated DTI/SEC documents (if changes were made)</li>
+                            <li>Valid ID of Business Owner</li>
+                            <li>Additional documents if business details have changed</li>
+                        </ul>
+                    </div>
+
+                    <h4 class="font-semibold mb-2">General Requirements:</h4>
+                    <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4">
+                        <li>Application fee (to be paid at Barangay Hall)</li>
+                        <li>Completed application form</li>
+                    </ul>
+                </div>
+
+                <div id="Submit" class="text-center">
+                    <input type="submit" value="submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
+                </div> 
+            </form>    
+
+            <div id="toast" class="toast fixed top-8 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">Business permit application submitted!</div>
+        </div>
+    </main>
+
+    <footer class="bg-yellow-100 px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <div id="Logo" class="flex justify-center md:justify-start">
+                    <div class="w-32 sm:w-40">
+                        <img src="MA_seal.png" alt="Logo" class="w-full h-auto">
+                    </div>
+                </div>
+
+                <div id="Quick-Links" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Quick Links</h3>
+                    <div class="space-y-2">
+                        <a href="https://santarosacity.gov.ph/" target="_blank" class="block text-sm sm:text-base text-red-900 hover:text-red-600 transition-colors duration-200">Sta. Rosa Laguna Website</a>
+                        <a href="https://www.facebook.com/santarosacitygovernment/" target="_blank" class="block text-sm sm:text-base text-red-900 hover:text-red-600 transition-colors duration-200">Sta. Rosa Official Facebook Page</a>
+                    </div>
+                </div>
+
+                <div id="Contact-us" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Contact Us</h3>
+                    <div class="space-y-1 text-sm sm:text-base">
+                        <p>marketArea@gmail.com</p>
+                        <p>09217824136</p>
+                        <p>Address Nila</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSections() {
+            const applicationType = document.querySelector('input[name="application-type"]:checked');
+            const newSection = document.getElementById('new-application-section');
+            const renewalSection = document.getElementById('renewal-section');
+            const newReqs = document.getElementById('new-requirements');
+            const renewalReqs = document.getElementById('renewal-requirements');
+            
+            if (applicationType) {
+                if (applicationType.value === 'new') {
+                    newSection.style.display = 'block';
+                    renewalSection.style.display = 'none';
+                    newReqs.style.display = 'block';
+                    renewalReqs.style.display = 'none';
+                } else if (applicationType.value === 'renewal') {
+                    newSection.style.display = 'none';
+                    renewalSection.style.display = 'block';
+                    newReqs.style.display = 'none';
+                    renewalReqs.style.display = 'block';
+                }
+            }
+        }
+
+        function toggleDetailsSection() {
+            const detailsChanged = document.querySelector('input[name="details-changed"]:checked');
+            const changedDetailsSection = document.getElementById('changed-details-section');
+            
+            if (detailsChanged && detailsChanged.value === 'yes') {
+                changedDetailsSection.style.display = 'block';
+            } else {
+                changedDetailsSection.style.display = 'none';
+            }
+        }
+
+        document.getElementById('Submit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        });
+
+        // Set default filing date to today
+        document.getElementById('filing-date').value = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

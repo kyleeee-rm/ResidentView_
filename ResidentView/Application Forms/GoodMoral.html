@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Good Moral</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="img/png" href="/MA_seal.png" >
+    <script src="/script.js" defer></script>
+   <style>
+    html, body{
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        header{
+            background-color: #2B3209;
+            color: white;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .head h1{
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        .head p{
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .head h1{
+                font-size: 2rem;
+            }
+            .head p{
+                font-size: 0.9rem;
+            }
+        }
+
+        .steps-container {
+            background-color: #D0B564;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container {
+                padding: 20px 15px;
+            }
+        }
+
+        .title {
+            color: #0B1215;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid #0B1215;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .step {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .step {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .step-number {
+            color: #BD8F42;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .step h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2B3209;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 16px;
+            color: #0B1215;
+        }
+
+        #icon{
+            color: #0B1215;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 30px;
+            display: flex;
+            float: left;
+            margin: 10px;
+        }
+
+        #back-button {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        #back-button i {
+            transition: text-shadow 0.3s ease;
+        }
+
+        #back-button i:hover{
+            text-shadow: 5px 2px 8px rgba(255, 255, 240, 0.895);
+        }
+
+        body{
+            background-color: #6A7337;
+            background-image: url('marketArea.jpg');
+            background-blend-mode:soft-light;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        main{
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        #Forms{
+            background-color:#FFFFF0;
+            border-radius: 10px;
+            box-shadow: 0px 1px 16px rgb(106, 115, 55);    
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #Forms{
+                padding: 20px 15px;
+                margin: 20px auto;
+            }
+        }
+
+        .fields label{
+            display: block;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            padding-top: 15px;
+        }
+
+        .fields input[type="text"], .fields input[type="date"], .fields textarea{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .fields textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+         .fields {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #4B5320;
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .inline {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .full-width {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .inline-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .inline {
+                margin-bottom: 15px;
+            }
+        }
+
+        .other-reqs{
+            border-radius: 10px;
+            border: 1px solid #0B1215;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #FFFFF0;
+        }
+
+        .type {
+            margin: 20px 0;
+            padding: 15px 20px;
+            background-color: #FFFFF0;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .signature-section {
+            margin: 20px 0;
+            padding: 15px 20px;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            background-color: #FFFFF0;
+        }
+
+        .type-label {
+            color: #2B3209;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .radio-option {
+            font-size: 1rem;
+            color: #0B1215;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+        }
+
+        .fields select{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .inline {
+            flex: 1;
+        }
+
+        
+        #Submit input[type="submit"]{
+            display:block;
+            width: 150px;
+            padding: 15px;
+            align-self: center;
+            margin: 40px auto;
+            margin-top: 50px;
+            border-radius: 50px;
+            background-color: #BD8F42;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: large;
+            border:1px solid #D0B564;
+            transition: text-shadow 0.3s ease;
+
+            &:hover{
+                background-color: #4B5320;
+                color: white;
+            }
+        }
+
+        .signature-box {
+            border: 1px solid #8A9A5B;
+            height: 60px;
+            width: 100%;
+            max-width: 300px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 5px;
+            font-style: italic;
+            color: #6A7337;
+        }
+
+        footer{
+            background-color: #FFFFF0;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        #Logo{
+            width: 150px;
+            margin: 5px;
+            padding: 15px 20px;
+        }
+
+        #Logo img{
+            width: 90%; 
+            height: auto;
+        }
+
+        footer a{
+            color: #4B5320;
+            font-style: italic;
+            text-decoration: none;
+
+            &:hover{
+                color: #2B3209;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6A7337;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out forwards;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .signature-section h4 {
+            color: #2B3209;
+            margin-bottom: 15px;
+        }
+
+         .affirmation-section, .penalty-warning {
+            margin: 20px 0;
+            padding: 15px 20px;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            background-color: #FFFFF0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="/Home/index.html" id="back-button" class="flex-shrink-0 mb-4 sm:mb-0">
+            <i style="color:white;" class="fa-solid fa-arrow-left text-xl hover:scale-110 transition-transform duration-200"></i>
+        </a>
+        <div class="head flex-1 text-center px-4"> 
+            <h1 class="font-bold text-white mb-2 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">Certificate of Good Moral Application Form</h1>
+            <p class="text-white text-sm sm:text-base">HOME / CERTIFICATE OF GOOD MORAL</p>
+        </div>
+        <div class="flex-shrink-0 w-8 hidden sm:block"></div> <!-- Spacer for alignment -->
+    </header>
+
+    <main class="px-4 sm:px-6 lg:px-8">
+        <div class="steps-container">
+            <div class="title">
+                <h3 class="text-xl sm:text-2xl lg:text-3xl">PROCEDURE</h3>
+            </div>
+        
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">01</span> Submit Form</h2>
+                    <p class="text-sm sm:text-base">Fill-up and submit the registration application form below.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">02</span> Prepare Documents</h2>
+                    <p class="text-sm sm:text-base">Gather all required supporting documents and go to the Civil Registry Office.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">03</span> Required Fee</h2>
+                    <p class="text-sm sm:text-base">Pay the processing fee for the certificate.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">04</span> Processing</h2>
+                    <p class="text-sm sm:text-base">The civil registrar will verify documents and process your certificate.</p>
+                </div>
+            </div>
+        </div>
+
+
+   <div id="Forms" class="mx-auto max-w-7xl">
+        <form action="" id="ApplicationForm">
+            <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please collect all the necessary requirements before applying then provide the required information. <br></h3>
+
+        <div id="icon" class="hover:scale-110 transition-transform duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"/>
+        </svg>
+        </div>          
+    
+        <p id="instruction" class="text-sm sm:text-base mb-6"> Your registration details will be used to complete the basic information required for the application. If you wish to update or make changes to your information, please proceed to the Barangay Hall for assistance.</p>
+            
+        <div class="fields" class="type mb-6 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
+            <div class="inline-group">
+
+                    <div class="inline">    
+                    <label for="Purpose" class="block text-sm sm:text-base font-medium mb-2">Purpose <span class="text-red-500">*</span></label>
+                    <select name="dropdown" id="Purpose" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        <option value="" disabled selected>Select Purpose</option>
+                        <option value="FinancialAssistance">Financial Assistance</option>
+                        <option value="MedicalAssistance">Medical Assistance</option>
+                        <option value="VotersCertification">Voter's Certification</option>
+                        <option value="Scholarship">Scholarship</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+                </div>
+
+                <div class="inline"> 
+                    <label for="others">If Others, please specify <span class="text-red-500">*</span></label>
+                    <input type="text" id="others" placeholder="Enter purpose" required>
+                </div>
+
+
+            </div>
+
+            <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
+                        <div class="mb-4">
+                            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: <span class="text-red-500">*</span></label>
+                            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided regarding my family's income and household composition is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+                        </div>
+                        
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
+                            <label for="truth-affirmation" class="ml-3 text-sm sm:text-base font-medium">
+                                
+                                I solemnly affirm that all information provided regarding my family's income and household composition is true and correct. I understand that providing false information is punishable by law. <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="penalty-warning">
+                    <!-- Penalty Warning Section -->
+                     <h5 class="text-red-500 font-bold">⚠️ WARNING: Penalties for False Information</h5>
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
+                            <label for="penalty-understanding" class="ml-3 text-sm sm:text-base">
+                                I understand and acknowledge that providing false information in this family income certificate application may result in the following penalties: <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+                            <li>Criminal prosecution for perjury and falsification</li>
+                            <li>Cancellation of the issued certificate</li>
+                            <li>Legal sanctions and penalties</li>
+                            <li>Disqualification from programs or benefits</li>
+                            <li>Civil and criminal liability</li>
+                        </ul>
+                    </div>
+                    </div>
+
+                     
+
+
+            <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4">Required Documents to Bring:</h3>
+                    <p class="mb-4 text-sm sm:text-base">Please bring the following documents when you visit the Civil Registry Office:</p>
+
+                    <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4">
+                        <li>Valid Government-Issued ID </li>
+                        <li>Personal Appearance</li>
+                        <li>Proof of Residency</li>
+                        <li>Community Tax Certificate (Cedula)</li>
+                        <li>Payment for registration fees and penalties</li>
+                    </ul>
+                </div>
+            
+               
+
+            <div id="Submit" class="text-center">
+                <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
+            </div>     
+            </div>
+
+
+        </form>    
+
+        <div id="toast" class="toast fixed top-8 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">Application submitted!</div>
+    </div>     
+    </main>
+
+    <footer class="bg-yellow-100 px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <div id="Logo" class="flex justify-center md:justify-start">
+                    <div class="w-32 sm:w-40">
+                        <img src="/MA_seal.png" alt="Logo" class="w-full h-auto">
+                    </div>
+                </div>
+
+                <div id="Quick-Links" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Quick Links</h3>
+                    <div class="space-y-2">
+                         <a href="https://santarosacity.gov.ph/" target="_blank" class="block text-sm sm:text-base text-[#4B5320] hover:text-[#8A9A5B] transition-colors duration-200">Sta. Rosa Laguna Website</a>
+                        <a href="https://www.facebook.com/santarosacitygovernment/" target="_blank" class="block text-sm sm:text-base text-[#4B5320] hover:text-[#8A9A5B] transition-colors duration-200">Sta. Rosa Official Facebook Page</a>
+                    </div>
+                </div>
+
+                <div id="Contact-us" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Contact Us</h3>
+                    <div class="space-y-1 text-sm sm:text-base">
+                        <p>marketArea@gmail.com</p>
+                        <p>09217824136</p>
+                        <p>Address Nila</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        
+const purposeDropdown = document.getElementById('Purpose');
+const othersContainer = document.querySelector('.inline:nth-child(2)');
+
+// Initially hide the others input field
+othersContainer.style.display = 'none';
+
+
+purposeDropdown.addEventListener('change', function() {
+    const selectedValue = this.value;
+    
+    if (selectedValue === 'Other') {
+        // Show the others input field
+        othersContainer.style.display = 'block';
+        // Make the input required when shown
+        document.getElementById('others').setAttribute('required', 'required');
+    } else {
+        // Hide the others input field
+        othersContainer.style.display = 'none';
+        // Remove required attribute when hidden
+        document.getElementById('others').removeAttribute('required');
+        // Clear the input value when hidden
+        document.getElementById('others').value = '';
+    }
+});
+    </script>
+    <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+
+        // Form submission handler

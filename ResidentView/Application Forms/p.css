@@ -1,0 +1,438 @@
+html, body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+header{
+    height: 30%;
+    background-color: #800008;
+    color: white;
+    display: flex;
+    align-items:center; /*Center vertically*/
+    padding: 5px 20px;
+    /* gap:10px; */
+  
+}
+
+.head{
+    text-align: center;
+    margin: 50rem auto;
+    line-height: 10px;
+    & h1{
+        font-size: 60px;
+    }
+}
+
+  /* ================================added */
+  .steps-container {
+    background-color: #ccc;
+    position: relative;
+
+    width: 100%;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px 60px;
+    padding: 30px;
+
+  }
+ 
+   .title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    
+    color: #1b2559;
+
+    height: fit-content;
+    text-align: center;
+    grid-column: span 5; 
+    border-bottom: 2px solid black;
+    
+  }
+   /* ================================ till here */
+  
+  /*
+  .step {
+    line-height: 1.6;
+
+    border: 1px solid black;
+  } */
+
+  /* .title {
+    grid-column: span 5; 
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #1b2559;
+    border: 1px solid black;
+  } */
+
+  /* ================================added */
+  .step {
+    padding-left: 33px; 
+  }
+  
+  .step-number {
+    color: #f4b122;
+    font-weight: bold;
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .step h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0c1a47;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .step p {
+    font-size: 16px;
+    color: #333;
+  }
+
+#icon{
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 30px;
+    display: flex;
+    float: left;
+    margin: 10px;
+}
+
+#back-button {
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+#back-button i {
+  transition: text-shadow 0.3s ease;
+}
+
+#back-button i:hover{
+    text-shadow: 5px 2px 8px rgba(255, 255, 255, 0.895);
+}
+
+body{
+    background-color: #7d3a3b;
+    background-image: url('marketArea.jpg');
+    background-blend-mode:soft-light;
+    background-size: cover;
+    background-attachment: fixed ;
+    
+    
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  /* ================================updated */
+#Forms{
+    padding: 100px;
+    position: absolute;
+    background-color:#FAFBB1;
+    border-radius: 10px;
+    align-items: center;
+    width:60%; 
+    margin-top: 89rem;
+    /* margin: 50px auto; center horizontally and add space from top */
+    box-shadow: 0px 1px 16px rgb(203, 193, 193); /*floating effect */    
+    padding: 10px 20px 20px;
+
+    & #instruction{
+        padding-top: 10px;
+        padding: 8px;
+    }
+}
+/* 
+.fields{
+    border-bottom:1px solid #800008;
+} */
+
+.fields label{
+    display: block;
+    margin-bottom: 5px; /* space between label and input */
+    margin-right: 10px;
+    padding-top: 15px;
+    
+}
+
+.fields input[type="text"]{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    
+
+    &:hover,
+    &:focus{
+        border: 2px solid #ed5353;
+        background-color: #ffe2e2;
+    }
+}
+
+.fields {
+    display: flex;
+    flex-wrap: wrap; /* Enables wrapping after 2–3 fields */
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom:1px solid #800008;
+    padding: 20px;
+
+}
+
+.other-reqs{
+    height: 10rem;
+    margin-left: 70px;
+    margin-right: 30px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 80%;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    
+}
+
+.inline{
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+    flex: 0 0 45%;
+    margin-left: 20px;
+
+}
+  /* ================================added */
+.type {
+    margin: 20px 0;
+    margin-left: 20px;
+    padding: 15px 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    max-width: 400px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .type-label {
+    /* font-weight: bold; */
+    color: #1b2559;
+    display: block;
+    margin-bottom: 10px;
+
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .radio-option {
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .radio-option input[type="radio"] {
+    accent-color: #ff1d1d;
+    width: 16px;
+    height: 16px;
+  }
+  /* ========================== till here */
+
+.fields select{
+
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+
+    &:hover,
+    &:focus{
+        border: 2px solid #ed5353;
+        background-color: #ffe2e2;
+    }
+
+}
+/* =================================== pop up */
+.popup {
+    position: fixed;
+    top: 10px;
+    right: 40%;
+    /* left: 20px; */
+    background-color: #ff4d4d;
+    align-items: center;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    display: none;
+    
+    z-index: 9999;
+    font-weight: bold;
+    animation: fadeInOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.inline-group {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.inline {
+    flex: 1;
+}
+
+/* .full-width {
+    width: 100%;
+} */
+
+/* #children-form{
+    margin-top: 20px;
+
+}
+#children-form .child-input {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    align-items:flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-left: 3rem;
+    
+}
+
+#children-form .child-input label {
+    font-size: 14px;
+    min-width: 90px;
+    text-align: right;
+}
+
+#children-form .child-input input {
+    width: 200px;
+    padding: 5px 8px;
+    text-align: center;
+} */
+
+#Submit input[type="submit"]{
+    display:block;
+    width: 150px;
+    padding: 15px;
+    align-self: center;
+    margin: 40px auto;
+  
+    margin-top: 50px;
+    border-radius: 50px;
+    background-color: #FFC107;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: large;
+    border:1px solid #ccc;
+
+    &:hover{
+        background-color: #800000;
+        color: white;
+        
+    }
+}
+
+#Submit input[type="submit"]{
+    transition: text-shadow 0.3s ease;
+    
+}
+
+
+footer{
+    background-color: blanchedalmond;
+    height: 30%;
+    display: flex;
+    gap: 90px;
+    margin-top: 70%;
+    padding: 30px;
+    align-items: center;
+   
+    
+}
+
+#Logo{
+    width: 150px;
+    margin: 5px ;
+    padding: 15px 20px;
+    justify-content:center;
+    align-items: center;
+    margin-left: 310px;
+    
+    
+}
+
+#Logo img{
+    width: 90%; 
+    height: auto;
+}
+
+footer a{
+    color: #4f1517;
+    font-style: italic;
+    text-decoration: none;
+
+    &:hover{
+        color: #b40c0c;
+    }
+}
+
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 40%;
+    transform: translate(-50%, -50%); /* Perfect center */
+    background-color: #4CAF50; /* green */
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out forwards;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+
+
+
+
+
+
+
+

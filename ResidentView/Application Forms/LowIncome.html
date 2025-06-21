@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low Income Certificate Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <style>
+    html, body{
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        header{
+            background-color: #2B3209;
+            color: white;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .head h1{
+            font-size: 3rem;
+            line-height: 1.2;
+        }
+
+        .head p{
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .head h1{
+                font-size: 2rem;
+            }
+            .head p{
+                font-size: 0.9rem;
+            }
+        }
+
+        .steps-container {
+            background-color: #D0B564;
+            padding: 30px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container {
+                padding: 20px 15px;
+            }
+        }
+
+        .title {
+            color: #0B1215;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid #0B1215;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+
+        .step {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .step {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+        }
+
+        .step-number {
+            color: #BD8F42;
+            font-weight: bold;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .step h2 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2B3209;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 16px;
+            color: #0B1215;
+        }
+
+        #icon{
+            color: #0B1215;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 30px;
+            display: flex;
+            float: left;
+            margin: 10px;
+        }
+
+        #back-button {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        #back-button i {
+            transition: text-shadow 0.3s ease;
+        }
+
+        #back-button i:hover{
+            text-shadow: 5px 2px 8px rgba(255, 255, 240, 0.895);
+        }
+
+        body{
+            background-color: #6A7337;
+            background-image: url('marketArea.jpg');
+            background-blend-mode:soft-light;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        main{
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        #Forms{
+            background-color:#FFFFF0;
+            border-radius: 10px;
+            box-shadow: 0px 1px 16px rgb(106, 115, 55);    
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            #Forms{
+                padding: 20px 15px;
+                margin: 20px auto;
+            }
+        }
+
+        .fields label{
+            display: block;
+            margin-bottom: 5px;
+            margin-right: 10px;
+            padding-top: 15px;
+        }
+
+        .fields input[type="text"], .fields input[type="date"], .fields input[type="number"], .fields textarea{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .fields textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        .fields {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid #4B5320;
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .inline {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .full-width {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .inline-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .inline {
+                margin-bottom: 15px;
+            }
+        }
+
+        .other-reqs{
+            border-radius: 10px;
+            border: 1px solid #0B1215;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #FFFFF0;
+        }
+
+        .type {
+            margin: 20px 0;
+            padding: 15px 20px;
+            background-color: #FFFFF0;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .type-label {
+            color: #2B3209;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        .radio-option {
+            font-size: 1rem;
+            color: #0B1215;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+        }
+
+        .fields select{
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #D0B564;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+
+            &:hover,
+            &:focus{
+                border: 2px solid #BD8F42;
+                background-color: #FFFFF0;
+            }
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .inline {
+            flex: 1;
+        }
+
+        #Submit input[type="submit"]{
+            display:block;
+            width: 150px;
+            padding: 15px;
+            align-self: center;
+            margin: 40px auto;
+            margin-top: 50px;
+            border-radius: 50px;
+            background-color: #BD8F42;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: large;
+            border:1px solid #D0B564;
+            transition: text-shadow 0.3s ease;
+
+            &:hover{
+                background-color: #4B5320;
+                color: white;
+            }
+        }
+
+        footer{
+            background-color: #FFFFF0;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        #Logo{
+            width: 150px;
+            margin: 5px;
+            padding: 15px 20px;
+        }
+
+        #Logo img{
+            width: 90%; 
+            height: auto;
+        }
+
+        footer a{
+            color: #4B5320;
+            font-style: italic;
+            text-decoration: none;
+
+            &:hover{
+                color: #2B3209;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #6A7337;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out forwards;
+            z-index: 9999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .income-earner-section {
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            background-color: #FFFFF0;
+        }
+
+        .add-earner-btn, .remove-earner-btn {
+            background-color: #BD8F42;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-earner-btn:hover {
+            background-color: #4B5320;
+        }
+
+        .remove-earner-btn {
+            background-color: #dc3545;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        .remove-earner-btn:hover {
+            background-color: #c82333;
+        }
+
+        .income-summary {
+            background-color: #f8f9fa;
+            border: 2px solid #BD8F42;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .income-summary h4 {
+            color: #2B3209;
+            margin-bottom: 15px;
+        }
+
+        .income-display {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #BD8F42;
+        }
+
+        #purpose-details-container {
+            display: none;
+            margin-top: 15px;
+        }
+    </style>
+  
+</head>
+<body>
+    <header class="flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="/Home/index.html" id="back-button" class="flex-shrink-0 mb-4 sm:mb-0">
+            <i style="color:white;" class="fa-solid fa-arrow-left text-xl hover:scale-110 transition-transform duration-200"></i>
+        </a>
+        <div class="head flex-1 text-center px-4"> 
+            <h1 class="font-bold text-white mb-2 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">Low Income Certificate Application</h1>
+            <p class="text-white text-sm sm:text-base">HOME / LOW INCOME CERTIFICATE</p>
+        </div>
+        <div class="flex-shrink-0 w-8 hidden sm:block"></div>
+    </header>
+
+    <main class="px-4 sm:px-6 lg:px-8">
+        <div class="steps-container">
+            <div class="title">
+                <h3 class="text-xl sm:text-2xl lg:text-3xl text-white font-bold text-center mb-8">PROCEDURE</h3>
+            </div>
+        
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">01</span> Fill Application</h2>
+                    <p class="text-sm sm:text-base">Complete the Family Income Certificate application form with accurate household information.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">02</span> Submit Form</h2>
+                    <p class="text-sm sm:text-base">Submit the completed form to the barangay office with required documents.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">03</span> Verification</h2>
+                    <p class="text-sm sm:text-base">Barangay officials will verify the household income and family composition.</p>
+                </div>
+                <div class="step bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <h2 class="text-lg sm:text-xl"><span class="step-number">04</span> Receive Certificate</h2>
+                    <p class="text-sm sm:text-base">Get your official Low Income Certificate for your intended purpose.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="Forms" class="mx-auto max-w-7xl mt-8">
+            <form action="" id="Submit-form">
+                <h3 id="instruction" class="text-lg sm:text-xl mb-4 text-white text-center">Please provide accurate information for your Low Income Certificate application.</h3>
+                
+                <div id="icon" class="text-center hover:scale-110 transition-transform duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
+                    </svg>
+                </div>            
+           <p id="instruction" class="text-sm sm:text-base mb-6">Please provide accurate information for your business permit application. All fields marked with asterisk (*) are required.</p>
+            
+                <div class="fields">
+                    <!-- Number of Income Earners -->
+                     <div class="fields">
+                    <!-- Educational Information -->
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                        <h4 class="text-lg font-semibold text-green-800 mb-2">Household Income Information</h4>
+                    </div>
+                        <div class="mb-4">
+                            <label for="num-earners" class="block text-sm sm:text-base font-medium mb-2">Number of Income Earners in the Household: *</label>
+                            <input type="number" id="num-earners" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="1" max="10" required>
+                        </div>
+                    </div>
+
+                    <!-- Income Earners Section -->
+                    <div class="mb-6" id="earners-section" style="display: none;">
+                        <h4 class="text-lg font-semibold mb-4 text-amber-800">Occupation(s) of Income Earners</h4>
+                        <div id="income-earners-container">
+                            <!-- Dynamic income earner fields will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Combined Family Income -->
+                    <div class="mb-6">
+                        <div class="income-summary">
+                            <h4 class="text-lg font-semibold mb-4 text-amber-800">Combined Monthly Family Income</h4>
+                            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                                <div class="flex-1">
+                                    <label for="total-income" class="block text-sm sm:text-base font-medium mb-2">Total Monthly Family Income (₱):</label>
+                                    <div class="income-display" id="total-income-display">₱ 0.00</div>
+                                    <input type="hidden" id="total-income" name="total-income">
+                                </div>
+                                <div class="flex-1">
+                                    <label for="annual-income" class="block text-sm sm:text-base font-medium mb-2">Estimated Annual Income (₱):</label>
+                                    <div class="income-display" id="annual-income-display">₱ 0.00</div>
+                                    <input type="hidden" id="annual-income" name="annual-income">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Purpose of Request -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold mb-4 text-amber-800">Purpose of Request</h4>
+                        <div class="type">
+                            <label class="type-label block text-sm sm:text-base font-medium mb-2">What is the purpose of this certificate? *</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="scholarship" required>
+                                    Scholarship Application
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="medical-aid" required>
+                                    Medical Aid/Financial Assistance
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="government-program" required>
+                                    Government Program/Benefits
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="loan-application" required>
+                                    Loan Application
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="employment" required>
+                                    Employment Requirement
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="legal-proceeding" required>
+                                    Legal Proceeding
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="purpose" value="other" id="purpose-other" required>
+                                    Other (please specify)
+                                </label>
+                            </div>
+                        </div>
+
+                          <!-- Affirmation Section -->
+                                         <div class="affirmation-section">
+        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
+        <div class="mb-4">
+            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
+            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+        </div>
+        
+        <div class="checkbox-option mb-4 flex items-center gap-3">
+            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required 
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
+            <label for="truth-affirmation" class="text-sm sm:text-base font-medium leading-relaxed">
+                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
+            </label>
+        </div>
+    </div>
+
+    <!-- Penalty Warning Section -->
+    <div class="penalty-warning mt-6">
+        <h5 class="text-lg font-semibold mb-4 text-red-700">⚠️ WARNING: Penalties for Misdeclaration</h5>
+        <div class="checkbox-option mb-4 flex items-center gap-3">
+            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
+            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
+                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+            </label>
+        </div>
+        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+            <li>Criminal prosecution under the Revised Penal Code</li>
+            <li>Civil penalties and surcharges</li>
+            <li>Cancellation of the issued certificate</li>
+            <li>Additional taxes and interest on unpaid amounts</li>
+            <li>Legal action for tax evasion</li>
+        </ul>
+    </div>
+                  
+
+                        
+                        <div id="purpose-details-container" class="mt-4">
+                            <label for="purpose-details" class="block text-sm sm:text-base font-medium mb-2">Specific Purpose/Details: *</label>
+                            <textarea id="purpose-details" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Please specify the other purpose for this certificate"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Required Documents -->
+                      <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+        <div class="checkbox-option mb-5 flex items-center gap-3">
+            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
+                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
+            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
+                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+            </label>
+        </div>
+        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+            <li>Criminal prosecution under the Revised Penal Code</li>
+            <li>Civil penalties and surcharges</li>
+            <li>Cancellation of the issued certificate</li>
+            <li>Additional taxes and interest on unpaid amounts</li>
+            <li>Legal action for tax evasion</li>
+        </ul>
+    </div>
+                         
+                         
+                         
+                         
+                         
+          
+                 
+
+                        
+                       
+                <div id="Submit" class="text-center">
+                    <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-yellow-100 px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                <div id="Logo" class="flex justify-center md:justify-start">
+                    <div class="w-32 sm:w-40">
+                        <img src="MA_seal.png" alt="Logo" class="w-full h-auto">
+                    </div>
+                </div>
+
+                <div id="Quick-Links" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Quick Links</h3>
+                    <div class="space-y-2">
+                        <a href="https://santarosacity.gov.ph/" target="_blank" class="block text-sm sm:text-base text-red-900 hover:text-red-600 transition-colors duration-200">Sta. Rosa Laguna Website</a>
+                        <a href="https://www.facebook.com/santarosacitygovernment/" target="_blank" class="block text-sm sm:text-base text-red-900 hover:text-red-600 transition-colors duration-200">Sta. Rosa Official Facebook Page</a>
+                    </div>
+                </div>
+
+                <div id="Contact-us" class="text-center md:text-left">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4 text-gray-800">Contact Us</h3>
+                    <div class="space-y-1 text-sm sm:text-base">
+                        <p>marketArea@gmail.com</p>
+                        <p>09217824136</p>
+                        <p>Address Nila</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+     <script>
+        // Handle number of earners input
+        document.getElementById('num-earners').addEventListener('input', function() {
+            const numEarners = parseInt(this.value);
+            const earnersSection = document.getElementById('earners-section');
+            const container = document.getElementById('income-earners-container');
+            
+            if (numEarners > 0 && numEarners <= 10) {
+                earnersSection.style.display = 'block';
+                container.innerHTML = ''; // Clear existing fields
+                
+                for (let i = 1; i <= numEarners; i++) {
+                    const earnerDiv = document.createElement('div');
+                    earnerDiv.className = 'earner-group';
+                    earnerDiv.innerHTML = `
+                        <h5>Income Earner ${i}</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="occupation-${i}" class="block text-sm font-medium mb-2">Occupation: *</label>
+                                <input type="text" id="occupation-${i}" name="occupation-${i}" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400" required>
+                            </div>
+                            <div>
+                                <label for="monthly-income-${i}" class="block text-sm font-medium mb-2">Monthly Income (₱): *</label>
+                                <input type="number" id="monthly-income-${i}" name="monthly-income-${i}" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 monthly-income-input" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(earnerDiv);
+                }
+                
+                // Add event listeners to all monthly income inputs
+                addIncomeCalculationListeners();
+            } else {
+                earnersSection.style.display = 'none';
+                updateTotalIncome();
+            }
+        });
+
+        // Function to add event listeners for income calculation
+        function addIncomeCalculationListeners() {
+            const monthlyInputs = document.querySelectorAll('.monthly-income-input');
+            monthlyInputs.forEach(input => {
+                input.addEventListener('input', updateTotalIncome);
+            });
+        }
+
+        // Function to update total and annual income
+        function updateTotalIncome() {
+            const monthlyInputs = document.querySelectorAll('.monthly-income-input');
+            let totalMonthly = 0;
+            
+            monthlyInputs.forEach(input => {
+                const value = parseFloat(input.value) || 0;
+                totalMonthly += value;
+            });
+            
+            const totalAnnual = totalMonthly * 12;
+            
+            // Update displays
+            document.getElementById('total-income-display').textContent = `₱ ${totalMonthly.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('annual-income-display').textContent = `₱ ${totalAnnual.toLocaleString('en-PH', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            
+            // Update hidden inputs
+            document.getElementById('total-income').value = totalMonthly;
+            document.getElementById('annual-income').value = totalAnnual;
+        }
+
+        // Handle purpose of request - show/hide details field
+        document.querySelectorAll('input[name="purpose"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const detailsContainer = document.getElementById('purpose-details-container');
+                const detailsTextarea = document.getElementById('purpose-details');
+                
+                if (this.value === 'other') {
+                    detailsContainer.style.display = 'block';
+                    detailsTextarea.required = true;
+                } else {
+                    detailsContainer.style.display = 'none';
+                    detailsTextarea.required = false;
+                    detailsTextarea.value = '';
+                }
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('Submit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate that number of earners is filled
+            const numEarners = document.getElementById('num-earners').value;
+            if (!numEarners || numEarners < 1) {
+                alert('Please specify the number of income earners in your household.');
+                return;
+            }
+            
+            // Validate that all earner fields are filled
+            const earnersSection = document.getElementById('earners-section');
+            if (earnersSection.style.display !== 'none') {
+                const occupationInputs = document.querySelectorAll('[id^="occupation-"]');
+                const monthlyIncomeInputs = document.querySelectorAll('.monthly-income-input');
+                
+                let allFilled = true;
+                occupationInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                    }
+                });
+                
+                monthlyIncomeInputs.forEach(input => {
+                    if (!input.value || parseFloat(input.value) < 0) {
+                        allFilled = false;
+                    }
+                });
+                
+                if (!allFilled) {
+                    alert('Please fill in all occupation and income fields for all income earners.');
+                    return;
+                }
+            }
+            
+            // Validate purpose selection
+            const purposeSelected = document.querySelector('input[name="purpose"]:checked');
+            if (!purposeSelected) {
+                alert('Please select the purpose of this certificate request.');
+                return;
+            }
+            
+            // If "other" is selected, validate the details field
+            if (purposeSelected.value === 'other') {
+                const detailsValue = document.getElementById('purpose-details').value.trim();
+                if (!detailsValue) {
+                    alert('Please specify the purpose details for "Other" selection.');
+                    return;
+                }
+            }
+            
+            // If all validations pass
+            alert('Form submitted successfully! Please proceed to the barangay office with the required documents.');
+        });
+    </script>
+</body>
+</html>
+
+       
