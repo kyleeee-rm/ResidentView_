@@ -1,243 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-dark': '#2B3209',
-                        'primary-medium': '#4B5320',
-                        'primary-light': '#6A7337',
-                        'accent-green': '#8A9A5B',
-                        'accent-gold': '#BD8F42',
-                        'accent-light-gold': '#D0B564',
-                        'cream': '#FFFFF0',
-                        'dark-blue': '#0B1215',
-                    },
-                    fontFamily: {
-                        'inter': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 20s ease-in-out infinite',
-                        'pulse-custom': 'pulse-custom 2s ease-in-out infinite',
-                        'slide-down': 'slide-down 1s ease-out',
-                        'slide-up': 'slide-up 1s ease-out 0.3s both',
-                        'fade-in': 'fade-in 1s ease-out 0.6s both',
-                        'fade-in-delayed': 'fade-in 1s ease-out 1s both',
-                    },
-                    keyframes: {
-                        'float': {
-                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-20px) rotate(2deg)' },
-                        },
-                        'pulse-custom': {
-                            '0%, 100%': { transform: 'scale(1)' },
-                            '50%': { transform: 'scale(1.05)' },
-                        },
-                        'slide-down': {
-                            'from': { opacity: '0', transform: 'translateY(-30px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        'slide-up': {
-                            'from': { opacity: '0', transform: 'translateY(30px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        'fade-in': {
-                            'from': { opacity: '0', transform: 'translateY(40px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                    },
-                    backdropBlur: {
-                        'xs': '2px',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .background-image {
-            background-image: url('/pic/_MG_0668.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        .card-shimmer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .card-shimmer:hover::before {
-            left: 100%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-dark': '#2B3209',
+            'primary-medium': '#4B5320',
+            'primary-light': '#6A7337',
+            'accent-green': '#8A9A5B',
+            'accent-gold': '#BD8F42',
+            'accent-light-gold': '#D0B564',
+            'cream': '#FFFFF0',
+            'dark-blue': '#0B1215',
+          },
+          fontFamily: {
+            'inter': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 20s ease-in-out infinite',
+            'pulse-custom': 'pulse-custom 2s ease-in-out infinite',
+            'slide-down': 'slide-down 1s ease-out',
+            'slide-up': 'slide-up 1s ease-out 0.3s both',
+            'fade-in': 'fade-in 1s ease-out 0.6s both',
+            'fade-in-delayed': 'fade-in 1s ease-out 1s both',
+          },
+          keyframes: {
+            'float': {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-20px) rotate(2deg)' },
+            },
+            'pulse-custom': {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' },
+            },
+            'slide-down': {
+              'from': { opacity: '0', transform: 'translateY(-30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'slide-up': {
+              'from': { opacity: '0', transform: 'translateY(30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'fade-in': {
+              'from': { opacity: '0', transform: 'translateY(40px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          backdropBlur: {
+            'xs': '2px',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .background-image {
+      background-image: url('_MG_0668.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .card-shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    .card-shimmer:hover::before {
+      left: 100%;
+    }
+  </style>
 </head>
-<body class="font-inter bg-primary-dark background-image bg-cover bg-blend-multiply min-h-screen flex items-center justify-center overflow-hidden relative">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10 animate-float">
-        <div class="absolute top-1/5 left-1/5 w-32 h-32 bg-accent-gold rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/5 right-1/5 w-40 h-40 bg-accent-light-gold rounded-full blur-3xl"></div>
-        <div class="absolute top-3/5 left-2/5 w-36 h-36 bg-accent-green rounded-full blur-3xl"></div>
+<body class="font-inter bg-primary-dark background-image bg-cover bg-blend-multiply min-h-screen overflow-y-auto relative flex justify-center">
+  <!-- Floating Bubbles -->
+  <div class="absolute inset-0 opacity-10 animate-float pointer-events-none">
+    <div class="absolute top-1/5 left-1/5 w-32 h-32 bg-accent-gold rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/5 right-1/5 w-40 h-40 bg-accent-light-gold rounded-full blur-3xl"></div>
+    <div class="absolute top-3/5 left-2/5 w-36 h-36 bg-accent-green rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="w-full max-w-6xl px-4 sm:px-6 lg:px-8 text-center z-10 relative flex flex-col items-center justify-start min-h-screen py-8">
+    <!-- Logo -->
+    <div class="flex justify-center mb-6">
+      <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green to-primary-light rounded-3xl flex items-center justify-center shadow-2xl animate-pulse-custom">
+        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+      </div>
     </div>
 
-    <div class="max-w-4xl w-full px-4 sm:px-6 lg:px-8 text-center z-10 relative">
-        <!-- Logo -->
-        <div class="flex justify-center mb-8">
-            <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green to-primary-light rounded-3xl flex items-center justify-center shadow-2xl animate-pulse-custom">
-                <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
-                </svg>
-            </div>
+    <!-- Title & Subtitle -->
+    <h1 class="text-cream text-2xl sm:text-3xl md:text-4xl font-bold mb-2 drop-shadow-lg animate-slide-down">
+      Welcome to the Portal
+    </h1>
+    <p class="text-accent-light-gold text-sm sm:text-base md:text-lg mb-6 animate-slide-up">
+      Choose your access level to continue
+    </p>
+
+    <!-- Login Options Placeholder -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl animate-fade-in">
+      <!-- Resident Card -->
+      <div class="login-card group relative bg-cream/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 cursor-pointer transition-all duration-500 ease-out overflow-hidden card-shimmer border-l-8 border-r-8 border-primary-light hover:border-accent-green hover:-translate-y-2 hover:scale-105 hover:shadow-primary-dark/30 hover:shadow-3xl">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green to-primary-light rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg shadow-accent-green/30 group-hover:scale-110 transition-all duration-300">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
         </div>
-        
-        <!-- Title -->
-        <h1 class="text-cream text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg animate-slide-down">
-            Welcome to the Portal
-        </h1>
-        
-        <!-- Subtitle -->
-        <p class="text-accent-light-gold text-base sm:text-lg md:text-xl mb-8 sm:mb-12 font-normal animate-slide-up">
-            Choose your access level to continue
+        <h3 class="text-primary-dark text-xl font-bold mb-2">Resident</h3>
+        <p class="text-primary-medium text-sm leading-relaxed mb-4">
+          Access your personal account, view documents, submit requests, and manage residential services.
         </p>
-        
-        <!-- Login Options -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 animate-fade-in">
-            <!-- Resident Card -->
-            <div class="login-card group relative bg-cream/95 backdrop-blur-sm rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/20 cursor-pointer transition-all duration-500 ease-out overflow-hidden card-shimmer border-l-8 border-r-8 border-primary-light hover:border-accent-green hover:-translate-y-2 hover:scale-105 hover:shadow-primary-dark/30 hover:shadow-3xl">
-                <!-- Card Icon -->
-                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-green to-primary-light rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-accent-green/30 transition-all duration-300 group-hover:scale-110">
-                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
-                    </svg>
-                </div>
-                
-                <!-- Card Title -->
-                <h3 class="text-primary-dark text-xl sm:text-2xl font-bold mb-4 transition-colors duration-300">
-                    Resident
-                </h3>
-                
-                <!-- Card Description -->
-                <p class="text-primary-medium text-sm sm:text-base leading-relaxed mb-8">
-                    Access your personal account, view documents, submit requests, and manage your residential services.
-                </p>
-                
-                <!-- Card Button -->
-                 <a href="index.html">
-                <button onclick="selectLogin('resident')" class="w-full bg-gradient-to-r from-primary-medium to-primary-dark text-cream border-none py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg font-semibold cursor-pointer transition-all duration-300 shadow-lg shadow-primary-dark/20 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-dark/30 group-hover:from-accent-green group-hover:to-primary-light">
-                    Continue As Resident
-                </button>
-                </a>
-            </div>
-            
-            <!-- Official Card -->
-            <div class="login-card group relative bg-cream/95 backdrop-blur-sm rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/20 cursor-pointer transition-all duration-500 ease-out overflow-hidden card-shimmer border-l-8 border-r-8 border-primary-light hover:border-accent-green hover:-translate-y-2 hover:scale-105 hover:shadow-primary-dark/30 hover:shadow-3xl">
-                <!-- Card Icon -->
-                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-gold to-accent-light-gold rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg shadow-accent-gold/30 transition-all duration-300 group-hover:scale-110">
-                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
-                    </svg>
-                </div>
-                
-                <!-- Card Title -->
-                <h3 class="text-primary-dark text-xl sm:text-2xl font-bold mb-4 transition-colors duration-300">
-                    Barangay Official
-                </h3>
-                
-                <!-- Card Description -->
-                <p class="text-primary-medium text-sm sm:text-base leading-relaxed mb-8">
-                    Access administrative tools, manage applications, oversee operations, and handle official duties.
-                </p>
-                
-                <!-- Card Button -->
-                 <a href="adminLogIn.html">
-                <button onclick="selectLogin('official')" class="w-full bg-gradient-to-r from-primary-medium to-primary-dark text-cream border-none py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-base sm:text-lg font-semibold cursor-pointer transition-all duration-300 shadow-lg shadow-primary-dark/20 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary-dark/30 group-hover:from-accent-green group-hover:to-primary-light">
-                    Continue As Official
-                </button>
-                </a>
-            </div>
+        <a href="Log-In_and_Reg/login.html">
+          <button class="w-full bg-gradient-to-r from-primary-medium to-primary-dark text-cream py-3 rounded-xl font-semibold hover:from-accent-green hover:to-primary-light transition-all duration-300 shadow-lg hover:shadow-xl">
+            Continue As Resident
+          </button>
+        </a>
+      </div>
+
+      <!-- Official Card -->
+      <div class="login-card group relative bg-cream/95 backdrop-blur-sm rounded-3xl p-6 shadow-2xl border border-white/20 cursor-pointer transition-all duration-500 ease-out overflow-hidden card-shimmer border-l-8 border-r-8 border-primary-light hover:border-accent-green hover:-translate-y-2 hover:scale-105 hover:shadow-primary-dark/30 hover:shadow-3xl">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-accent-gold to-accent-light-gold rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg shadow-accent-gold/30 group-hover:scale-110 transition-all duration-300">
+          <svg class="w-8 h-8 sm:w-10 sm:h-10 text-cream" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+          </svg>
         </div>
-        
-        <!-- Footer -->
-        <div class="text-accent-light-gold text-sm sm:text-base opacity-80 animate-fade-in-delayed">
-            <p>Need help? 
-                <a href="#contact" class="text-accent-light-gold no-underline transition-colors duration-300 hover:text-cream">Contact Support</a> | 
-                <a href="#about" class="text-accent-light-gold no-underline transition-colors duration-300 hover:text-cream">About Us</a>
-            </p>
-        </div>
+        <h3 class="text-primary-dark text-xl font-bold mb-2">Barangay Official</h3>
+        <p class="text-primary-medium text-sm leading-relaxed mb-4">
+          Access admin tools, manage applications, and oversee official duties.
+        </p>
+        <a href="Log-In_and_Reg/adminLogIn.html">
+          <button class="w-full bg-gradient-to-r from-primary-medium to-primary-dark text-cream py-3 rounded-xl font-semibold hover:from-accent-green hover:to-primary-light transition-all duration-300 shadow-lg hover:shadow-xl">
+            Continue As Official
+          </button>
+        </a>
+      </div>
     </div>
 
-    <script>
-        function selectLogin(type) {
-            const cards = document.querySelectorAll('.login-card');
-            const selectedCard = event.target.closest('.login-card');
-            
-            selectedCard.style.transform = 'scale(0.95)';
-            
-            setTimeout(() => {
-                // Simulate navigation - in real app, redirect to appropriate login page
-                if (type === 'resident') {
-                    alert('Redirecting to resident portal...');
-                    // window.location.href = 'index.html';
-                } else {
-                    alert('Redirecting to official dashboard...');
-                    // window.location.href = 'dashboard.html';
-                }
-                selectedCard.style.transform = '';
-            }, 150);
-        }
-
-        // Add interactive sparkle effects on mouse move
-        document.addEventListener('mousemove', (e) => {
-            // Create temporary sparkle effect
-            const sparkle = document.createElement('div');
-            sparkle.className = 'absolute w-1 h-1 bg-accent-light-gold rounded-full pointer-events-none animate-ping';
-            sparkle.style.left = e.clientX + 'px';
-            sparkle.style.top = e.clientY + 'px';
-            sparkle.style.zIndex = '50';
-            
-            document.body.appendChild(sparkle);
-            
-            setTimeout(() => {
-                sparkle.remove();
-            }, 1000);
-        });
-
-        // Smooth entrance animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
-
-        // Add keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const focusedElement = document.activeElement;
-                if (focusedElement.classList.contains('login-card')) {
-                    focusedElement.click();
-                }
-            }
-        });
-
-        // Make cards focusable for accessibility
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.login-card');
-            cards.forEach(card => {
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('role', 'button');
-                card.setAttribute('aria-label', card.querySelector('h3').textContent + ' login option');
-            });
-        });
-    </script>
+    <!-- Footer -->
+    <div class="text-accent-light-gold text-sm sm:text-base opacity-80 animate-fade-in-delayed mt-6">
+      <p>
+        Need help?
+        <a href="#contact" class="text-accent-light-gold no-underline transition-colors duration-300 hover:text-cream">Contact Support</a>
+        |
+        <a href="#about" class="text-accent-light-gold no-underline transition-colors duration-300 hover:text-cream">About Us</a>
+      </p>
+    </div>
+  </div>
 </body>
 </html>
