@@ -1,0 +1,892 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="style.css" rel="stylesheet">
+
+    <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" />
+
+
+    <title>Home Page</title>
+    <link rel="icon" href="/assets/seal.png">
+</head>
+
+<style>
+    /* Make all Tailwind text sizes a bit smaller */
+    .text-xs {
+        font-size: 0.9rem !important;
+    }
+
+    .text-sm {
+        font-size: 1rem !important;
+    }
+
+    .text-base {
+        font-size: 1.10rem !important;
+    }
+
+    .text-lg {
+        font-size: 1.30rem !important;
+    }
+
+    .text-xl {
+        font-size: 2rem !important;
+    }
+
+    .text-2xl {
+        font-size: 2.2rem !important;
+    }
+
+    .text-3xl {
+        font-size: 2.4rem !important;
+    }
+
+    html,
+    body {
+        max-width: 100vw;
+        overflow-x: hidden !important;
+    }
+
+    body {
+        font-family: 'Trebuchet MS', Verdana, sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+
+        /* Color variables for easier maintenance */
+        background-color: #F2F2F2;
+        color: #0B1215;
+
+        /* Layout */
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+
+        /* Performance optimizations */
+        scroll-behavior: smooth;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Prevent layout shifts */
+        line-height: 1.5;
+
+    }
+
+    #footer {
+        background-image: url(/assets/footer.svg);
+        background-size: cover;
+        /* or use a specific size like 150% */
+        background-position: center 10%;
+        /* positions the bottom of the image at the bottom */
+        background-repeat: no-repeat;
+    }
+
+    #section1,
+    #section2,
+    #section3,
+    #section4,
+    #contact {
+        transition: transform 0.5s ease;
+    }
+</style>
+
+<body class="h-full flex flex-col overflow-x-hidden">
+    <div
+        class="fixed inset-y-0 left-0 w-px bg-[rgba(33,43,67,0.08)] z-[9999] sm:ml-4 md:ml-10 lg:ml-24 mix-blend-multiply">
+    </div>
+    <div
+        class="fixed inset-y-0 right-0 w-px bg-[rgba(33,43,67,0.08)] z-[9999] sm:mr-4 md:mr-10 lg:mr-24 mix-blend-multiply">
+    </div>
+    <div class="flex-1">
+        <header
+            class="fixed top-0 left-0 right-0 z-50 px-4 md:px-10 lg:px-24 backdrop-blur-md bg-[#0B121580] border-b border-[#FFFFF020] transition-transform duration-300">
+            <nav class="container mx-auto p-4 flex items-center justify-between">
+                <!-- Logo and Text -->
+                <a href="/index.html" onclick="smoothRefresh(event)" id="navbar-right" class="flex items-center"
+                    aria-label="Refresh page">
+                    <img src="/assets/seal.png" alt="Barangay Logo" class="navbar-logo w-10 md:w-14 h-auto">
+                    <span
+                        class="text-lg md:text-xl font-bold text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300 ml-2 md:ml-3 leading-tight">
+                        Barangay<br>Market Area
+                    </span>
+                </a>
+
+                <button id="mobile-menu-button" class="lg:hidden text-[#FFFFF0] focus:outline-none"
+                    aria-label="Toggle menu">
+                    <i id="mobile-menu-icon" class="ri-menu-line text-2xl transition-all"></i>
+                </button>
+
+                <!-- Desktop Menu -->
+                <div id="navbar-menu" class="hidden lg:flex items-center space-x-4 lg:space-x-6">
+                    <ul class="flex space-x-4 lg:space-x-6 relative">
+                        <li>
+                            <a href="/index.html"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                Home
+                            </a>
+                        </li>
+                        <!-- About Barangay -->
+                        <li>
+                            <a href="about.html"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                About Barangay
+                            </a>
+                        </li>
+
+                        <!-- Services Dropdown-->
+                        <li x-data="{ open: false }" class="relative" @mouseenter="open = true"
+                            @mouseleave="open = false">
+                            <a href="#"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300"
+                                aria-expanded="false">
+                                Services
+                                <i class="ri-arrow-down-s-line ml-1 transition-transform duration-300"
+                                    :class="{ 'rotate-180': open }"></i>
+                            </a>
+                            <!-- Dropdown with triangle pointer -->
+                            <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 translate-y-2"
+                                x-transition:enter-end="opacity-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:leave-start="opacity-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 translate-y-2"
+                                class="absolute left-1/2 top-full mt-0 min-w-[320px] w-max bg-white shadow-xl py-3 z-50 rounded-4xl border border-[#e2e8f0] transform -translate-x-1/2 origin-top before:absolute before:-top-[6px] before:left-1/2 before:-translate-x-1/2 before:w-3 before:h-3 before:bg-white before:border-t before:border-l before:border-[#e2e8f0] before:rotate-45 before:z-50"
+                                style="display: none;">
+                                <div class="container px-4">
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <a href="#section1"
+                                            class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
+                                            <div
+                                                class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
+                                                <i
+                                                    class="ri-user-line text-[#8A9A5B]/70 group-hover/item:text-[#8A9A5B] transition-transform group-hover/item:scale-110"></i>
+                                            </div>
+                                            <span
+                                                class="transition-transform duration-200 group-hover/item:translate-x-1 text-sm md:text-base lg:text-md">
+                                                Personal Identification & Status Certificates
+                                            </span>
+                                        </a>
+                                        <a href="#section2"
+                                            class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
+                                            <div
+                                                class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
+                                                <i
+                                                    class="ri-building-2-line text-[#8A9A5B]/70 group-hover/item:text-[#8A9A5B] transition-transform group-hover/item:scale-110"></i>
+                                            </div>
+                                            <span
+                                                class="transition-transform duration-200 group-hover/item:translate-x-1 text-sm md:text-base lg:text-md">
+                                                Business & Commercial Documents
+                                            </span>
+                                        </a>
+                                        <a href="#section3"
+                                            class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
+                                            <div
+                                                class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
+                                                <i
+                                                    class="ri-file-text-line text-[#8A9A5B]/70 group-hover/item:text-[#8A9A5B] transition-transform group-hover/item:scale-110"></i>
+                                            </div>
+                                            <span
+                                                class="transition-transform duration-200 group-hover/item:translate-x-1 text-sm md:text-base lg:text-md">
+                                                Public Service & Special Circumstance Certificates
+                                            </span>
+                                        </a>
+                                        <a href="#section4"
+                                            class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
+                                            <div
+                                                class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
+                                                <i
+                                                    class="ri-file-list-2-line text-[#8A9A5B]/70 group-hover/item:text-[#8A9A5B] transition-transform group-hover/item:scale-110"></i>
+                                            </div>
+                                            <span
+                                                class="transition-transform duration-200 group-hover/item:translate-x-1 text-sm md:text-base lg:text-md">
+                                                Tax & Legal / Administrative Documents
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Application Process -->
+                        <li>
+                            <a href="process.html"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                Application Process
+                            </a>
+                        </li>
+                        <!-- Contact Us -->
+                        <li>
+                            <a href="#contact"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                Contact Us
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a href="/LOG IN & REGISTRATION FORM/index.html"
+                        class="flex items-center justify-center w-9 h-9 rounded-full border-2 border-[#BD8F42] hover:border-[#D0B564] hover:bg-[#8A9A5B]/20 transition-all duration-300 group"
+                        aria-label="User profile">
+                        <i class="ri-user-line text-[#FFFFF0] group-hover:text-[#D0B564] transition-colors"></i>
+                    </a>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <!-- Mobile Menu Overlay (now at root level) -->
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-[#2B3209] backdrop-blur-sm z-40 hidden transition-opacity duration-300 pt-20 pb-6">
+        <div class="container mx-auto px-5 h-full overflow-y-auto">
+
+            <!-- Menu Items -->
+            <nav class="flex flex-col space-y-3 mt-3">
+                <a href="#"
+                    class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
+                    <i class="ri-home-4-line mr-3 text-[#D0B564] text-base"></i>
+                    Home
+                </a>
+
+                <a href="about.html"
+                    class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
+                    <i class="ri-information-line mr-3 text-[#D0B564] text-base"></i>
+                    About Barangay
+                </a>
+
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open"
+                        class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center justify-between w-full">
+                        <div class="flex items-center">
+                            <i class="ri-service-line mr-3 text-[#D0B564] text-base"></i>
+                            Services
+                        </div>
+                        <i :class="{'rotate-180': open}"
+                            class="ri-arrow-down-s-line transform transition-transform duration-300 text-base"></i>
+                    </button>
+                    <div x-show="open" x-transition class="pl-9 pt-1 space-y-2">
+                        <a href="#section1" class="block text-white/80 hover:text-[#D0B564] text-sm items-center">
+                            <i class="ri-user-line mr-2 text-xs"></i> Personal Identification
+                        </a>
+                        <a href="#section2" class="block text-white/80 hover:text-[#D0B564] text-sm items-center">
+                            <i class="ri-building-2-line mr-2 text-xs"></i> Business Documents
+                        </a>
+                        <a href="#section3" class="block text-white/80 hover:text-[#D0B564] text-sm items-center">
+                            <i class="ri-file-text-line mr-2 text-xs"></i> Public Service
+                        </a>
+                        <a href="#section4" class="block text-white/80 hover:text-[#D0B564] text-sm items-center">
+                            <i class="ri-file-list-2-line mr-2 text-xs"></i> Tax & Legal
+                        </a>
+                    </div>
+                </div>
+
+                <a href="process.html"
+                    class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
+                    <i class="ri-draft-line mr-3 text-[#D0B564] text-base"></i>
+                    Application Process
+                </a>
+
+                <a href="#contact"
+                    class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
+                    <i class="ri-contacts-line mr-3 text-[#D0B564] text-base"></i>
+                    Contact Us
+                </a>
+
+                <a href="/Log-in_and_Reg/index.html"
+                    class="mt-4 text-white text-base font-medium hover:text-[#D0B564] py-1.5 flex items-center group border-t border-white/20 pt-3">
+                    <i class="ri-user-line mr-3 text-[#D0B564] text-base"></i>
+                    User Login
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="pt-0 w-full mx-auto">
+        <!-- Main Section -->
+        <div class="min-h-screen w-full bg-gray-900 relative overflow-hidden">
+            <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="/assets/background.jpg" alt="Barangay Background"
+                    class="w-full h-full object-cover object-[center_0%] opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2B3209]/60 to-[#0B1215]/80"></div>
+            </div>
+
+            <div class="h-10">
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 min-h-screen flex flex-col justify-between">
+                <!-- Centered Text Content -->
+                <div class="flex-1 flex items-center justify-center px-4 py-12 sm:py-16">
+                    <div class="w-full max-w-4xl px-4 sm:px-6 text-center">
+                        <div class="mb-8">
+                            <h1
+                                class="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-[#FFFFF0] via-[#D0B564] to-[#BD8F42] bg-clip-text text-transparent [text-shadow:0_0_8px_rgb(254_255_145_/_40%)] leading-tight">
+                                Barangay Market Area
+                            </h1>
+                            <h2
+                                class="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#D0B564] via-[#BD8F42] to-[#FFFFF0] bg-clip-text text-transparent [text-shadow:0_0_8px_rgb(254_255_145_/_40%)] mt-2">
+                                Documents Online Application
+                            </h2>
+                        </div>
+                        <p class="mt-4 text-base sm:text-lg md:text-xl text-gray-200 mx-auto max-w-2xl">
+                            Amet commodo ea eu magna dolore in Lorem.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="w-full px-4 sm:px-6 pb-8 sm:pb-16">
+                    <div class="mx-auto max-w-2xl">
+                        <div
+                            class="flex items-center p-1 bg-white/90 backdrop-blur-sm rounded-full shadow-lg border border-white/20">
+                            <div class="flex-1">
+                                <div class="relative">
+                                    <input type="text" placeholder="How can we help you?"
+                                        class="w-full py-2 sm:py-3 pl-4 pr-4 text-sm sm:text-base text-gray-800 bg-white/80 rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white transition-all placeholder-gray-500">
+                                </div>
+                            </div>
+                            <button
+                                class="ml-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#4B5320] hover:bg-[#BD8F42] text-[#FFFFF0] font-medium rounded-full transition-colors">
+                                <i class="ri-search-line text-base sm:text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-16">
+        </div>
+
+        <div class="min-h-screen flex flex-col items-center p-4 pt-8 w-full max-w-7xl mx-auto">
+            <!-- Hero Section with Background Image -->
+            <div class="text-center mb-10 max-w-3xl mx-auto">
+                <h1 class="text-xl sm:text-3xl md:text-5xl font-bold mb-4">
+                    <span
+                        class="bg-gradient-to-r from-[#2B3209] via-[#4B5320] to-[#6A7337] bg-clip-text text-transparent">
+                        Documents Online Portal
+                    </span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-700">
+                    Apply for certificates, permits, and IDs with our convenient online service
+                </p>
+            </div>
+
+            <div class="h-2">
+            </div>
+
+            <!-- Cards Container -->
+            <div class="w-full max-w-7xl mx-auto px-4 md:px-24">
+                <!-- Section I: Personal Identification and Status Certificates -->
+                <div class="p-4 md:p-8 bg-white rounded-4xl shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div id="section1" class="flex items-center mb-6">
+                        <div class="bg-lime-50 p-2.5 rounded-4xl mr-4">
+                            <i class="ri-file-list-3-line ri-lg text-lime-600"></i>
+                        </div>
+                        <h2 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900">I. Personal
+                            Identification and Status
+                            Certificates</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Column 1 -->
+                        <div class="space-y-4">
+                            <!-- Barangay Clearance -->
+                            <a href="/Application Forms/BrgyClearance.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-file-history-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Barangay
+                                        Clearance</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">Document proving
+                                        residency in the barangay</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Certificate of Residency -->
+                            <a href="/Application Forms/Residency.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-home-4-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        of Residency</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">Proof of residence
+                                        within the barangay</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Certificate of Indigency -->
+                            <a href="/Application Forms/IndigencyFinal.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-heart-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        of Indigency</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For individuals
+                                        needing financial assistance
+                                    </p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Certificate of Good Moral Character -->
+                            <a href="/Application Forms/GoodMoral.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-user-star-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        of Good Moral Character</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">Attesting to an
+                                        individual's moral standing
+                                    </p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Certificate for PWD's -->
+                            <a href="/Application Forms/PWD.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-wheelchair-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        for PWD's</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For persons with
+                                        disabilities</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="space-y-4">
+                            <!-- Certificate for Senior Citizens -->
+                            <a href="/Application Forms/senior.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-user-5-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class=" text-sm sm:text-base md:text-lgfont-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        for Senior Citizens</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For residents aged 60
+                                        years and above</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Certificate for Solo Parent -->
+                            <a href="/Application Forms/SoloParent.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-parent-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        for Solo Parent</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For single parents
+                                        raising children alone</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- Low Income Cert -->
+                            <a href="/Application Forms/LowIncome.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-money-dollar-circle-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Low
+                                        Income Certificate</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For individuals with
+                                        limited financial means
+                                    </p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- No Income Cert -->
+                            <a href="/Application Forms/NoIncome.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-money-dollar-box-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">No
+                                        Income Certificate</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For individuals
+                                        without regular income</p>
+                                </div>
+                                <i
+                                    class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+
+                            <!-- First Time Job Seeker -->
+                            <a href="/Application Forms/FTjob.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-user-search-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">First
+                                        Time Job Seeker</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For individuals
+                                        seeking employment for the
+                                        first time</p>
+                                </div>
+                                <i
+                                    class="ml-auto ri-arrow-right-s- ri-lg text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-16">
+                </div>
+
+                <!-- Section II: Business and Commercial Documents -->
+                <div class="p-4 md:p-8 bg-white rounded-4xl shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div id="section2" class="flex items-center mb-6">
+                        <div class="bg-lime-50 p-2.5 rounded-4xl mr-4">
+                            <i class="ri-store-line ri-lg text-lime-600"></i>
+                        </div>
+                        <h2 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900">II. Business and
+                            Commercial Documents</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Column 1 -->
+    <div class="space-y-4">
+        <a href="/Application Forms/Bpermit.html"
+            class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+            <div class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                <i class="ri-file-list-2-line ri-lg text-lime-600"></i>
+            </div>
+            <div>
+                <span class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">
+                    Certificate Business Permit
+                </span>
+                <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">
+                    Document for operating a business with the government's jurisdiction
+                </p>
+            </div>
+            <i class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+        </a>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="space-y-4">
+        <a href="/Application Forms/Bclosure.html"
+            class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+            <div class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                <i class="ri-close-circle-line ri-lg text-lime-600"></i>
+            </div>
+            <div>
+                <span class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">
+                    Certificate for Business Closure
+                </span>
+                <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">
+                    Document for officially closing a business
+                </p>
+            </div>
+            <i class="ml-auto text-gray-400 group-hover:text-lime-600 transition-colors duration-300"></i>
+        </a>
+    </div>
+</div>
+
+                    </div>
+                </div>
+
+                <div class="h-16">
+                </div>
+
+                <!-- Section III: Public Service and Special Circumstance Certificates -->
+                <div class="p-4 md:p-8 bg-white rounded-4xl shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div id="section3" class="flex items-center mb-6">
+                        <div class="bg-lime-50 p-2.5 rounded-4xl mr-4">
+                            <i class="ri-team-line ri-lg text-lime-600"></i>
+                        </div>
+                        <h2 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900">III. Public Service and
+                            Special Circumstance
+                            Certificates</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Column 1 -->
+                        <div class="space-y-4">
+                            <!-- Certificate for No Objection (For Building Construction) -->
+                            <a href="/Application Forms/NO_OBJECTION.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-building-2-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        for No Objection</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For building
+                                        construction projects</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="space-y-4">
+                            <!-- Certificate for Calamity (Disaster) -->
+                            <a href="/Application Forms/Calamity.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-flood-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Certificate
+                                        for Calamity</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For disaster-affected
+                                        residents</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-16">
+                </div>
+
+                <!-- Section IV: Tax and Legal/Administrative Documents -->
+                <div class="p-4 md:p-8 bg-white rounded-4xl shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div id="section4" class="flex items-center mb-6">
+                        <div class="bg-lime-50 p-2.5 rounded-4xl mr-4">
+                            <i class="ri-file-shield-2-line ri-lg text-lime-600"></i>
+                        </div>
+                        <h2 class="text-base sm:text-lg md:text-xl font-semibold text-gray-900">IV. Tax and
+                            Legal / Administrative Documents</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Column 1 -->
+                        <div class="space-y-4">
+                        
+
+                            <!-- State Tax Certificate -->
+                            <a href="/Application Forms/StateTax.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-bank-card-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">State
+                                        Tax Certificate</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">Document for state tax
+                                        compliance</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="space-y-4">
+                            <!-- Bail Certificate -->
+                            <a href="/Application Forms/Bail.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-scales-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Bail
+                                        Certificate</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For legal proceedings
+                                        requiring bail</p>
+                                </div>
+                            </a>
+
+                            <!-- Late Registration -->
+                            <a href="/Application Forms/lateREG.html"
+                                class="group flex items-center p-3 md:p-5 rounded-4xl border border-gray-100 hover:border-lime-200 bg-white hover:bg-lime-50 transition-all duration-300 hover:-translate-y-0.5">
+                                <div
+                                    class="bg-white p-2.5 rounded-4xl mr-4 shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <i class="ri-time-line ri-lg text-lime-600"></i>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-sm sm:text-base md:text-lg font-medium text-gray-900 group-hover:text-lime-700 transition-colors duration-300">Late
+                                        Registration</span>
+                                    <p class="text-xs sm:text-sm md:text-base text-gray-500 mt-1">For delayed document
+                                        registration</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content spacer (MUST include this) -->
+                <div class="h-24"></div>
+            </div>
+        </div>
+
+        <div class="h-16">
+        </div>
+    </main>
+
+    <footer id="footer" class="mt-auto bg-gradient-to-b from-[#f6f9fc] to-white border-t border-[#e6ebf1]">
+        <!-- RemixIcon CSS (load once in your head) -->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+        <div class="px-6 py-16 mx-auto max-w-7xl md:px-32">
+            <div
+                class="flex flex-col items-center text-center justify-between gap-10 md:items-start md:text-left lg:flex-row">
+                <!-- Logo Section -->
+                <div class="flex-1">
+                    <div class="flex flex-col items-start">
+                        <div class="flex items-center gap-3">
+                            <img src="/assets/seal.png" alt="Barangay Market Area Logo"
+                                class="h-32 w-auto pl-2 transition-transform duration-300 hover:scale-105">
+                        </div>
+                        <p class="text-[#6A7337] font-semibold text-md mt-2 flex items-center gap-1">
+                            Barangay Market Area
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Links Grid -->
+                <div
+                    class="grid flex-1 grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center text-center md:items-start md:text-left">
+                    <!-- Quick Links -->
+                    <div>
+                        <h3
+                            class="mb-4 font-semibold uppercase tracking-wider text-[#4B5320] flex items-center gap-2 justify-center md:justify-start">
+                            Quick Links
+                        </h3>
+                        <ul class="space-y-3 text-md flex flex-col items-center md:items-start">
+                            <li>
+                                <a href="https://santarosacity.gov.ph/" target="_blank"
+                                    class="group text-md flex items-center gap-2 justify-center md:justify-start transition-all duration-300">
+                                    <i
+                                        class="ri-global-line text-[#4B5320] group-hover:text-[#8A9A5B] transition-colors"></i>
+                                    <span class="relative">
+                                        Sta. Rosa Website
+                                        <span
+                                            class="absolute left-0 bottom-0 h-[1px] w-0 bg-[#8A9A5B] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/santarosacitygovernment/" target="_blank"
+                                    class="group text-md flex items-center gap-2 justify-center md:justify-start transition-all duration-300">
+                                    <i
+                                        class="ri-facebook-circle-line text-[#4B5320] group-hover:text-[#316FF6] transition-colors"></i>
+                                    <span class="relative">
+                                        Sta. Rosa Facebook
+                                        <span
+                                            class="absolute left-0 bottom-0 h-[1px] w-0 bg-[#316FF6] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div id="contact">
+                        <h3
+                            class="mb-4 font-semibold uppercase tracking-wider text-[#4B5320] flex items-center gap-2 justify-center md:justify-start">
+                            Contact Us
+                        </h3>
+                        <ul class="space-y-3 text-md flex flex-col items-center md:items-start">
+                            <li>
+                                <a href="mailto:marketArea@gmail.com"
+                                    class="group flex items-center gap-2 transition-all duration-300">
+                                    <i
+                                        class="ri-mail-line text-[#4B5320] group-hover:text-[#8A9A5B] transition-colors"></i>
+                                    <span class="relative">
+                                        marketArea@gmail.com
+                                        <span
+                                            class="absolute left-0 bottom-0 h-[1px] w-0 bg-[#8A9A5B] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="tel:+639217824136"
+                                    class="group flex items-center gap-2 transition-all duration-300">
+                                    <i
+                                        class="ri-phone-line text-[#4B5320] group-hover:text-[#8A9A5B] transition-colors"></i>
+                                    <span class="relative">
+                                        0921 782 4136
+                                        <span
+                                            class="absolute left-0 bottom-0 h-[1px] w-0 bg-[#8A9A5B] transition-all duration-300 group-hover:w-full"></span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="flex items-center gap-2 transition-colors duration-300 hover:text-[#8A9A5B]">
+                                <i class="ri-map-pin-2-line text-[#4B5320]"></i>
+                                Barangay Market Area, Sta. Rosa City
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Bar -->
+            <div class="w-full pt-8 mt-8">
+                <div
+                    class="text-center text-xs sm:text-sm md:text-md px-6 pt-6 text-[#4B5320] flex justify-center items-center gap-1">
+                    Made with <i class="ri-heart-fill text-[#8A9A5B]"></i> for Barangay Market Area
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+</body>
+
+</html>
