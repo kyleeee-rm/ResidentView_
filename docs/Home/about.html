@@ -15,21 +15,20 @@
     <link rel="icon" href="/assets/seal.png">
 </head>
 <style>
-    /* Make all Tailwind text sizes a bit smaller */
     .text-xs {
         font-size: 0.9rem !important;
     }
 
     .text-sm {
-        font-size: 1rem !important;
+        font-size: 1.2rem !important;
     }
 
     .text-base {
-        font-size: 1.10rem !important;
+        font-size: 1.50rem !important;
     }
 
     .text-lg {
-        font-size: 1.30rem !important;
+        font-size: 1.90rem !important;
     }
 
     .text-xl {
@@ -51,7 +50,7 @@
     }
 
     body {
-        font-family: 'Trebuchet MS', Verdana, sans-serif;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-optical-sizing: auto;
         font-style: normal;
 
@@ -75,6 +74,25 @@
         line-height: 1.5;
 
     }
+    main a{
+        border: 2px solid rgba(138, 154, 91, 0.3);
+    }
+
+    /* Active navigation link styles */
+    .nav-link-active {
+        position: relative;
+    }
+
+    .nav-link-active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #D0B564, #BD8F42);
+        border-radius: 1px;
+    }
 
     #footer {
         background-image: url(/assets/footer.svg);
@@ -84,6 +102,7 @@
         /* positions the bottom of the image at the bottom */
         background-repeat: no-repeat;
     }
+
 
     #section1,
     #section2,
@@ -106,7 +125,7 @@
             class="fixed top-0 left-0 right-0 z-50 px-4 md:px-10 lg:px-24 backdrop-blur-md bg-[#0B121580] border-b border-[#FFFFF020] transition-transform duration-300">
             <nav class="container mx-auto p-4 flex items-center justify-between">
                 <!-- Logo and Text -->
-                <a href="/index.html" onclick="smoothRefresh(event)" id="navbar-right" class="flex items-center"
+                <a href="../Home/index.html" onclick="smoothRefresh(event)" id="navbar-right" class="flex items-center"
                     aria-label="Refresh page">
                     <img src="../assets/seal.png" alt="Barangay Logo" class="navbar-logo w-10 md:w-14 h-auto">
                     <span
@@ -124,18 +143,12 @@
                 <div id="navbar-menu" class="hidden lg:flex items-center space-x-4 lg:space-x-6">
                     <ul class="flex space-x-4 lg:space-x-6 relative">
                         <li>
-                            <a href="index.html"
+                            <a href="../Home/index.html"
                                 class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
                                 Home
                             </a>
                         </li>
-                        <!-- About Barangay -->
-                        <li>
-                            <a href="about.html"
-                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
-                                About Barangay
-                            </a>
-                        </li>
+
 
                         <!-- Services Dropdown-->
                         <li x-data="{ open: false }" class="relative" @mouseenter="open = true"
@@ -158,7 +171,7 @@
                                 style="display: none;">
                                 <div class="container px-4">
                                     <div class="grid grid-cols-1 gap-2">
-                                        <a href="/index.html#section1"
+                                        <a href="#section1"
                                             class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
                                             <div
                                                 class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
@@ -170,7 +183,7 @@
                                                 Personal Identification & Status Certificates
                                             </span>
                                         </a>
-                                        <a href="/index.html#section2"
+                                        <a href="#section2"
                                             class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
                                             <div
                                                 class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
@@ -182,7 +195,7 @@
                                                 Business & Commercial Documents
                                             </span>
                                         </a>
-                                        <a href="/index.html#section3"
+                                        <a href="#section3"
                                             class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
                                             <div
                                                 class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
@@ -194,7 +207,7 @@
                                                 Public Service & Special Circumstance Certificates
                                             </span>
                                         </a>
-                                        <a href="/index.html#section4"
+                                        <a href="#section4"
                                             class="flex items-center px-3 md:px-5 py-2 md:py-3 hover:bg-[#f0f7f3] hover:text-[#8A9A5B] transition-all duration-200 rounded-4xl group/item transform hover:scale-[1.02]">
                                             <div
                                                 class="mr-3 p-1 bg-[#8A9A5B]/10 rounded-full group-hover/item:bg-[#8A9A5B]/20 transition-colors">
@@ -210,23 +223,16 @@
                                 </div>
                             </div>
                         </li>
-                        <!-- Application Process -->
+                        <!-- About Barangay -->
                         <li>
-                            <a href="/process.html"
-                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
-                                Application Process
-                            </a>
-                        </li>
-                        <!-- Contact Us -->
-                        <li>
-                            <a href="#contact"
-                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
-                                Contact Us
+                            <a href="../Home/about.html"
+                                class="nav-link-active flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                About Barangay
                             </a>
                         </li>
                     </ul>
 
-                    <a href="/LOG IN & REGISTRATION FORM/index.html"
+                    <a href="../Log-In_and_Reg/login.html"
                         class="flex items-center justify-center w-9 h-9 rounded-full border-2 border-[#BD8F42] hover:border-[#D0B564] hover:bg-[#8A9A5B]/20 transition-all duration-300 group"
                         aria-label="User profile">
                         <i class="ri-user-line text-[#FFFFF0] group-hover:text-[#D0B564] transition-colors"></i>
@@ -305,17 +311,22 @@
     <div class="h-10">
     </div>
 
-    <main class="pt-0 w-full max-w-[1800px] mx-auto">
+    <main class="pt-0 w-full mx-auto min-h-screen w-full bg-gray-900 relative overflow-hidden">
         <!-- Hero Section -->
+            <div class="absolute inset-0 z-0">
+                <img src="../assets/background.jpg" alt="Barangay Background"
+                    class="w-full h-full object-cover object-[center_0%] opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#2B3209]/60 to-[#0B1215]/80"></div>
+            </div>
         <section class="min-h-screen flex items-center justify-center relative px-6 py-20">
             <div class="max-w-3xl mx-auto text-center">
-                <h1 class="text-4xl font-bold text-[#2B3209] sm:text-5xl mb-4">About Barangay Market Area</h1>
-                <p class="text-xl text-[#6A7337]">A vibrant community at the heart of commerce and culture</p>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-[#FFFFF0] via-[#D0B564] to-[#BD8F42] bg-clip-text text-transparent [text-shadow:0_0_8px_rgb(254_255_145_/_40%)] leading-tight">About Barangay Market Area</h1>
+                <p class="text-sm sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#D0B564] via-[#BD8F42] to-[#FFFFF0] bg-clip-text text-transparent [text-shadow:0_0_8px_rgb(254_255_145_/_40%)] mt-2">A vibrant community at the heart of commerce and culture</p>
             </div>
 
             <!-- Animated Bouncing Arrow -->
             <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-                <i class="ri-arrow-down-line text-3xl text-[#2B3209]"></i>
+                <i class="ri-arrow-down-line text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#D0B564] via-[#BD8F42] to-[#FFFFF0] bg-clip-text text-transparent [text-shadow:0_0_8px_rgb(254_255_145_/_40%)] mt-2"></i>
             </div>
         </section>
 

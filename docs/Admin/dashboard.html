@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barangay Admin Dashboard</title>
+  <link rel="stylesheet" href="../Admin/dashboard.css">
+  <!-- <link rel="stylesheet" href="/not-included.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a onclick="showSection('dashboard')">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a onclick="showSection('documentRequests')">
+        <i class="fas fa-file-alt"></i>
+        Document Requests
+      </a>
+      <a onclick="showSection('approvedDocuments')">
+        <i class="fas fa-check-circle"></i>
+        Approved Documents
+      </a>
+      <a onclick="showSection('releasedDocuments')">
+        <i class="fas fa-paper-plane"></i>
+        Released Documents
+      </a>
+      <a onclick="showSection('rejectedDocuments')">
+        <i class="fas fa-times-circle"></i>
+        Rejected Documents
+      </a>
+      <a onclick="showSection('residents')">
+        <i class="fas fa-users"></i>
+        Residents
+      </a>
+      <a href="#" onclick="showSection('adminSettings')">
+        <i class="fas fa-cog"></i>
+        Admin Settings
+      </a>
+    </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <img src="../assets/seal.png" alt="Logo" />
+        <h1>Barangay Market Area</h1>
+      </div>
+      <!-- <div class="topbar-right">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div class="admin-icon">A</div>
+      </div> -->
+    </div>
+
+    <div class="content" id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="status-boxes">
+        <div class="status-box pending">
+          <p id="pendingCount">0</p>
+          <h3>Pending Requests</h3>
+        </div>
+        <div class="status-box approved">
+          <p id="approvedCount">0</p>
+          <h3>Approved Documents</h3>
+        </div>
+        <div class="status-box released">
+          <p id="releasedCount">0</p>
+          <h3>Released Documents</h3>
+        </div>
+        <div class="status-box rejected">
+          <p id="rejectedCount">0</p>
+          <h3>Rejected Requests</h3>
+        </div>
+      </div>
+      <div class="chart-container">
+        <h3>Monthly Statistics</h3>
+        <div class="chart-wrapper">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="documentRequests" style="display: none;">
+      <h2>Document Requests</h2>
+      <div class="filter-search-bar">
+        <div class="icons">
+          <button class="filter-icon" onclick="toggleFilter()">☰ Filter</button>
+        </div>
+        <div class="search-section">
+          <input type="text" id="searchInput" placeholder="Type to search..." oninput="filterTable(this.value)">
+          <button class="search-icon" onclick="toggleSearch()">Search</button>
+        </div>
+      </div>
+
+<!-- Filter Panel -->
+            <div id="filterPanel" class="filter-panel">
+              <div class="filter-header">
+                <h3>Filter Options</h3>
+                <button class="close-filter" onclick="toggleFilter()">&times;</button>
+              </div>
+              <div class="filter-content">
+                <div class="filter-group">
+                    <label>Document Type:</label>
+                    <div class="multi-select-container">
+                      <div class="multi-select-display" onclick="toggleDocTypeDropdown()">
+                        <span id="docTypeDisplay">All Types</span>
+                        <span class="dropdown-arrow">▼</span>
+                      </div>
+                      <div id="docTypeDropdown" class="multi-select-dropdown">
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Barangay Clearance" onchange="updateDocTypeFilter()"> Barangay Clearance
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Certificate of Indigency" onchange="updateDocTypeFilter()"> Certificate of Indigency
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Business Permit" onchange="updateDocTypeFilter()"> Business Permit
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Barangay ID" onchange="updateDocTypeFilter()"> Barangay ID
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Certificate of Residency" onchange="updateDocTypeFilter()"> Certificate of Residency
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <div class="status-checkbox-container">
+                      <label class="checkbox-label">
+                        <input type="checkbox" value="Pending" onchange="updateStatusFilter()"> Pending
+                      </label>
+                      <label class="checkbox-label">
+                        <input type="checkbox" value="In Progress" onchange="updateStatusFilter()"> In Progress
+                      </label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                  <label>Date Range:</label>
+                  <input type="date" id="dateFrom" onchange="applyFilters()">
+                  <span>to</span>
+                  <input type="date" id="dateTo" onchange="applyFilters()">
+                </div>
+                <button class="clear-filters" onclick="clearFilters()">Clear All</button>
+              </div>
+            </div>
+
+
+            <!-- main tabkle -->
+            <div class="table-container">
+            <table class="requestTab">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Document Type</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>View Progress</th>
+                </tr>
+              </thead>
+              <tbody id="applicantsTableBody">
+                <tr id="row-0">
+                  <td>Juan Dela Cruz<span class="change-indicator" id="indicator-0" style="display:none;">*</span></td>
+                  <td>Barangay Clearance</td>
+                  <td>2025-06-01</td>
+                  <td><span class="status-pending">Pending</span></td>
+                  <td><button class="view-button" onclick="showApplicantModal(0, 'Juan Dela Cruz', 'Certificate of Indigency', 'Pending', 'Employment purposes', ['Paid'])">View</button></td>
+                </tr>
+                <tr id="row-1">
+                  <td>Maria Santos<span class="change-indicator" id="indicator-1" style="display:none;">*</span></td>
+                  <td>Certificate of Indigency</td>
+                  <td>2025-06-02</td>
+                  <td><span class="status-pending">Pending</span></td>
+                  <td><button class="view-button" onclick="showApplicantModal(1, 'Maria Santos', 'Barangay Clearance', 'Pending', 'Medical assistance', ['Valid ID', 'Birth Certificate'])">View</button></td>
+                </tr>
+                <tr id="row-2">
+                  <td>Pedro Rodriguez<span class="change-indicator" id="indicator-2" style="display:none;">*</span></td>
+                  <td>Business Permit</td>
+                  <td>2025-06-03</td>
+                  <td><span class="status-pending">Pending</span></td>
+                  <td><button class="view-button" onclick="showApplicantModal(2, 'Pedro Rodriguez', 'Business Permit', 'Pending', 'Start new business', ['DTI Registration', 'BIR Certificate', 'Valid ID'])">View</button></td>
+                </tr>
+                <tr id="row-3">
+                  <td>Ana Garcia<span class="change-indicator" id="indicator-3" style="display:none;">*</span></td>
+                  <td>Barangay ID</td>
+                  <td>2025-06-04</td>
+                  <td><span class="status-pending">Pending</span></td>
+                  <td><button class="view-button" onclick="showApplicantModal(3, 'Ana Garcia', 'Barangay ID', 'Pending', 'Identification purposes', ['Birth Certificate', 'Proof of Residency'])">View</button></td>
+                </tr>
+                <tr id="row-4">
+                  <td>Carlos Mendoza<span class="change-indicator" id="indicator-4" style="display:none;">*</span></td>
+                  <td>Certificate of Residency</td>
+                  <td>2025-06-05</td>
+                  <td><span class="status-pending">Pending</span></td>
+                  <td><button class="view-button" onclick="showApplicantModal(4, 'Carlos Mendoza', 'Certificate of Residency', 'Pending', 'School enrollment', ['Valid ID', 'Birth Certificate'])">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="save-button btn" id="saveButton" onclick="saveAllChanges()"><i class="fas fa-save"></i>Save</button>
+          </div></div>
+
+<!-- approved tab -->
+          <div class="content" id="approvedDocuments" style="display: none;">
+              <h2>Approved Documents</h2>
+              <div class="filter-search-bar">
+                <div class="icons">
+                  <button class="filter-icon" onclick="toggleApprovedFilter()">☰ Filter</button>
+                </div>
+                <div class="search-section">
+                  <input type="text" id="approvedSearchInput" placeholder="Type to search..." oninput="filterApprovedTable(this.value)" style="display: none;" class="search-input">
+                  <button class="search-icon" onclick="toggleApprovedSearch()">Search</button>
+                </div>
+              </div>
+
+              <!-- Filter Panel for Approved Documents -->
+              <div id="approvedFilterPanel" class="filter-panel">
+                <div class="filter-header">
+                  <h3>Filter Options</h3>
+                  <button class="close-filter" onclick="toggleApprovedFilter()">&times;</button>
+                </div>
+                <div class="filter-content">
+                  <div class="filter-group">
+                    <label>Document Type:</label>
+                    <div class="multi-select-container">
+                      <div class="multi-select-display" onclick="toggleApprovedDocTypeDropdown()">
+                        <span id="approvedDocTypeDisplay">All Types</span>
+                        <span class="dropdown-arrow">▼</span>
+                      </div>
+                      <div id="approvedDocTypeDropdown" class="multi-select-dropdown">
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Barangay Clearance" onchange="updateApprovedDocTypeFilter()"> Barangay Clearance
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Certificate of Indigency" onchange="updateApprovedDocTypeFilter()"> Certificate of Indigency
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Business Permit" onchange="updateApprovedDocTypeFilter()"> Business Permit
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Barangay ID" onchange="updateApprovedDocTypeFilter()"> Barangay ID
+                        </label>
+                        <label class="checkbox-label">
+                          <input type="checkbox" value="Certificate of Residency" onchange="updateApprovedDocTypeFilter()"> Certificate of Residency
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="filter-group">
+                    <label>Date Range:</label>
+                    <input type="date" id="approvedDateFrom" onchange="applyApprovedFilters()">
+                    <span>to</span>
+                    <input type="date" id="approvedDateTo" onchange="applyApprovedFilters()">
+                  </div>
+              <button class="clear-filters" onclick="clearApprovedFilters()">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Approved Documents Table -->
+         <div class="table-container">
+        <table>
+          <thead>
+              <tr>
+                <th>Invoice Number</th>
+                <th>Name</th>
+                <th>Document Type</th>
+                <th>Date of Approval</th>
+                <th>Print Document</th>
+                <th>Released</th>
+              </tr>
+          </thead>
+          <tbody id="approvedTableBody">
+            <!-- Approved documents will be populated here -->
+          </tbody>
+        </table>
+          <button class="save-button btn" id="approvedSaveButton" onclick="saveApprovedChanges()"><i class="fas fa-save"></i>Save</button>
+      </div></div>
+
+<!-- released tab -->
+      <div class="content" id="releasedDocuments" style="display: none;">
+        <h2>Released Documents</h2>
+        <div class="filter-search-bar">
+          <div class="icons">
+            <button class="filter-icon" onclick="toggleReleasedFilter()">☰ Filter</button>
+          </div>
+          <div class="search-section">
+            <input type="text" id="releasedSearchInput" placeholder="Type to search..." oninput="filterReleasedTable(this.value)" style="display: none;" class="search-input">
+            <button class="search-icon" onclick="toggleReleasedSearch()">Search</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel for Released Documents -->
+        <div id="releasedFilterPanel" class="filter-panel">
+          <div class="filter-header">
+            <h3>Filter Options</h3>
+            <button class="close-filter" onclick="toggleReleasedFilter()">&times;</button>
+          </div>
+          <div class="filter-content">
+            <div class="filter-group">
+              <label>Document Type:</label>
+              <div class="multi-select-container">
+                <div class="multi-select-display" onclick="toggleReleasedDocTypeDropdown()">
+                  <span id="releasedDocTypeDisplay">All Types</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div id="releasedDocTypeDropdown" class="multi-select-dropdown">
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Barangay Clearance" onchange="updateReleasedDocTypeFilter()"> Barangay Clearance
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Certificate of Indigency" onchange="updateReleasedDocTypeFilter()"> Certificate of Indigency
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Business Permit" onchange="updateReleasedDocTypeFilter()"> Business Permit
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Barangay ID" onchange="updateReleasedDocTypeFilter()"> Barangay ID
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Certificate of Residency" onchange="updateReleasedDocTypeFilter()"> Certificate of Residency
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="filter-group">
+              <label>Date Range:</label>
+              <input type="date" id="releasedDateFrom" onchange="applyReleasedFilters()">
+              <span>to</span>
+              <input type="date" id="releasedDateTo" onchange="applyReleasedFilters()">
+            </div>
+            <button class="clear-filters" onclick="clearReleasedFilters()">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Released Documents Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Invoice</th>
+              <th>Name</th>
+              <th>Document Type</th>
+              <th>Release Date</th>
+            </tr>
+          </thead>
+          <tbody id="releasedTableBody">
+            <!-- Released documents will be populated here -->
+          </tbody>
+        </table>
+        <div class="button-container">
+          <button id="releasedMoveButton" class="move-button move-to-approved btn" onclick="showMoveConfirmation('released')">
+            <i class="fas fa-check-circle"></i>Move to Approved
+          </button>
+        </div>
+      </div>
+</div>
+<!-- rejected tab -->
+      <div class="content" id="rejectedDocuments" style="display: none;">
+        <h2>Rejected Documents</h2>
+        <div class="filter-search-bar">
+          <div class="icons">
+            <button class="filter-icon" onclick="toggleRejectedFilter()">☰ Filter</button>
+          </div>
+          <div class="search-section">
+            <input type="text" id="rejectedSearchInput" placeholder="Type to search..." oninput="filterRejectedTable(this.value)" style="display: none;" class="search-input">
+            <button class="search-icon" onclick="toggleRejectedSearch()">Search</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel for Rejected Documents -->
+        <div id="rejectedFilterPanel" class="filter-panel">
+          <div class="filter-header">
+            <h3>Filter Options</h3>
+            <button class="close-filter" onclick="toggleRejectedFilter()">&times;</button>
+          </div>
+          <div class="filter-content">
+            <div class="filter-group">
+              <label>Document Type:</label>
+              <div class="multi-select-container">
+                <div class="multi-select-display" onclick="toggleRejectedDocTypeDropdown()">
+                  <span id="rejectedDocTypeDisplay">All Types</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div id="rejectedDocTypeDropdown" class="multi-select-dropdown">
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Barangay Clearance" onchange="updateRejectedDocTypeFilter()"> Barangay Clearance
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Certificate of Indigency" onchange="updateRejectedDocTypeFilter()"> Certificate of Indigency
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Business Permit" onchange="updateRejectedDocTypeFilter()"> Business Permit
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Barangay ID" onchange="updateRejectedDocTypeFilter()"> Barangay ID
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" value="Certificate of Residency" onchange="updateRejectedDocTypeFilter()"> Certificate of Residency
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="filter-group">
+              <label>Date Range:</label>
+              <input type="date" id="rejectedDateFrom" onchange="applyRejectedFilters()">
+              <span>to</span>
+              <input type="date" id="rejectedDateTo" onchange="applyRejectedFilters()">
+            </div>
+            <button class="clear-filters" onclick="clearRejectedFilters()">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Rejected Documents Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Name</th>
+              <th>Document Type</th>
+              <th>Rejection Date</th>
+            </tr>
+          </thead>
+          <tbody id="rejectedTableBody">
+            <!-- Rejected documents will be populated here -->
+          </tbody>
+        </table>
+        <div class="button-container">
+          <button id="rejectedMoveButton" class="move-button move-to-requests btn" onclick="showMoveConfirmation('rejected')">
+              <i class="fas fa-file-alt"></i>Move to Requests
+          </button>
+        </div>
+</div>
+            <!-- <div class="edit-controls">
+            <button id="rejectedMoveButton" class="move-button move-to-requests" onclick="showMoveConfirmation('rejected')">
+              <i class="fas fa-edit"></i> Move to Document Requests
+            </button>
+          </div> -->
+      </div>
+
+
+<!-- residents tab -->
+      <div class="content" id="residents" style="display: none;">
+        <h2>Residents</h2>
+        <div class="filter-search-bar">
+          <div class="icons">
+            <button class="filter-icon" onclick="toggleResidentsFilter()">☰ Filter</button>
+          </div>
+          <div class="search-section">
+            <input type="text" id="residentsSearchInput" placeholder="Type to search..." oninput="filterResidentsTable(this.value)" style="display: none;" class="search-input">
+            <button class="search-icon" onclick="toggleResidentsSearch()">Search</button>
+          </div>
+        </div>
+
+        <!-- Filter Panel for Residents -->
+        <div id="residentsFilterPanel" class="filter-panel">
+          <div class="filter-header">
+            <h3>Filter Options</h3>
+            <button class="close-filter" onclick="toggleResidentsFilter()">&times;</button>
+          </div>
+          <div class="filter-content">
+            <div class="filter-group">
+              <label>Sex:</label>
+              <div class="status-checkbox-container">
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Male" data-filter="sex" onchange="updateResidentsSexFilter()">Male
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Female" data-filter="sex" onchange="updateResidentsSexFilter()"> Female
+                </label>
+              </div>
+            </div>
+            
+            <div class="filter-group">
+              <label>Civil Status:</label>
+              <div class="status-checkbox-container">
+                <div class="option">
+                    <label class="checkbox-label">
+                      <input type="checkbox" value="Single" data-filter="civilStatus" onchange="updateResidentsCivilStatusFilter()"> Single
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" value="Married" data-filter="civilStatus" onchange="updateResidentsCivilStatusFilter()"> Married
+                    </label>
+                </div>
+                <div class="option">
+                    <label class="checkbox-label">
+                      <input type="checkbox" value="Widowed" data-filter="civilStatus" onchange="updateResidentsCivilStatusFilter()"> Widowed
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" value="Separated" data-filter="civilStatus" onchange="updateResidentsCivilStatusFilter()"> Separated
+                    </label>
+                </div>
+              </div>
+            </div>
+                    
+            <div class="filter-group">
+              <label>Age Range:</label>
+              <input type="number" id="ageFrom" placeholder="From" min="0" max="120" onchange="applyResidentsFilters()">
+              <span>to</span>
+              <input type="number" id="ageTo" placeholder="To" min="0" max="120" onchange="applyResidentsFilters()">
+            </div>
+            
+            <button class="clear-filters" onclick="clearResidentsFilters()">Clear All</button>
+          </div>
+        </div>
+
+        <!-- Residents Table -->
+        <div class="table-container">
+          <table class="residents-table">
+            <thead>
+              <tr>
+                <th style="width: 10px; text-align: center;">
+                  <input type="checkbox" id="selectAllResidents" onchange="toggleSelectAllResidents()">
+                  Delete
+                </th>
+                <th>Full Name</th>
+                <th>Sex</th>
+                <th>Complete Address</th>
+                <th>Birthday</th>
+                <th>Birthplace</th>
+                <th>Age</th>
+                <th>Civil Status</th>
+                <th>Contact Number</th>
+              </tr>
+            </thead>
+            <tbody id="residentsTableBody">
+              <tr>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="resident-checkbox" name="residentSelect">
+                </td>
+                <td>Juan Dela Cruz</td>
+                <td>Male</td>
+                <td>123 Sampaguita St., Brgy. Example, Quezon City</td>
+                <td>1985-06-15</td>
+                <td>Manila, Philippines</td>
+                <td>39</td>
+                <td>Married</td>
+                <td>09123456789</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="resident-checkbox" name="residentSelect">
+                </td>                
+                <td>Maria Santos</td>
+                <td>Female</td>
+                <td>456 Rose Ave., Brgy. Example, Quezon City</td>
+                <td>1990-03-22</td>
+                <td>Quezon City, Philippines</td>
+                <td>35</td>
+                <td>Single</td>
+                <td>09234567890</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="resident-checkbox" name="residentSelect">
+                </td>
+                <td>Pedro Rodriguez</td>
+                <td>Male</td>
+                <td>789 Lily St., Brgy. Example, Quezon City</td>
+                <td>1978-11-08</td>
+                <td>Cavite, Philippines</td>
+                <td>46</td>
+                <td>Married</td>
+                <td>09345678901</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="resident-checkbox" name="residentSelect">
+                </td>
+                <td>Ana Garcia</td>
+                <td>Female</td>
+                <td>321 Jasmine Rd., Brgy. Example, Quezon City</td>
+                <td>1995-09-12</td>
+                <td>Bulacan, Philippines</td>
+                <td>29</td>
+                <td>Single</td>
+                <td>09456789012</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">
+                  <input type="checkbox" class="resident-checkbox" name="residentSelect">
+                </td>
+                <td>Carlos Mendoza</td>
+                <td>Male</td>
+                <td>654 Tulip Blvd., Brgy. Example, Quezon City</td>
+                <td>1982-01-30</td>
+                <td>Laguna, Philippines</td>
+                <td>43</td>
+                <td>Widowed</td>
+                <td>09567890123</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="edit-controls">
+            <button id="editResidentsBtn" class="edit-btn btn" onclick="toggleEditMode()">
+              <i class="fas fa-edit"></i>Edit Details
+            </button>
+          </div>
+
+          
+          <!-- <div class="residents-action-bar"> -->
+            <div class="primary-actions">
+              <button class="btn-add-resident" onclick="showAddResidentModal()">
+                <i class="fas fa-user-plus"></i>
+                <span>Add Resident</span>
+                <div class="btn-shine"></div>
+              </button>
+              
+<button class="btn-delete-residents" onclick="showDeleteConfirmation()">
+    <i class="fas fa-user-minus"></i>
+    <span>Remove Selected</span>
+    <div class="btn-shine"></div>
+</button>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+<!-- admin -->
+<!-- Replace your existing admin section with this corrected version -->
+
+<!-- Admin Settings Section - Fixed ID and Structure -->
+<div class="content" id="adminSettings" style="display: none;">
+    <div class="admin-settings-container fade-in">
+        <div class="content">
+            <h2><i class="fas fa-cog"></i> Admin Settings</h2>
+        </div>
+
+        <div class="settings-content">
+            <!-- Navigation Tabs -->
+            <div class="settings-nav">
+                <button class="nav-tab active" onclick="showTab('security')">
+                    <i class="fas fa-shield-alt"></i> Security & Access
+                </button>
+                <button class="nav-tab" onclick="showTab('operations')">
+                    <i class="fas fa-cogs"></i> Operations
+                </button>
+                <button class="nav-tab" onclick="showTab('system')">
+                    <i class="fas fa-server"></i> System & Data
+                </button>
+            </div>
+
+            <!-- Security & Access Tab -->
+            <div id="security" class="tab-content active">
+                <!-- <div class="section-header">
+                    <h2><i class="fas fa-shield-alt"></i> Security & Access Control</h2>
+                    <p>Manage authentication, passwords, and access permissions</p>
+                </div> -->
+
+                <div class="settings-row">
+                    <!-- Primary Admin Credentials -->
+                    <div class="settings-group priority-high">
+                        <div class="group-header">
+                            <h3><i class="fas fa-user-shield"></i> Primary Admin Credentials</h3>
+                            <span class="priority-badge">Critical</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="loginUsername">
+                                    <i class="fas fa-user"></i> Admin Username
+                                </label>
+                                <input type="text" id="loginUsername" placeholder="Enter admin username">
+                            </div>
+                            <div class="form-group">
+                                <label for="loginPassword">
+                                    <i class="fas fa-lock"></i> New Password
+                                </label>
+                                <input type="password" id="loginPassword" placeholder="Enter new admin password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Access Control -->
+                    <div class="settings-group">
+                        <div class="group-header">
+                            <h3><i class="fas fa-key"></i> Feature Access Control</h3>
+                            <span class="info-badge">Secure Access</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="residentsPassword">
+                                    <i class="fas fa-users"></i> Residents Management
+                                </label>
+                                <input type="password" id="residentsPassword" placeholder="Password for residents section">
+                            </div>
+                            <div class="form-group">
+                                <label for="movePassword">
+                                    <i class="fas fa-arrows-alt"></i> Move Operations
+                                </label>
+                                <input type="password" id="movePassword" placeholder="Password for moving applications">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editPassword">
+                                    <i class="fas fa-edit"></i> Edit Mode Access
+                                </label>
+                                <input type="password" id="editPassword" placeholder="Password for edit mode">
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                    
+                </div>
+
+                <!-- Session Management -->
+                <div class="settings-group full-width">
+                    <div class="group-header">
+                        <h3><i class="fas fa-clock"></i> Session Management</h3>
+                        <span class="info-badge">Auto-Security</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sessionTimeout">
+                                <i class="fas fa-stopwatch"></i> Auto-logout Timer
+                            </label>
+                            <select id="sessionTimeout">
+                                <option value="0">Disabled</option>
+                                <option value="15">15 minutes</option>
+                                <option value="30" selected>30 minutes</option>
+                                <option value="60">1 hour</option>
+                                <option value="120">2 hours</option>
+                                <option value="240">4 hours</option>
+                                <option value="480">8 hours</option>
+                            </select>
+                            <small>System will automatically log out after this period of inactivity</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="warningTime">
+                                <i class="fas fa-exclamation-triangle"></i> Warning Time
+                            </label>
+                            <select id="warningTime">
+                                <option value="1">1 minute</option>
+                                <option value="2">2 minutes</option>
+                                <option value="5" selected>5 minutes</option>
+                                <option value="10">10 minutes</option>
+                            </select>
+                            <small>Show warning this many minutes before auto-logout</small>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="enableSessionWarning" checked>
+                                <label for="enableSessionWarning">
+                                    <i class="fas fa-bell"></i> Enable logout warning notifications
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                          <div class="system-actions">
+                            <button onclick="showSaveSettingsModal()" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save All Settings
+                            </button>
+                            <button onclick="initiateAccountRecovery()" class="btn btn-warning">
+                                <i class="fas fa-life-ring"></i> Account Recovery
+                            </button>
+                            <button onclick="showLogoutConfirmation()" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout Admin
+                            </button>
+                        </div>
+            </div>
+
+            <!-- Operations Tab -->
+            <div id="operations" class="tab-content">
+                <!-- <div class="section-header">
+                    <h2><i class="fas fa-cogs"></i> Operations Management</h2>
+                    <p>Configure document processing, requirements, and archive settings</p>
+                </div> -->
+
+                <div class="settings-row">
+                    <!-- Document Processing Requirements -->
+                    <div class="settings-group full-width">
+                        <div class="group-header">
+                            <h3><i class="fas fa-clipboard-list"></i> Document Processing Requirements</h3>
+                            <span class="info-badge">Configure Workflows</span>
+                        </div>
+                        <p class="section-description">Configure checklist items for each document type that appear in the view progress modal.</p>
+                        
+                        <div class="document-requirements-section">
+                            <div class="form-group">
+                                <label for="requirementDocType">
+                                    <i class="fas fa-file-alt"></i> Select Document Type
+                                </label>
+                                <select id="requirementDocType" onchange="loadRequirementsForDocType()">
+                                    <option value="">Choose a document type...</option>
+                                    <option value="Barangay Clearance">Barangay Clearance</option>
+                                    <option value="Certificate of Indigency">Certificate of Indigency</option>
+                                    <option value="Business Permit">Business Permit</option>
+                                    <option value="Barangay ID">Barangay ID</option>
+                                    <option value="Certificate of Residency">Certificate of Residency</option>
+                                </select>
+                            </div>
+
+                            <div id="requirementsContainer" style="display: none;">
+                                <div class="requirements-header">
+                                    <h4>Requirements for <span id="selectedDocTypeName"></span></h4>
+                                    <button type="button" class="btn-add-requirement" onclick="addRequirementAtPosition()">
+                                        <i class="fas fa-plus"></i> Add Requirement
+                                    </button>
+                                </div>
+                                
+                                <div id="requirementsList" class="requirements-list">
+                                    <!-- Requirements will be populated here -->
+                                </div>
+                                
+                                <div class="requirements-actions">
+                                    <button type="button" class="btn btn-success" onclick="saveRequirements()">
+                                        <i class="fas fa-save"></i> Save Requirements
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" onclick="resetRequirements()">
+                                        <i class="fas fa-undo"></i> Reset to Default
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archive Settings -->
+                <div class="settings-group">
+                    <div class="group-header">
+                        <h3><i class="fas fa-archive"></i> Archive & Release Settings</h3>
+                        <span class="info-badge">Auto-Management</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="releaseDuration">
+                                <i class="fas fa-calendar-alt"></i> Auto-Archive Duration (days)
+                            </label>
+                            <input type="number" id="releaseDuration" min="1" max="365" placeholder="30">
+                            <small>Released documents will be automatically archived after this many days</small>
+                        </div>
+                    </div>
+                </div>
+                        <div class="system-actions">
+                            <button onclick="showSaveSettingsModal()" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save All Settings
+                            </button>
+                            <button onclick="initiateAccountRecovery()" class="btn btn-warning">
+                                <i class="fas fa-life-ring"></i> Account Recovery
+                            </button>
+                            <button onclick="showLogoutConfirmation()" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout Admin
+                            </button>
+                        </div>
+            </div>
+
+            <!-- System & Data Tab -->
+            <div id="system" class="tab-content">
+                <!-- <div class="section-header">
+                    <h2><i class="fas fa-server"></i> System & Data Management</h2>
+                    <p>Manage backups, data export/import, and system administration</p>
+                </div> -->
+
+                <div class="settings-row">
+                    <!-- Backup & Data Management -->
+                    <div class="settings-group">
+                        <div class="group-header">
+                            <h3><i class="fas fa-database"></i> Backup & Data Management</h3>
+                            <span class="info-badge">Data Protection</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="backupSchedule">
+                                    <i class="fas fa-calendar-check"></i> Automatic Backup Schedule
+                                </label>
+                                <select id="backupSchedule">
+                                    <option value="manual">Manual Only</option>
+                                    <option value="daily">Daily Automatic</option>
+                                    <option value="weekly">Weekly Automatic</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="backup-actions">
+                            <button onclick="performManualBackup()" class="btn btn-primary">
+                                <i class="fas fa-download"></i> Create Manual Backup
+                            </button>
+                            <button onclick="exportDatabase()" class="btn btn-secondary">
+                                <i class="fas fa-file-export"></i> Export Database
+                            </button>
+                            <input type="file" id="importFile" accept=".json" onchange="importDatabase(event)" style="display: none;">
+                            <button onclick="document.getElementById('importFile').click()" class="btn btn-secondary">
+                                <i class="fas fa-file-import"></i> Import Database
+                            </button>
+                        </div>
+                    </div> <br><br><br><br><br>
+
+                      
+                        <div class="system-actions sys-btn">
+                            <button onclick="showSaveSettingsModal()" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save All Settings
+                            </button>
+                            <button onclick="initiateAccountRecovery()" class="btn btn-warning">
+                                <i class="fas fa-life-ring"></i> Account Recovery
+                            </button>
+                            <button type="button" onclick="showLogoutConfirmation()" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout Admin
+                            </button>
+                        </div>                    
+
+                    <!-- System Actions
+                    <div class="settings-group">
+                        <div class="group-header">
+                            <h3><i class="fas fa-tools"></i> System Administration</h3>
+                            <span class="priority-badge">Admin Actions</span>
+                        </div>
+                        <div class="system-actions">
+                            <button onclick="showSaveSettingsModal()" class="btn btn-success">
+                                <i class="fas fa-save"></i> Save All Settings
+                            </button>
+                            <button onclick="initiateAccountRecovery()" class="btn btn-warning">
+                                <i class="fas fa-life-ring"></i> Account Recovery
+                            </button>
+                            <button onclick="logoutAdmin()" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Logout Admin
+                            </button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </div>
+
+  <!-- doc request Modal -->
+  <div id="applicantModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="applicantName">Applicant Name</h2>
+      <label>Document Type:</label>
+      <div id="docType"></div>
+      <label>Status:</label>
+      <div id="status"></div>
+      <label>Purpose:</label>
+      <div id="purpose"></div>
+      <label>Checklist:</label>
+      <div class="checklist" id="checklist">
+        <!-- Checklist items dynamically inserted here -->
+      </div>
+      <div class="actions">
+        <button class="approve-btn" id="approveBtn" onclick="approveApplication()" disabled>Approve</button>
+        <button class="reject-btn" onclick="rejectApplication()">Reject</button>
+      </div>
+    </div>
+  </div>
+
+<!-- passw resident modal -->
+ <div class="passwordmodal" id="residentsPasswordModal" style="display: none;">
+  <div class="passwordmodal-content" style="max-width: 400px; ">
+    <div class="passwordmodal-header">
+      <div class="lock-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h3>Restricted Access</h3>
+      <p>Enter password to access Residents Management</p>
+    </div>
+    <div class="passwordmodal-body">
+      <div class="password-input-group">
+        <input type="password" id="residentsPasswordInput" placeholder="Enter password..." />
+      </div>
+   
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="cancelResidentsPassword()">
+                <i class="fas fa-times"></i> Cancel
+              </button>
+              <button type="button" class="btn btn-primary" onclick="confirmResidentsPassword()">
+                <i class="fas fa-unlock"></i> Access
+              </button>
+          </div>
+            <div class="forgot-password-section" >
+                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                    Forgot Password?
+                </button>
+            </div>
+      </div>
+  </div>
+</div>
+
+  <!-- edit resident modal </body> -->
+<div id="passwordModal" class="passwordmodal">
+  <div class="passwordmodal-content">
+    <div class="passwordmodal-header">
+      <div class="lock-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+    <h3>Enter Password to Edit Residents</h3>
+  </div>
+  <div class="passwordmodal-body">
+      <div class="password-input-group">
+      <input type="password" id="passwordInput" class="password-input-group" placeholder="Enter password">
+      </div>
+      <div class="modal-footer">
+        <button class="password-btn cancel btn" onclick="cancelPassword()">Cancel</button>
+        <button class="password-btn confirm btn" onclick="confirmPassword()">Confirm</button>
+      </div>
+            <div class="forgot-password-section" >
+                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                    Forgot Password?
+                </button>
+            </div>
+  </div>
+  </div>
+</div>
+
+ <!-- Add Resident Modal -->
+<div class="add-modal" id="addResidentModal" style="display: none;">
+  <div class="addmodal-content" style="max-width: 600px;">
+    <div class="addmodal-header">
+      <h3>Add New Resident</h3>
+      <span class="close" onclick="hideAddResidentModal()">&times;</span>
+    </div>
+    <div class="addmodal-body">
+      <form id="addResidentForm">
+        <div class="addform-row">
+          <div class="addform-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" name="fullName" required>
+          </div>
+          <div class="addform-group">
+            <label for="sex">Sex *</label>
+            <select id="sex" name="sex" required>
+              <option value="">Select Sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="addform-group">
+          <label for="address">Complete Address *</label>
+          <textarea id="address" name="address" rows="2" required></textarea>
+        </div>
+        
+        <div class="addform-row">
+          <div class="form-group">
+            <label for="birthday">Birthday *</label>
+            <input type="date" id="birthday" name="birthday" required>
+          </div>
+          <div class="addform-group">
+            <label for="birthplace">Birthplace *</label>
+            <input type="text" id="birthplace" name="birthplace" required>
+          </div>
+        </div>
+        
+        <div class="addform-row">
+          <div class="addform-group">
+            <label for="civilStatus">Civil Status *</label>
+            <select id="civilStatus" name="civilStatus" required>
+              <option value="">Select Status</option>
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+            </select>
+          </div>
+          <div class="addform-group">
+            <label for="contactNumber">Contact Number</label>
+            <input type="text" id="contactNumber" name="contactNumber" placeholder="09xxxxxxxxx">
+          </div>
+        </div>
+      </form>
+      
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="hideAddResidentModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="addResident()">Add Resident</button>
+      </div>
+    
+  </div>
+</div>
+
+    <!-- Delete Residents Confirmation Modal -->
+    <!-- <div class="modal fade passwordmodal" id="deleteResidentsModal" tabindex="-1" aria-labelledby="deleteResidentsModalLabel" aria-hidden="true">
+        
+            <div class="passwordmodal-content">
+                <div class="passwordmodal-header">
+                    <h3 class="modal-title" id="deleteResidentsModalLabel">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Confirm Deletion
+                    </h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="passwordmodal-body">
+                    <div class="delete-icon">
+                        <i class="fas fa-user-minus"></i>
+                    </div>
+                    <h5 class="mb-3" id="deleteConfirmationText">Are you sure you want to delete the selected residents?</h5>
+                    <p class="text-muted">This action cannot be undone. The selected resident records will be permanently removed from the system.</p>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDeleteResidents()">
+                        <i class="fas fa-trash-alt"></i>
+                        Yes, Delete
+                    </button>
+                </div>
+              </div>
+            </div>
+     
+    </div> -->
+
+<!-- admin modal -->
+<div id="adminPasswordModal" class="passwordmodal" style="display: none;">
+    <div class="passwordmodal-content">
+        <div class="passwordmodal-header">
+              <div class="lock-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <h3>Restricted Access</h3>
+              <p>Enter password to access admin settings</p>
+        </div>
+        <div class="passwordmodal-body">
+            <div class="password-input-group">
+                <input type="password" id="adminPasswordInput" placeholder="Enter admin password" autocomplete="off">  
+            </div>
+            <div class="modal-footer">
+                <button onclick="cancelAdminPassword().style.display='none'" class="btn btn-secondary">
+                    Cancel
+                </button>
+                <button class="btn btn-primary" onclick="confirmAdminPassword()">
+                    <i class="fas fa-unlock"></i> Access Settings
+                </button>
+            </div>
+            <div class="forgot-password-section" >
+                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                    Forgot Password?
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Save Settings Password Modal -->
+<div id="saveSettingsModal" class="passwordmodal" style="display: none;">
+    <div class="passwordmodal-content">
+        <div class="passwordmodal-header">
+              <div class="lock-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+            <h3>Confirm Save Settings</h3>
+            <p>Please enter your admin password to save all settings changes:</p>
+        </div>
+        <div class="passwordmodal-body">
+            
+            <div class="password-input-group">
+                <input type="password" id="saveSettingsPasswordInput" placeholder="Enter Admin Password" class="form-control">
+            </div>
+
+          <div class="modal-footer">
+              <button onclick="cancelSaveSettings()" class="btn-secondary btn">
+                  Cancel
+              </button>
+              <button onclick="confirmSaveSettings()" class="btn-primary btn">
+                  Confirm & Save
+              </button>
+          </div> 
+      </div>
+    </div>
+</div>
+<!-- template modal -->
+
+
+<!-- password modal for released -->
+<div id="movePasswordModal" class="passwordmodal" style="display: none;">
+  <div class="passwordmodal-content">
+      <div class="passwordmodal-header"> 
+            <div class="lock-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+          <h3>Enter Password to Move Applications</h3>
+          <p id="movePasswordText">You are about to move applications</p>
+      </div> 
+
+      <div class="passwordmodal-body">
+        <div class="password-input-group">
+          <input type="password" id="movePasswordInput" class="password-input" placeholder="Enter password">
+        </div>
+          <div class="modal-footer">
+                <button class="btn btn-secondary cancel" onclick="cancelMovePassword()">Cancel</button>
+                <button class="btn btn-primary confirm" onclick="confirmMovePassword()">Move Applications</button>
+          </div>
+            <div class="forgot-password-section" >
+                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                    Forgot Password?
+                </button>
+            </div>
+      </div>
+
+  </div>
+</div>
+
+
+<!-- forgot password modal -->
+<div id="forgotPasswordModal" class="passwordmodal" style="display: none;">
+    <div class="passwordmodal-content">
+      <div class="passwordmodal-header">
+        <h3>Password Recovery</h3>
+        <p>Enter your recovery email to reset your <span id="forgotPasswordType"></span> password:</p>
+      </div>
+      <div class="passwordmodal-body">
+        <div class="password-input-group">
+                <input type="email" id="recoveryEmail" placeholder="Enter your recovery email">
+        </div>
+      </div>
+      <div class="modal-footer">
+            <button onclick="processForgotPassword()" class="btn btn-primary">Send Recovery Email</button>
+            <button onclick="closeForgotPasswordModal()" class="btn btn-secondary cancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- log out -->
+ <!-- Logout Confirmation Modal -->
+    <div class="modal fade logout-modal" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Confirm Logout
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="logout-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <h5 class="mb-3">Are you sure you want to logout?</h5>
+                    <p class="text-muted">You will need to re-authenticate to access the admin panel again.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="confirmLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Yes, Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- session warning -->
+<!-- Session Warning Modal -->
+<div id="sessionWarningModal" class="modal" style="z-index: 9999;">
+    <div class="modal-content" style="max-width: 450px; text-align: center;">
+        <div class="modal-header">
+            <div class="warning-icon" style="color: #ff6b35; font-size: 48px; margin-bottom: 15px;">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 style="color: #ff6b35;">Session Timeout Warning</h3>
+            <p>Your session will expire in <span id="warningCountdown" style="font-weight: bold; color: #ff6b35;">5:00</span></p>
+        </div>
+        <div class="modal-body">
+            <p>You will be automatically logged out due to inactivity.</p>
+            <p>Click "Stay Logged In" to continue your session.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="extendSession()">
+                <i class="fas fa-clock"></i> Stay Logged In
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="logoutNow()">
+                <i class="fas fa-sign-out-alt"></i> Logout Now
+            </button>
+        </div>
+    </div>
+</div>
+<div id="sessionStatusIndicator" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 1000;
+    display: none;
+    transition: all 0.3s ease;
+">
+    <i class="fas fa-clock"></i>
+    <span id="sessionTimeLeft">30:00</span>
+</div>
+<div id="toastContainer" class="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="../Admin/dashboard.js">
+   
+  </script>
+</body>
+
+</html>
