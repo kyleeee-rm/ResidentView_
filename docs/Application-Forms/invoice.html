@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'primary-dark': '#2B3209',
+            'primary-medium': '#4B5320',
+            'primary-light': '#6A7337',
+            'accent-green': '#8A9A5B',
+            'accent-gold': '#BD8F42',
+            'accent-light-gold': '#D0B564',
+            'cream': '#FFFFF0',
+            'dark-blue': '#0B1215',
+          },
+          fontFamily: {
+            'inter': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 20s ease-in-out infinite',
+            'pulse-custom': 'pulse-custom 2s ease-in-out infinite',
+            'slide-down': 'slide-down 1s ease-out',
+            'slide-up': 'slide-up 1s ease-out 0.3s both',
+            'fade-in': 'fade-in 1s ease-out 0.6s both',
+            'fade-in-delayed': 'fade-in 1s ease-out 1s both',
+            'gradientShift': 'gradientShift 15s ease infinite',
+          },
+          keyframes: {
+            'float': {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-20px) rotate(2deg)' },
+            },
+            'pulse-custom': {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' },
+            },
+            'slide-down': {
+              'from': { opacity: '0', transform: 'translateY(-30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'slide-up': {
+              'from': { opacity: '0', transform: 'translateY(30px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'fade-in': {
+              'from': { opacity: '0', transform: 'translateY(40px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'gradientShift': {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' },
+            },
+          },
+          backdropBlur: {
+            'xs': '2px',
+          },
+          screens: {
+            'xs': '475px',
+            '3xl': '1920px',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-image: url('_MG_0668.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(43, 50, 9, 0.8) 0%, rgba(75, 83, 32, 0.7) 25%, rgba(106, 115, 55, 0.6) 50%, rgba(138, 154, 91, 0.7) 75%, rgba(75, 83, 32, 0.8) 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .card-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .card-shimmer:hover::before {
+      left: 100%;
+    }
+    
+    .heading-font {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Mobile Optimizations */
+    @media (max-width: 640px) {
+      body {
+        background-attachment: scroll;
+      }
+      
+      .card-shimmer:hover::before {
+        display: none;
+      }
+      
+      .heading-font {
+        letter-spacing: 0.02em;
+      }
+    }
+    
+    /* Tablet Optimizations */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .heading-font {
+        letter-spacing: 0.03em;
+      }
+    }
+    
+    /* Large Screen Optimizations */
+    @media (min-width: 1920px) {
+      body {
+        font-size: 18px;
+      }
+    }
+    
+    /* Print Styles */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      
+      body::before {
+        display: none !important;
+      }
+      
+      .card-shimmer::before {
+        display: none !important;
+      }
+      
+      .print-hide {
+        display: none !important;
+      }
+      
+      .invoice-container {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: white !important;
+        border-radius: 0 !important;
+      }
+      
+      * {
+        animation: none !important;
+        transition: none !important;
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      
+      .text-accent-gold {
+        color: #BD8F42 !important;
+      }
+      
+      .text-primary-dark {
+        color: #2B3209 !important;
+      }
+      
+      .text-primary-medium {
+        color: #4B5320 !important;
+      }
+      
+      .bg-primary-dark {
+        background-color: #2B3209 !important;
+      }
+      
+      .text-cream {
+        color: #FFFFF0 !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen py-4 sm:py-6 lg:py-10 px-3 sm:px-4 lg:px-6 text-cream">
+  <div class="max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl mx-auto bg-cream/95 backdrop-blur-sm text-primary-dark p-4 sm:p-6 lg:p-10 rounded-xl lg:rounded-2xl shadow-2xl border border-accent-green/20 card-shimmer animate-slide-down invoice-container">
+    <div class="text-center mb-6 sm:mb-8 lg:mb-10 animate-fade-in">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold heading-font text-accent-gold animate-pulse-custom">INVOICE</h1>
+      <p class="text-primary-medium mt-1 sm:mt-2 font-medium text-sm sm:text-base">Barangay Management System</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8 animate-slide-up">
+      <div class="bg-primary-dark/5 p-3 sm:p-4 rounded-lg border border-accent-green/30">
+        <h2 class="text-base sm:text-lg font-bold text-primary-dark mb-2">From:</h2>
+        <p class="text-primary-medium text-sm sm:text-base">Barangay Hall Market Area<br />123 Main St.<br />Santa Rosa City</p>
+      </div>
+      <div class="bg-primary-dark/5 p-3 sm:p-4 rounded-lg border border-accent-green/30">
+        <h2 class="text-base sm:text-lg font-bold text-primary-dark mb-2">To:</h2>
+        <p class="text-primary-medium text-sm sm:text-base">Juan Dela Cruz<br />456 Secondary St.<br />Laguna</p>
+      </div>
+    </div>
+
+    <div class="mb-4 sm:mb-6 bg-accent-green/10 p-3 sm:p-4 rounded-lg border border-accent-green/30 animate-fade-in">
+      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+        <p class="text-sm sm:text-base"><strong class="text-primary-dark">Invoice Number:</strong> <span class="text-accent-gold font-semibold">9832113</span></p>
+        <p class="text-sm sm:text-base"><strong class="text-primary-dark">Date Issued:</strong> <span class="text-primary-medium">May 27, 2025</span></p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto animate-fade-in-delayed">
+      <div class="min-w-full">
+        <table class="w-full table-auto border border-accent-green/40 rounded-lg overflow-hidden shadow-lg">
+          <thead>
+            <tr class="bg-primary-dark text-cream">
+              <th class="border border-accent-green/40 px-2 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm">Item</th>
+              <th class="border border-accent-green/40 px-2 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm">Description</th>
+              <th class="border border-accent-green/40 px-2 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm">Qty</th>
+              <th class="border border-accent-green/40 px-2 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm">Price</th>
+              <th class="border border-accent-green/40 px-2 sm:px-4 py-2 sm:py-3 font-semibold text-xs sm:text-sm">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hover:bg-accent-green/10 transition-colors duration-200">
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">Bail Certificate</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm">₱100.00</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right font-semibold text-accent-gold text-xs sm:text-sm">₱100.00</td>
+            </tr>
+            <tr class="hover:bg-accent-green/10 transition-colors duration-200">
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">2</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">Residency Certificate</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm">₱50.00</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right font-semibold text-accent-gold text-xs sm:text-sm">₱50.00</td>
+            </tr>
+            <tr class="hover:bg-accent-green/10 transition-colors duration-200">
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">3</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">Late Registration</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm">₱50.00</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right font-semibold text-accent-gold text-xs sm:text-sm">₱50.00</td>
+            </tr>
+            <tr class="hover:bg-accent-green/10 transition-colors duration-200">
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">4</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">State Tax Certificate</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm">₱50.00</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right font-semibold text-accent-gold text-xs sm:text-sm">₱50.00</td>
+            </tr>
+            <tr class="hover:bg-accent-green/10 transition-colors duration-200">
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">5</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm">Bail Certificate</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">1</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm">₱50.00</td>
+              <td class="border border-accent-green/30 px-2 sm:px-4 py-2 sm:py-3 text-right font-semibold text-accent-gold text-xs sm:text-sm">₱50.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-right mt-4 sm:mt-6 bg-accent-gold/10 p-3 sm:p-4 rounded-lg border border-accent-gold/30 animate-fade-in-delayed">
+      <p class="text-xl sm:text-2xl font-bold text-primary-dark">Total: <span class="text-accent-gold">₱300.00</span></p>
+    </div>
+
+    <div class="mt-6 sm:mt-8 lg:mt-10 text-center animate-fade-in-delayed">
+      <p class="text-xs sm:text-sm text-primary-medium font-medium">Thank you for transacting with us.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 animate-fade-in-delayed print-hide">
+      <button onclick="window.print()" class="w-full sm:w-auto bg-accent-gold hover:bg-accent-light-gold text-primary-dark px-6 sm:px-8 py-3 rounded-lg shadow-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl card-shimmer text-sm sm:text-base">
+        Print Invoice
+      </button>
+       <a href="Bail.html"> 
+      <button onclick="window.location.href='index.html'" class="w-full sm:w-auto bg-primary-dark hover:bg-primary-medium text-cream px-6 sm:px-8 py-3 rounded-lg shadow-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl card-shimmer text-sm sm:text-base">
+        Exit
+      </button>
+    </div>
+  </a>
+  </div>
+</body>
+</html>
