@@ -241,6 +241,7 @@
         }
 
         .affirmation-section {
+
             background-color: #fff8dc;
             border: 2px solid #D0B564;
             border-radius: 10px;
@@ -249,7 +250,7 @@
         }
 
         .affirmation-section h4 {
-            color: #2B3209;
+            color: #721313;
             margin-bottom: 15px;
         }
 
@@ -398,14 +399,16 @@
 
         <div id="Forms" class="mx-auto max-w-7xl">
             <form action="" id="Submit-form">
-                <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please provide accurate information for your Community Tax Certificate application. <br></h3>
-                
-                <div id="icon" class="hover:scale-110 transition-transform duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
-                    </svg>
-                </div>            
-        
-                <p id="instruction" class="text-sm sm:text-base mb-6">All fields marked with asterisk (*) are required. Ensure all information is accurate to avoid penalties.</p>
+        <form action="" id="ApplicationForm">
+            <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please collect all the necessary requirements before applying then provide the required information. <br></h3>
+
+        <div id="icon" class="hover:scale-110 transition-transform duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"/>
+        </svg>
+        </div>          
+    
+        <p id="instruction" class="text-sm sm:text-base mb-6"> Your registration details will be used to complete the basic information required for the application. If you wish to update or make changes to your information, please proceed to the Barangay Hall for assistance.</p>
             
                 <div class="fields">
                     <!-- Tax Calculation Section -->
@@ -414,14 +417,14 @@
                         
                         <!-- Additional Tax Based On Income -->
                         <div class="mb-4">
-                            <label for="gross-income" class="block text-sm sm:text-base font-medium mb-2">Gross Receipts/Earnings from Business/Profession (Annual): *</label>
+                            <label for="gross-income" class="block text-sm sm:text-base font-medium mb-2">Gross Receipts/Earnings from Business/Profession (Annual) <span class="text-red-500">*</span></label>
                             <input type="number" id="gross-income" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="0" step="1" oninput="calculateTax()" required>
                             <p class="text-xs text-gray-600 mt-1">Enter your total annual income from all sources</p>
                         </div>
 
                         <!-- Additional Tax Based On Real Property -->
                         <div class="mb-4">
-                            <label for="property-value" class="block text-sm sm:text-base font-medium mb-2">Real Property Owned (Assessed Value): *</label>
+                            <label for="property-value" class="block text-sm sm:text-base font-medium mb-2">Real Property Owned (Assessed Value) <span class="text-red-500">*</span></label>
                             <input type="number" id="property-value" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="0" step="1" oninput="calculateTax()" required>
                             <p class="text-xs text-gray-600 mt-1">Enter the total assessed value of all real properties you own</p>
                         </div>
@@ -446,20 +449,32 @@
                                 <span class="amount" id="display-total">₱5.00</span>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Affirmation Section -->
-                    <div class="affirmation-section">
-                        <h4 class="text-lg font-bold mb-4">Statement of Truth and Affirmation</h4>
-                        <div class="mb-4">
-                            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-                            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+                        
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required>
-                            <label for="truth-affirmation" class="text-sm sm:text-base font-medium">
-                                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+
+                    
+                     <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold text-amber-800">Statement of Truth and Affirmation</h4>
+                        
+                        
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
+                            <label for="truth-affirmation" class="ml-3 text-sm sm:text-base font-medium">
+                                
+                                I solemnly affirm that all information provided regarding my family's income and household composition is true and correct. I understand that providing false information is punishable by law. <span class="text-red-500">*</span>
                             </label>
                         </div>
                     </div>
@@ -470,7 +485,7 @@
                         <div class="checkbox-option">
                             <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
                             <label for="penalty-understanding" class="text-sm sm:text-base">
-                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties <span class="text-red-500">*</span>
                             </label>
                         </div>
                         <ul class="list-disc list-inside text-sm space-y-1 ml-6 mt-3">
@@ -481,10 +496,31 @@
                             <li>Legal action for tax evasion</li>
                         </ul>
                     </div>
+
+                     <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4">Required Documents to Bring:</h3>
+                    <p class="mb-4 text-sm sm:text-base">Please bring the following documents when you visit the Civil Registry Office:</p>
+
+                    <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4">
+                        <li>Valid Government-Issued ID </li>
+                        <li>Cedula (CTC) </li>
+                        <li>Voter’s ID or Certificate</li>
+                        <li>Payment for registration fees and penalties</li>
+                    </ul>
+
+                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
+                        <p class="text-sm text-blue-800">
+                            <strong>Note:</strong> Processing fee may apply. Please inquire at the Barangay Hall for current rates.
+                        </p>
+                    </div>
+
+                    
                 </div>
+                
 
                 <div id="Submit" class="text-center">
                     <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
+                </div>
                 </div>
             </form>
         </div>
@@ -519,7 +555,11 @@
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+
         function calculateTax() {
             const grossIncome = parseFloat(document.getElementById('gross-income').value) || 0;
             const propertyValue = parseFloat(document.getElementById('property-value').value) || 0;

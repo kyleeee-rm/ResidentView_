@@ -381,16 +381,56 @@
             pointer-events: auto;
         }
 
-        .affirmation-section h4, .penalty-warning h5 {
-            color: #2B3209;
+       .affirmation-section {
+
+            background-color: #fff8dc;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .affirmation-section h4 {
+            color: #721313;
             margin-bottom: 15px;
         }
 
-        .penalty-warning h5 {
-            color: #BD8F42; /* Adjust color if needed to match previous interaction */
-            font-size: 1.25rem; /* Adjust font size if needed to match previous interaction */
-            font-weight: bold;
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
         }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option label {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
     </style>
 </head>
 <body>
@@ -433,59 +473,55 @@
 
         <div id="Forms" class="mx-auto max-w-7xl">
             <form action="" id="Submit-form">
-                <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please provide accurate information for the Birth Certificate application. <br></h3>
-                
-                <div id="icon" class="hover:scale-110 transition-transform duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
-                    </svg>
-                </div>             
-        
-                <p id="instruction" class="text-sm sm:text-base mb-6">All fields marked with asterisk (*) are required.</p>
+                    <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please collect all the necessary requirements before applying then provide the required information. <br></h3>
+
+        <div id="icon" class="hover:scale-110 transition-transform duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"/>
+        </svg>
+        </div>          
+    
+        <p id="instruction" class="text-sm sm:text-base mb-6"> Your registration details will be used to complete the basic information required for the application. If you wish to update or make changes to your information, please proceed to the Barangay Hall for assistance.</p>
             
                 <div class="fields">
                     <div class="mb-4">
-                        <label for="child-name" class="block text-sm sm:text-base font-medium mb-2">Name of Child: *</label>
+                        <label for="child-name" class="block text-sm sm:text-base font-medium mb-2">Name of Child <span class="text-red-500">*</span></label>
                         <input type="text" id="child-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter the full name of the child" required>
                     </div>
 
-                    <div class="type">
-                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Sex: *</label>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="sex" value="male" required>
-                                Male
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="sex" value="female" required>
-                                Female
-                            </label>
-                        </div>
+                    <div class="gender">
+                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Gender <span class="text-red-500">*</span></label>
+                        <select name="dropdown" id="gender">
+                            <option value="" disabled selected>Choose gender</option>
+                            <option value="male" >Male</option>
+                            <option value="female" >Female</option>
+                        </select>
                     </div>
 
                     <div class="mb-4">
-                        <label for="birth-weight" class="block text-sm sm:text-base font-medium mb-2">Birth Weight (in kilograms): *</label>
+                        <label for="birth-weight" class="block text-sm sm:text-base font-medium mb-2">Birth Weight (in kilograms) <span class="text-red-500">*</span></label>
                         <input type="number" id="birth-weight" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="e.g., 3.5" step="0.1" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="date-of-birth" class="block text-sm sm:text-base font-medium mb-2">Date of Birth: *</label>
+                        <label for="date-of-birth" class="block text-sm sm:text-base font-medium mb-2">Date of Birth <span class="text-red-500">*</span></label>
                         <input type="date" id="date-of-birth" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="place-of-delivery" class="block text-sm sm:text-base font-medium mb-2">Place of Delivery: *</label>
+                        <label for="place-of-delivery" class="block text-sm sm:text-base font-medium mb-2">Place of Delivery <span class="text-red-500">*</span></label>
                         <select id="place-of-delivery" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                             <option value="">Select place of delivery</option>
                             <option value="hospital">Hospital</option>
                             <option value="lying-in">Lying-in Clinic</option>
                             <option value="home">Home</option>
-                            <option value="others">Others (Specify below)</option>
+                            <option value="others">Others</option>
                         </select>
                         <input type="text" id="place-of-delivery-other" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 mt-2 hidden" placeholder="Specify other place of delivery">
                     </div>
 
                     <div class="type">
-                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Type of Delivery: *</label>
+                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Type of Delivery <span class="text-red-500">*</span></label>
                         <div class="radio-group">
                             <label class="radio-option">
                                 <input type="radio" name="delivery-type" value="caesarean" required>
@@ -499,30 +535,40 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="attended-by" class="block text-sm sm:text-base font-medium mb-2">Attended by: *</label>
+                        <label for="attended-by" class="block text-sm sm:text-base font-medium mb-2">Attended by <span class="text-red-500">*</span></label>
                         <select id="attended-by" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                             <option value="">Select attendant</option>
                             <option value="doctor">Doctor</option>
                             <option value="nurse">Nurse</option>
                             <option value="midwife">Midwife</option>
                             <option value="hilot">Hilot/TBA (Traditional Birth Attendant)</option>
-                            <option value="others">Others (Specify below)</option>
+                            <option value="others">Others </option>
                         </select>
                         <input type="text" id="attended-by-other" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 mt-2 hidden" placeholder="Specify other attendant">
                     </div>
+
+                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
                 </div>
+
+               
 
                 <div class="affirmation-section">
                     <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-                    <div class="mb-4">
-                        <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-                        <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
-                    </div>
+                    
                     
                     <div class="checkbox-option mb-4">
                         <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required>
                         <label for="truth-affirmation" class="text-sm sm:text-base font-medium">
-                            I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
+                            I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law <span class="text-red-500">*</span>
                         </label>
                     </div>
                 </div>
@@ -532,7 +578,7 @@
                     <div class="checkbox-option mb-4">
                         <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
                         <label for="penalty-understanding" class="text-sm sm:text-base">
-                            I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+                            I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties <span class="text-red-500">*</span>
                         </label>
                     </div>
                     <ul class="list-disc list-inside text-sm space-y-1 ml-6">
@@ -556,6 +602,11 @@
                         <li>Affidavit of Live Birth (if necessary)</li>
                         <li>Any other supporting documents that prove the child's birth</li>
                     </ul>
+                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
+                        <p class="text-sm text-blue-800">
+                            <strong>Note:</strong> Processing fee may apply. Please inquire at the Barangay Hall for current rates.
+                        </p>
+                    </div>
                 </div>
 
                 <div id="Submit" class="text-center">
@@ -596,6 +647,9 @@
     </footer>
 
     <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+
         document.addEventListener('DOMContentLoaded', function() {
             const placeOfDeliverySelect = document.getElementById('place-of-delivery');
             const placeOfDeliveryOtherInput = document.getElementById('place-of-delivery-other');

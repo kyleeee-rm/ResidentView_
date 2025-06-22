@@ -393,7 +393,30 @@
             border: 2px solid #D0B564;
             border-radius: 10px;
             background-color: #FFFFF0;
+        } 
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
         }
+
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+
     </style>   
 
     <link rel="icon" type="img/png" href="MA_seal.png" >
@@ -405,7 +428,7 @@
             <i style="color:white;" class="fa-solid fa-arrow-left text-xl hover:scale-110 transition-transform duration-200"></i>
         </a>
         <div class="head flex-1 text-center px-4"> 
-            <h1 class="font-bold text-white mb-2 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">Certificate of No Objecti</h1>
+            <h1 class="font-bold text-white mb-2 text-2xl sm:text-3xl lg:text-4xl xl:text-5xl">Certificate of No Objection</h1>
             <p class="text-white text-sm sm:text-base">HOME / CERTIFICATE OF NO OBJECTION</p>
         </div>
         <div class="flex-shrink-0 w-8 hidden sm:block"></div> <!-- Spacer for alignment -->
@@ -472,13 +495,22 @@
                 </div>
             </div>   
 
+            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+
             <!-- Affirmation Section -->
                     <div class="affirmation-section">
                         <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-                        <div class="mb-4">
-                            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: <span class="text-red-500">*</span></label>
-                            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided regarding my family's income and household composition is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
-                        </div>
+                        
                         
                         <div class="checkbox-option mb-4 flex">
                             <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
@@ -506,10 +538,8 @@
                             <li>Civil and criminal liability</li>
                         </ul>
                     </div>
-                    </div>
-            
 
-            <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                    <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
                 <h3 class="text-lg sm:text-xl font-semibold mb-4">Required Documents to Bring:</h3>
                 <p class="mb-4 text-sm sm:text-base">Please bring the following documents when you visit the Civil Registry Office:</p>
                 <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4">
@@ -517,11 +547,20 @@
                     <li>Photo Copy of the owner's Certificate of Title and or Tax Declaration</li>
                     <li>Photo Copy or Blueprint of the Building Plan</li>
                 </ul>
+                <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded">
+                        <p class="text-sm text-blue-800">
+                            <strong>Note:</strong> Processing fee may apply. Please inquire at the Barangay Hall for current rates.
+                        </p>
+                    </div>
             </div>
 
              <div id="Submit" class="text-center">
                 <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-[#4B5320] hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
             </div>
+                    </div>
+            
+
+            
 
             </div>
 
@@ -565,10 +604,14 @@
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
         // Set today's date as default for filing date
         document.getElementById('filing-date').valueAsDate = new Date();
 
+        
+
         // Form submission handler
+    </script>
 
     
