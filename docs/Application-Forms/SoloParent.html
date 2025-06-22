@@ -610,7 +610,7 @@
 
                     
                 </div>
-                
+
                      <div id="Submit" class="text-center">
                 <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-[#4B5320] hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
             </div> 
@@ -658,6 +658,9 @@
 
     <script src="script.js"></script>
     <script>
+    // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+        
         document.getElementById('enter-btn').addEventListener('click', function (event) {
     event.preventDefault(); // Prevent form from submitting
 

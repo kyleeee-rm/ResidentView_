@@ -487,27 +487,25 @@
                 <p id="instruction" class="text-sm sm:text-base mb-6">Please provide accurate information for your business closure application. All fields marked with asterisk (*) are required.</p>
             
                 <div class="fields">
-                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
-                        <h4 class="text-lg font-semibold text-green-800 mb-2">Business Information</h4>
-                    </div>
+                    
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
                         <div class="flex-1">
-                            <label for="owner-name" class="block text-sm sm:text-base font-medium mb-2">Name of Business Owner / Proprietor: *</label>
+                            <label for="owner-name" class="block text-sm sm:text-base font-medium mb-2">Name of Business Owner / Proprietor <span class="text-red-500">*</span></label>
                             <input type="text" id="owner-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         <div class="flex-1">
-                            <label for="business-name" class="block text-sm sm:text-base font-medium mb-2">Business Name / Trade Name: *</label>
+                            <label for="business-name" class="block text-sm sm:text-base font-medium mb-2">Business Name / Trade Name <span class="text-red-500">*</span></label>
                             <input type="text" id="business-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="business-address" class="block text-sm sm:text-base font-medium mb-2">Business Address: *</label>
+                        <label for="business-address" class="block text-sm sm:text-base font-medium mb-2">Business Address <span class="text-red-500">*</span></label>
                         <input type="text" id="business-address" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                     </div>
 
                     <div class="type mb-6 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
-                        <label class="type-label block text-sm sm:text-base font-medium mb-4">Type of Business: *</label>
+                        <label class="type-label block text-sm sm:text-base font-medium mb-4">Type of Business: <span class="text-red-500">*</span></label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                             <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200">
                                 <input type="radio" name="business-type" value="sole-proprietorship" class="w-4 h-4 text-red-600 focus:ring-red-500" required> 
@@ -531,19 +529,19 @@
 
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
                         <div class="flex-1">
-                            <label for="permit-number" class="block text-sm sm:text-base font-medium mb-2">Barangay Business Permit / Clearance Number: *</label>
+                            <label for="permit-number" class="block text-sm sm:text-base font-medium mb-2">Barangay Business Permit / Clearance Number <span class="text-red-500">*</span></label>
                             <input type="text" id="permit-number" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         <div class="flex-1">
-                            <label for="closure-date" class="block text-sm sm:text-base font-medium mb-2">Date of Closure: *</label>
+                            <label for="closure-date" class="block text-sm sm:text-base font-medium mb-2">Date of Closure <span class="text-red-500">*</span></label>
                             <input type="date" id="closure-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label for="closure-reason" class="block text-sm sm:text-base font-medium mb-2">Reason for Closure: *</label>
+                        <label for="closure-reason" class="block text-sm sm:text-base font-medium mb-2">Reason for Closure <span class="text-red-500">*</span></label>
                         <select id="closure-reason" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
-                            <option value="">Select reason for closure</option>
+                            <option value="" disabled selected>Select reason for closure</option>
                             <option value="ceased-operations">Ceased Operations</option>
                             <option value="financial-loss">Financial Loss</option>
                             <option value="relocation">Relocation</option>
@@ -551,6 +549,10 @@
                             <option value="change-business">Change of Business</option>
                             <option value="other">Other (Please specify in additional details)</option>
                         </select>
+                    </div>
+
+                    <div class="othersContainer">
+                        <label for="others">If others, please specify <span class="text-red-500">*</span></label>
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
@@ -571,7 +573,7 @@
 
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
                         <div class="flex-1">
-                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Filing: *</label>
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span></label>
                             <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         <div class="flex-1">

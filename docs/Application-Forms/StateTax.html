@@ -533,7 +533,11 @@
         </div>
     </footer>
 
+    <script src="script.js"></script>
     <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+
         function calculateTax() {
             const grossIncome = parseFloat(document.getElementById('gross-income').value) || 0;
             const propertyValue = parseFloat(document.getElementById('property-value').value) || 0;

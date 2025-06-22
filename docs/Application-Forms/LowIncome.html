@@ -676,7 +676,10 @@
 
 
      <script>
-              const purposeDropdown = document.getElementById('Purpose');
+                // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+        
+        const purposeDropdown = document.getElementById('Purpose');
         const othersContainer = document.getElementById('othersContainer');
 
         // Initially hide the others input field

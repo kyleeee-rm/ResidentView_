@@ -646,6 +646,9 @@
     </footer>
 
     <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+
         document.addEventListener('DOMContentLoaded', function() {
             const placeOfDeliverySelect = document.getElementById('place-of-delivery');
             const placeOfDeliveryOtherInput = document.getElementById('place-of-delivery-other');

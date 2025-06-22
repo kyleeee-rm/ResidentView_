@@ -395,6 +395,20 @@
             margin-bottom: 15px;
         }
 
+         .affirmation-section {
+
+            background-color: #fff8dc;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .affirmation-section h4 {
+            color: #721313;
+            margin-bottom: 15px;
+        }
+
         .penalty-warning {
             background-color: #fff2f2;
             border: 2px solid #ff6b6b;
@@ -407,6 +421,28 @@
             color: #d63031;
             font-weight: bold;
             margin-bottom: 15px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option label {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -460,8 +496,8 @@
                 <p id="instruction" class="text-sm sm:text-base mb-6">Please provide accurate information for your business permit application. All fields marked with asterisk (*) are required.</p>
             
                 <div class="fields">
-                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
-                        <h4 class="text-lg font-semibold text-green-800 mb-2">Application Type</h4>
+                    <div class="">
+                        <h4 class="text-lg font-semibold text-amber-800 mb-2">Application Type</h4>
                     </div>
                     <!-- Application Type Selection -->
                     <div class="type mb-6 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
@@ -593,40 +629,38 @@
                         </div>
                     </div>
                 </div>
-                <div class="affirmation-section">
-        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-        <div class="mb-4">
-            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
-        </div>
-        
-        <div class="checkbox-option mb-4 flex items-center gap-3">
-            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required 
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
-            <label for="truth-affirmation" class="text-sm sm:text-base font-medium leading-relaxed">
-                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
-            </label>
-        </div>
-    </div>
+          <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold text-amber-800">Statement of Truth and Affirmation</h4>
+                        
+                        
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
+                            <label for="truth-affirmation" class="ml-3 text-sm sm:text-base font-medium">
+                                
+                                I solemnly affirm that all information provided regarding my family's income and household composition is true and correct. I understand that providing false information is punishable by law. <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                    </div>
 
-    <!-- Penalty Warning Section -->
-    <div class="penalty-warning mt-6">
-        <h5 class="text-lg font-semibold mb-4 text-red-700">⚠️ WARNING: Penalties for Misdeclaration</h5>
-        <div class="checkbox-option mb-4 flex items-center gap-3">
-            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
-            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
-                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
-            </label>
-        </div>
-        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
-            <li>Criminal prosecution under the Revised Penal Code</li>
-            <li>Civil penalties and surcharges</li>
-            <li>Cancellation of the issued certificate</li>
-            <li>Additional taxes and interest on unpaid amounts</li>
-            <li>Legal action for tax evasion</li>
-        </ul>
-    </div>
+                    <!-- Penalty Warning Section -->
+                    <div class="penalty-warning">
+                        <h5>⚠️ WARNING: Penalties for Misdeclaration</h5>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
+                            <label for="penalty-understanding" class="text-sm sm:text-base">
+                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+                            </label>
+                        </div>
+                        <ul class="list-disc list-inside text-sm space-y-1 ml-6 mt-3">
+                            <li>Criminal prosecution under the Revised Penal Code</li>
+                            <li>Civil penalties and surcharges</li>
+                            <li>Cancellation of the issued certificate</li>
+                            <li>Additional taxes and interest on unpaid amounts</li>
+                            <li>Legal action for tax evasion</li>
+                        </ul>
+                    </div>
+                
                 <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
                     <h3 class="text-lg sm:text-xl font-semibold mb-4">Additional Requirements to Bring:</h3>
                     <p class="mb-4 text-sm sm:text-base">The following documents must be submitted to the Barangay Hall along with your application form.</p>
@@ -698,6 +732,9 @@
     </footer>
 
     <script>
+        // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
+        
         function toggleSections() {
             const applicationType = document.querySelector('input[name="application-type"]:checked');
             const newSection = document.getElementById('new-application-section');

@@ -620,6 +620,8 @@
 
     <script src="/script.js"></script>
     <script>
+                // Set today's date as default for filing date
+        document.getElementById('filing-date').valueAsDate = new Date();
         
         const purposeDropdown = document.getElementById('Purpose');
         const othersContainer = document.querySelector('.inline:nth-child(2)');
