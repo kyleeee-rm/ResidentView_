@@ -70,26 +70,80 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Navbar hide on scroll
-document.addEventListener('DOMContentLoaded', function () {
-    const navbar = document.querySelector('header');
-    let lastScroll = 0;
-    const scrollThreshold = 10;
-    navbar.style.transition = 'transform 0.3s ease-in-out';
+// document.addEventListener('DOMContentLoaded', function () {
+//     const navbar = document.querySelector('header');
+//     let lastScroll = 0;
+//     const scrollThreshold = 10;
+//     navbar.style.transition = 'transform 0.3s ease-in-out';
 
-    window.addEventListener('scroll', function () {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (currentScroll <= 0) {
-            navbar.style.transform = 'translateY(0)';
-            return;
-        }
-        if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
-            navbar.style.transform = 'translateY(-100%)';
-        } else if (currentScroll < lastScroll) {
-            navbar.style.transform = 'translateY(0)';
-        }
-        lastScroll = currentScroll;
+//     window.addEventListener('scroll', function () {
+//         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+//         if (currentScroll <= 0) {
+//             navbar.style.transform = 'translateY(0)';
+//             return;
+//         }
+//         if (currentScroll > lastScroll && currentScroll > scrollThreshold) {
+//             navbar.style.transform = 'translateY(-100%)';
+//         } else if (currentScroll < lastScroll) {
+//             navbar.style.transform = 'translateY(0)';
+//         }
+//         lastScroll = currentScroll;
+//     });
+// });
+
+
+// // Simple auth state (false = not signed in)
+// let isSignedIn = false;
+
+// // Toast function
+// function showToast(message, type = 'warning') {
+//     const toastContainer = document.getElementById('toast-container');
+    
+//     const toast = document.createElement('div');
+//     toast.className = `toast flex items-center p-4 mb-4 text-sm rounded-lg shadow-lg ${
+//         type === 'warning' ? 'bg-yellow-50 text-yellow-800 border border-yellow-200' : 
+//         type === 'error' ? 'bg-red-50 text-red-800 border border-red-200' : 
+//         'bg-blue-50 text-blue-800 border border-blue-200'
+//     }`;
+    
+//     toast.innerHTML = `
+//         <i class="ri-information-line text-sm mr-3"> </i>
+//         <span class="font-medium">${message}</span>
+//         <button type="button" class="ml-auto -mx-1.5 -my-1.5 p-1.5 rounded-lg hover:bg-yellow-100 inline-flex h-8 w-8 items-center justify-center" onclick="this.parentElement.remove()">
+//             <i class="ri-close-line"></i>
+//         </button>
+//     `;
+    
+//     toastContainer.appendChild(toast);
+    
+//     // Trigger animation
+//     setTimeout(() => toast.classList.add('show'), 10);
+    
+//     // Auto remove after 5 seconds
+//     setTimeout(() => {
+//         if (toast.parentElement) {
+//             toast.classList.remove('show');
+//             setTimeout(() => toast.remove(), 300);
+//         }
+//     }, 5000);
+// }
+
+// Add click event listeners to all certificate links
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all certificate links (adjust selector as needed)
+    const certificateLinks = document.querySelectorAll('main a[href*="Application-Forms"], main a[href*="/Application Forms/"]');
+    
+    certificateLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (!isSignedIn) {
+                e.preventDefault(); // Prevent navigation
+                showToast('Please sign in to access certificate applications.', 'warning');
+                return false;
+            }
+        });
     });
 });
+
 
 // Section smooth scroll and zoom animation
 document.querySelectorAll('a[href^="#"]').forEach(link => {

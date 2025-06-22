@@ -164,6 +164,168 @@ function syncApplicantChecklists() {
 }
 
 
+// Add this toast function to your JavaScript
+function showToast(message, type = 'info', duration = 4000) {
+  console.log('showToast called:', message, type); // Debug log
+  
+  const container = document.getElementById('toastContainer');
+  console.log('Toast container found:', container); // Debug log
+  
+  if (!container) {
+    console.error('Toast container not found!');
+    return;
+  }
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  
+  const icons = {
+    success: '✓',
+    error: '✕',
+    info: 'ℹ'
+  };
+  
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || icons.info}</span>
+    <span class="toast-message">${message}</span>
+    <button class="toast-close" onclick="closeToast(this)">&times;</button>
+    <div class="toast-progress"></div>
+  `;
+  
+  container.appendChild(toast);
+   console.log('Toast appended to container'); // Debug log
+  
+  // Auto remove after duration
+  setTimeout(() => {
+    if (toast.parentNode) {
+      removeToast(toast);
+    }
+  }, duration);
+}
+
+function closeToast(button) {
+  const toast = button.closest('.toast');
+  removeToast(toast);
+}
+
+function removeToast(toast) {
+  toast.classList.add('slide-out');
+  setTimeout(() => {
+    if (toast.parentNode) {
+      toast.parentNode.removeChild(toast);
+    }
+  }, 300);
+}
+
+// function showProgressToast(title, subtitle, duration = null) {
+//   const container = document.getElementById('toastContainer');
+//   if (!container) {
+//     console.error('Toast container not found!');
+//     return null;
+//   }
+
+//   const toast = document.createElement('div');
+//   toast.className = 'toast progress';
+  
+//   toast.innerHTML = `
+//     <div class="toast-spinner"></div>
+//     <div class="toast-message-container">
+//     <div class="toast-icon"></div>
+//       <div class="toast-title">${title}</div>
+//       <div class="toast-subtitle">${subtitle}</div>
+//     </div>
+//     <button class="toast-close" onclick="closeToast(this)">&times;</button>
+//     ${duration ? '<div class="toast-progress"></div>' : ''}
+//   `;
+  
+//   container.appendChild(toast);
+  
+//   // Auto remove after duration if specified
+//   if (duration) {
+//     setTimeout(() => {
+//       if (toast.parentNode) {
+//         removeToast(toast);
+//       }
+//     }, duration);
+//   }
+  
+//   return toast; // Return toast element for further manipulation
+// }
+
+function showProgressToast(progressTitle, progressSubtitle, successTitle, successSubtitle, processingTime = 900, successDisplayTime = 3000) {
+  const container = document.getElementById('toastContainer');
+  if (!container) {
+    console.error('Toast container not found!');
+    return null;
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast progressing';
+  
+  toast.innerHTML = `
+    <div class="toast-spinner"></div>
+    <div class="toast-message-container">
+      <div class="toast-title">${progressTitle}</div>
+      <div class="toast-subtitle">${progressSubtitle}</div>
+    </div>
+    <button class="toast-close" onclick="closeToast(this)">&times;</button>
+    <div class="toast-progress"></div>
+  `;
+  
+  container.appendChild(toast);
+  
+  // Auto-update to success after processing time
+  setTimeout(() => {
+    if (toast && toast.parentNode) {
+      // Update content
+      const titleElement = toast.querySelector('.toast-title');
+      const subtitleElement = toast.querySelector('.toast-subtitle');
+      const spinnerElement = toast.querySelector('.toast-spinner');
+      
+      if (titleElement) titleElement.textContent = successTitle;
+      if (subtitleElement) subtitleElement.textContent = successSubtitle;
+      
+      // Replace spinner with checkmark
+      if (spinnerElement) {
+        spinnerElement.innerHTML = '';
+        spinnerElement.className = 'toast-icon success-icon';
+      }
+      
+      // Add success styling
+      toast.classList.add('success');
+      
+      // Remove after showing success
+      setTimeout(() => {
+        if (toast.parentNode) {
+          removeToast(toast);
+        }
+      }, successDisplayTime);
+    }
+  }, processingTime);
+  
+  return toast; // Return toast element for manual control if needed
+}
+
+// // Simplified usage examples:
+// function exampleSaveProgressToast() {
+//   showProgressToast(
+//     'Saving Changes',
+//     'Please wait...',
+//     'Changes Saved',
+//     'All changes have been saved successfully'
+//   );
+// }
+
+// function exampleMoveProgressToast(count, targetTab) {
+//   showProgressToast(
+//     'Moving Applications',
+//     `Moving ${count} application(s) to ${targetTab}...`,
+//     'Applications Moved',
+//     `Successfully moved ${count} application(s) to ${targetTab}`,
+//     2500 // Custom processing time
+//   );
+// }
+
+
 // Add this function to reset access states on page load
 function resetAccessStates() {
     isResidentsAccessGranted = false;
@@ -252,6 +414,7 @@ syncApplicantChecklists();
       }
     });
 
+  
 function showSection(id) {
   // Hide all sections
   document.getElementById('dashboard').style.display = 'none';
@@ -583,7 +746,7 @@ function updateGlobalChangesState() {
 }
 function saveAllChanges() {
   if (!hasUnsavedChanges) {
-    showSlideToast('No unsaved changes to save.', 'info');
+    showToast('No unsaved changes to save.', 'info');
     return;
   }
 
@@ -644,7 +807,11 @@ function saveAllChanges() {
         populateApprovedTable();
       }
       
-      showSlideToast('All changes saved successfully!', 'success');
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Settings saved successfully!'
+              );
       saveDataToStorage();
     }
   );
@@ -696,7 +863,12 @@ function showConfirmationModal(title, message, confirmText, cancelText, onConfir
 
   confirmBtn.addEventListener('click', () => {
     // Show saving toast and close modal
-    showToast('Changes Saved!','success');
+  //     showProgressToast(
+  //   'Saving Changes',
+  //   'Please wait...',
+  //   'Changes Saved',
+  //   'All changes have been saved successfully'
+  // );
     closeModal();
     onConfirm();
   });
@@ -743,146 +915,6 @@ function showConfirmationModal(title, message, confirmText, cancelText, onConfir
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
-  // Function to show saving toast
-  // function showSavingToast() {
-  //   // Create toast container
-  //   const toast = document.createElement('div');
-  //   toast.className = 'saving-toast';
-  //   toast.innerHTML = `
-  //     <div class="saving-toast-content">
-  //       <div class="saving-toast-icon">
-  //         <div class="saving-spinner"></div>
-  //       </div>
-  //       <div class="saving-toast-message">
-  //         <div class="saving-toast-title">Saving Changes</div>
-  //         <div class="saving-toast-subtitle">Please wait...</div>
-  //       </div>
-  //     </div>
-  //   `;
-    
-  //   // Add toast CSS if not already present
-  //   if (!document.querySelector('#saving-toast-css')) {
-  //     const toastStyle = document.createElement('style');
-  //     toastStyle.id = 'saving-toast-css';
-  //     toastStyle.textContent = `
-  //       .saving-toast {
-  //         position: fixed;
-  //         top: 20px;
-  //         right: 20px;
-  //         background: linear-gradient(135deg, var(--cream) 0%, #f8f8f0 100%);
-  //         border-radius: 12px;
-  //         box-shadow: 
-  //           0 10px 25px rgba(0, 0, 0, 0.15),
-  //           0 0 0 1px rgba(138, 154, 91, 0.1),
-  //           inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  //         padding: 16px 20px;
-  //         z-index: 1001;
-  //         min-width: 280px;
-  //         animation: slideInRight 0.4s ease-out;
-  //         border-left: 4px solid var(--accent-gold);
-  //       }
-        
-  //       .saving-toast-content {
-  //         display: flex;
-  //         align-items: center;
-  //         gap: 12px;
-  //       }
-        
-  //       .saving-toast-icon {
-  //         flex-shrink: 0;
-  //       }
-        
-  //       .saving-spinner {
-  //         width: 20px;
-  //         height: 20px;
-  //         border: 2px solid rgba(138, 154, 91, 0.2);
-  //         border-top: 2px solid var(--primary-medium);
-  //         border-radius: 50%;
-  //         animation: spin 1s linear infinite;
-  //       }
-        
-  //       .saving-toast-message {
-  //         flex: 1;
-  //       }
-        
-  //       .saving-toast-title {
-  //         font-weight: 600;
-  //         font-size: 14px;
-  //         color: var(--primary-dark);
-  //         margin-bottom: 2px;
-  //       }
-        
-  //       .saving-toast-subtitle {
-  //         font-size: 12px;
-  //         color: #666;
-  //       }
-        
-  //       .saving-toast.success {
-  //         border-left-color: #28a745;
-  //       }
-        
-  //       .saving-toast.success .saving-spinner {
-  //         display: none;
-  //       }
-        
-  //       .saving-toast.success .saving-toast-icon::after {
-  //         content: '✓';
-  //         color: #28a745;
-  //         font-size: 20px;
-  //         font-weight: bold;
-  //       }
-        
-  //       @keyframes slideInRight {
-  //         from {
-  //           transform: translateX(100%);
-  //           opacity: 0;
-  //         }
-  //         to {
-  //           transform: translateX(0);
-  //           opacity: 1;
-  //         }
-  //       }
-        
-  //       @keyframes slideOutRight {
-  //         from {
-  //           transform: translateX(0);
-  //           opacity: 1;
-  //         }
-  //         to {
-  //           transform: translateX(100%);
-  //           opacity: 0;
-  //         }
-  //       }
-        
-  //       @keyframes spin {
-  //         0% { transform: rotate(0deg); }
-  //         100% { transform: rotate(360deg); }
-  //       }
-  //     `;
-  //     document.head.appendChild(toastStyle);
-  //   }
-    
-  //   // Add toast to body
-  //   document.body.appendChild(toast);
-    
-  //   // Simulate saving process
-  //   setTimeout(() => {
-  //     // Update to success state
-  //     toast.classList.add('success');
-  //     toast.querySelector('.saving-toast-title').textContent = 'Changes Saved';
-  //     toast.querySelector('.saving-toast-subtitle').textContent = 'All changes have been saved successfully';
-      
-  //     // Remove toast after showing success
-  //     setTimeout(() => {
-  //       toast.style.animation = 'slideOutRight 0.4s ease-out';
-  //       setTimeout(() => {
-  //         if (document.body.contains(toast)) {
-  //           document.body.removeChild(toast);
-  //         }
-  //       }, 400);
-  //     }, 2000);
-  //   }, 1500); // Adjust based on actual save time
-  // }
 }
     
 
@@ -928,8 +960,14 @@ function approveApplication() {
       // Update visual indicators
       updateRowIndicator(currentApplicantIndex, hasChanges);
       updateGlobalChangesState();
-      
-      showToast('Application APPROVED. Click "Save Changes" to apply.', 'success');
+        showProgressToast(
+          'Saving Changes',           // Progress title
+          'Please wait...',           // Progress subtitle  
+          'Application APPROVED',            // Success title
+          'Click "Save Changes" to apply.',
+          1000  // Success subtitle
+        );      
+      // showSavingToast('Application APPROVED. Click "Save Changes" to apply.', 'success');
       closeModal();
   };
 
@@ -949,8 +987,14 @@ function approveApplication() {
           // Update visual indicators
           updateRowIndicator(currentApplicantIndex, hasChanges);
           updateGlobalChangesState();
-          
-        showToast('Application REJECTED. Click "Save Changes" to apply.', 'success');
+        showProgressToast(
+          'Saving Changes',           // Progress title
+          'Please wait...',           // Progress subtitle  
+          'Application REJECTED',            // Success title
+          'Click "Save Changes" to apply.',
+          // 1000  // Success subtitle
+        );
+        // showToast('Application REJECTED. Click "Save Changes" to apply.', 'success');
         closeModal();
         };
 
@@ -991,7 +1035,7 @@ function approveApplication() {
           <td>${applicant.docType}</td>
           <td>${approvalDate}</td>
           <td><button class="print-button" onclick="printDocument('${applicant.name}', '${applicant.docType}', '${invoiceNumber}')">Print</button></td>
-          <td><input type="checkbox" ${(applicant.tempIsReleased !== undefined ? applicant.tempIsReleased : isReleased) ? 'checked' : ''} ${isReleased ? 'disabled' : ''} onchange="toggleReleased(${actualIndex}, this.checked)"></td>
+          <td><input type="checkbox" class="checklist resident-checkbox" ${(applicant.tempIsReleased !== undefined ? applicant.tempIsReleased : isReleased) ? 'checked' : ''} onchange="toggleReleased(${actualIndex}, this.checked)"></td>
         `;
         tableBody.appendChild(row);
       });
@@ -1146,7 +1190,8 @@ function approveApplication() {
           
           // Map document types to their respective HTML files
           const documentTemplates = {
-            'Barangay Clearance': '/Cert-Admin/up-clear.html',
+            'Barangay Clearance': '../Admin/Cert-Admin/up-clear.html',
+            'Certificate of Residency': '../Admin/Cert-Admin/up-reside.html',
             'First Time Job Seeker': '/Cert-Admin/up-jobseek.html',
             'Death Certificate': 'print-death-certificate.html',
             'Business Permit': 'print-business-permit.html',
@@ -1225,68 +1270,56 @@ function approveApplication() {
       }
     }
 
-    function saveApprovedChanges() {
-      if (!hasUnsavedApprovedChanges) {
-        Swal.fire({
-          icon: 'info',
-          title: 'No Changes',
-          text: 'There are no unsaved changes to save.'
-        });
-        return;
-      }
+function saveApprovedChanges() {
+  if (!hasUnsavedApprovedChanges) {
+    showToast('No unsaved changes to save.', 'info');
+    return;
+  }
 
-      Swal.fire({
-        title: 'Confirm Save Changes',
-        text: 'Are you sure you want to save all release status changes?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, save changes',
-        cancelButtonText: 'Cancel'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Apply all temporary states to actual states
-          applicantsData.forEach((applicant) => {
-            if (applicant.tempIsReleased !== undefined) {
-              const oldReleased = applicant.isReleased || false;
-              applicant.isReleased = applicant.tempIsReleased;
-              
-              if (applicant.tempIsReleased && !oldReleased) {
-                applicant.releaseDate = new Date().toISOString().split('T')[0];
-                applicant.status = 'Released';
-                applicant.tempStatus = 'Released'; // Sync temp status
-              }
-              
-              // Clear temporary state
-              delete applicant.tempIsReleased;
-            }
-          });
-
-          // Clear all visual indicators
-          applicantsData.forEach((applicant, index) => {
-            updateApprovedRowIndicator(index, false);
-          });
-
-
-          hasUnsavedApprovedChanges = false;
-          updateApprovedChangesState();
-          updateDashboardCounts();
-          populateApprovedTable(); // Refresh the table
-          // ADD THIS LINE:
-          populateReleasedTable(); // Refresh released table to show new releases
-
-          Swal.fire({
-            icon: 'success',
-            title: 'Saved!',
-            text: 'All release status changes have been saved successfully.',
-            timer: 2000,
-            timerProgressBar: true
-          });
-          saveDataToStorage(); // Add this line
+  // Show confirmation modal
+  showConfirmationModal(
+    'Confirm Save Changes',
+    'Are you sure you want to save all release status changes?',
+    'Yes, save changes',
+    'Cancel',
+    () => {
+      // Apply all temporary states to actual states
+      applicantsData.forEach((applicant) => {
+        if (applicant.tempIsReleased !== undefined) {
+          const oldReleased = applicant.isReleased || false;
+          applicant.isReleased = applicant.tempIsReleased;
+          
+          if (applicant.tempIsReleased && !oldReleased) {
+            applicant.releaseDate = new Date().toISOString().split('T')[0];
+            applicant.status = 'Released';
+            applicant.tempStatus = 'Released'; // Sync temp status
+          }
+          
+          // Clear temporary state
+          delete applicant.tempIsReleased;
         }
       });
+
+      // Clear all visual indicators
+      applicantsData.forEach((applicant, index) => {
+        updateApprovedRowIndicator(index, false);
+      });
+
+      hasUnsavedApprovedChanges = false;
+      updateApprovedChangesState();
+      updateDashboardCounts();
+      populateApprovedTable(); // Refresh the table
+      populateReleasedTable(); // Refresh released table to show new releases
+
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Settings saved successfully!'
+              );
+      saveDataToStorage();
     }
+  );
+}
 
 // Released Documents Functions
 function populateReleasedTable() {
@@ -1301,7 +1334,7 @@ function populateReleasedTable() {
     
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td><input type="checkbox" onchange="toggleRowSelection('released', ${actualIndex}, this.checked)"></td>
+      <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRowSelection('released', ${actualIndex}, this.checked)"></td>
       <td>${invoiceNumber}</td>
       <td>${applicant.name}</td>
       <td>${applicant.docType}</td>
@@ -1529,7 +1562,7 @@ function populateRejectedTable() {
     const row = document.createElement('tr');
     const actualIndex = applicantsData.indexOf(applicant);
     row.innerHTML = `
-      <td><input type="checkbox" onchange="toggleRowSelection('rejected', ${actualIndex}, this.checked)"></td>
+      <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRowSelection('rejected', ${actualIndex}, this.checked)"></td>
       <td>${applicant.name}</td>
       <td>${applicant.docType}</td>
       <td>${rejectionDate}</td>
@@ -1684,7 +1717,8 @@ function showMoveConfirmation(tabType) {
   const button = document.getElementById(buttonId);
   
   if (selectedRows.size === 0) {
-    showToast('Please select at least one application to move.', 'error');
+      console.log('About to show warning toast'); // Debug log
+    showToast('No applications selected! Please select at least one application to move.', 'warning');
     return;
   }
 
@@ -1747,11 +1781,17 @@ function confirmMovePassword() {
     document.getElementById('movePasswordModal').style.display = 'none';
     document.getElementById('movePasswordInput').value = '';
     
-    // Show success toast
-    showToast('Password confirmed! Moving applications...', 'success');
-    
+    // Show success slide toast
+    // showToast('Password confirmed! Moving applications...', 'success');
+    // const toast = showProgressToast('Moving Applications', `Moving ${selectedCount} application(s) to ${targetTab}...`);
+    showProgressToast(
+      'Moving Applications',
+      `Moving ${selectedCount} application(s) to ${targetTab}...`,
+      'Applications Moved',
+      `Successfully moved ${selectedCount} application(s) to ${targetTab}`,
+    );
     // Proceed with move
-    moveSelectedApplications(tabType);
+        moveSelectedApplications(tabType);
   } else {
     showToast('Incorrect password! Please try again.', 'error');
     document.getElementById('movePasswordInput').value = '';
@@ -1829,7 +1869,7 @@ function moveSelectedApplications(tabType) {
   resetMoveButton(tabType);
   
   const targetTab = tabType === 'released' ? 'Approved' : 'Document Requests';
-  showToast(`${selectedCount} application(s) moved to ${targetTab} successfully!`, 'success', 5000);
+  // showToast(`${selectedCount} application(s) moved to ${targetTab} successfully!`, 'success', 5000);
 }
 
 // Handle Enter key in move password modal
@@ -1870,48 +1910,7 @@ document.addEventListener('keydown', function(event) {
 
 
 
-// Toast function (same as residents tab)
-function showToast(message, type = 'info', duration = 4000) {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  
-  const icons = {
-    success: '✓',
-    error: '✕',
-    info: 'ℹ'
-  };
-  
-  toast.innerHTML = `
-    <span class="toast-icon">${icons[type] || icons.info}</span>
-    <span class="toast-message">${message}</span>
-    <button class="toast-close" onclick="closeToast(this)">&times;</button>
-    <div class="toast-progress"></div>
-  `;
-  
-  container.appendChild(toast);
-  
-  // Auto remove after duration
-  setTimeout(() => {
-    if (toast.parentNode) {
-      removeToast(toast);
-    }
-  }, duration);
-}
 
-function closeToast(button) {
-  const toast = button.closest('.toast');
-  removeToast(toast);
-}
-
-function removeToast(toast) {
-  toast.classList.add('slide-out');
-  setTimeout(() => {
-    if (toast.parentNode) {
-      toast.parentNode.removeChild(toast);
-    }
-  }, 300);
-}
 
 
 // passw function for residency tab
@@ -1926,7 +1925,14 @@ function confirmResidentsPassword() {
     document.getElementById('residents').style.display = 'block';
     residentsTableBody();
     
-    showToast('Access granted! Welcome to Residents Management.', 'success');
+    // showToast('Access granted! Welcome to Residents Management.', 'success');
+    showProgressToast(
+  'Signing in',
+  'Please wait...',
+  'Access granted!',
+  'Welcome to Residents Management.',
+  600
+);
   } else {
     showToast('Incorrect password! Please try again.', 'error');
     document.getElementById('residentsPasswordInput').value = '';
@@ -2245,7 +2251,13 @@ function confirmPassword() {
     enableEditMode();
     document.getElementById('passwordModal').style.display = 'none';
     document.getElementById('passwordInput').value = '';
-    showToast('Edit mode enabled! You can now modify resident details.', 'success');
+    showProgressToast(
+  'Signing in',
+  'Please wait...',
+  'Edit mode enabled!',
+  'You can now modify resident details.',
+);
+    // showToast('Edit mode enabled! You can now modify resident details.', 'success');
   } else {
     showToast('Incorrect password! Please try again.', 'error');
     document.getElementById('passwordInput').value = '';
@@ -2330,7 +2342,13 @@ function saveResidentsChanges() {
   }
   
   saveResidentsToStorage();
-  showToast('Residents data saved successfully!', 'success');
+  showProgressToast(
+    'Saving Changes',
+    'Please wait...',
+    'Changes Saved',
+    'All changes have been saved successfully'
+  );
+  // showToast('Residents data saved successfully!', 'success');
 }
 
 // Handle Enter key in password modal
@@ -2347,48 +2365,7 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
-// Add this toast function to your JavaScript
-function showToast(message, type = 'info', duration = 4000) {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  
-  const icons = {
-    success: '✓',
-    error: '✕',
-    info: 'ℹ'
-  };
-  
-  toast.innerHTML = `
-    <span class="toast-icon">${icons[type] || icons.info}</span>
-    <span class="toast-message">${message}</span>
-    <button class="toast-close" onclick="closeToast(this)">&times;</button>
-    <div class="toast-progress"></div>
-  `;
-  
-  container.appendChild(toast);
-  
-  // Auto remove after duration
-  setTimeout(() => {
-    if (toast.parentNode) {
-      removeToast(toast);
-    }
-  }, duration);
-}
 
-function closeToast(button) {
-  const toast = button.closest('.toast');
-  removeToast(toast);
-}
-
-function removeToast(toast) {
-  toast.classList.add('slide-out');
-  setTimeout(() => {
-    if (toast.parentNode) {
-      toast.parentNode.removeChild(toast);
-    }
-  }, 300);
-}
 // add delete 
 function residentsTableBody() {
   const tbody = document.getElementById('residentsTableBody');
@@ -2478,35 +2455,64 @@ function addResident() {
   // Save to storage
   saveResidentsToStorage();
   
-  showToast('Resident added successfully!', 'success');
+  // showToast('Resident added successfully!', 'success');
+    showProgressToast(
+    'Saving Changes',
+    'Please wait...',
+    'Resident added successfully!',
+    // 'All changes have been saved successfully'
+  );
+}
+function showDeleteConfirmation() {
+    const checkboxes = document.querySelectorAll('.resident-checkbox:checked');
+    
+    if (checkboxes.length === 0) {
+        showToast('Please select residents to delete.', 'error');
+        return;
+    }
+    
+    const residentCount = checkboxes.length;
+    const residentText = residentCount === 1 ? 'resident' : 'residents';
+    
+    showConfirmationModal(
+        'Confirm Deletion',
+        `Are you sure you want to delete ${residentCount} ${residentText}? This action cannot be undone.`,
+        'Delete',
+        'Cancel',
+        () => {
+            // setTimeout(() => {
+                deleteSelectedResidents();
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Settings saved successfully!'
+              );
+            // }, 500);
+        }
+    );
+
 }
 
 function deleteSelectedResidents() {
-  const checkboxes = document.querySelectorAll('.resident-checkbox:checked');
-  
-  if (checkboxes.length === 0) {
-    showToast('Please select residents to delete.', 'error');
-    return;
-  }
-  
-  if (!confirm(`Are you sure you want to delete ${checkboxes.length} resident(s)?`)) {
-    return;
-  }
-  
-  // Get IDs of selected residents
-  const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
-  
-  // Remove from residentsData
-  residentsData = residentsData.filter(resident => !idsToDelete.includes(resident.id));
-  
-  // Update table
-  residentsTableBody();
-  
-  // Save to storage
-  saveResidentsToStorage();
-  
-  showToast(`${checkboxes.length} resident(s) deleted successfully!`, 'success');
+    const checkboxes = document.querySelectorAll('.resident-checkbox:checked');
+    
+    // Get IDs of selected residents
+    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
+    
+    // Remove from residentsData
+    residentsData = residentsData.filter(resident => !idsToDelete.includes(resident.id));
+    
+    // Update table
+    residentsTableBody();
+    
+    // Save to storage
+    saveResidentsToStorage();
+    
+    const residentText = checkboxes.length === 1 ? 'resident' : 'residents';
+    // showToast(`${checkboxes.length} ${residentText} deleted successfully!`, 'success');
+    
 }
+
 
 function toggleSelectAllResidents() {
   const selectAllCheckbox = document.getElementById('selectAllResidents');
@@ -2533,7 +2539,13 @@ function confirmAdminPassword() {
         // Show the admin section and load settings
         document.getElementById('adminSettings').style.display = 'block';
         loadAdminSettings();
-        showToast('Admin access granted!', 'success');
+        // showToast('Admin access granted!', 'success');
+    showProgressToast(
+  'Verifying',
+  'Please wait...',
+  'Access granted!',
+  'Welcome to Admin Management.',
+);
     } else {
         showToast('Incorrect admin password!', 'error');
         document.getElementById('adminPasswordInput').value = '';
@@ -2674,7 +2686,12 @@ function changeSpecificPassword(passwordType) {
     document.getElementById(`new${passwordType}Password`).value = '';
     document.getElementById(`confirm${passwordType}Password`).value = '';
     
-    showToast(`${passwordType} password changed successfully!`, 'success');
+    // showToast(`${passwordType} password changed successfully!`, 'success');
+        showProgressToast(
+  'Signing in',
+  'Please wait...',
+  '`${passwordType} password changed successfully!'
+);
 }
 function showTab(tabName) {
     // Hide all tab contents
@@ -2898,23 +2915,22 @@ function removeRequirement(index) {
     const requirements = documentRequirements[currentDocTypeForRequirements];
     const requirementText = requirements[index];
     
-    Swal.fire({
-        title: 'Remove Requirement?',
-        text: `Are you sure you want to remove "${requirementText}"?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#dc3545',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: 'Yes, remove it',
-        cancelButtonText: 'Cancel'
-    }).then((result) => {
-        if (result.isConfirmed) {
+    showConfirmationModal(
+        'Remove Requirement?',
+        `Are you sure you want to remove "${requirementText}"? This action cannot be undone.`,
+        'Yes, remove it',
+        'Cancel',
+        () => {
             requirements.splice(index, 1);
             requirementsChanged = true;
             renderRequirementsList();
-            showToast('Requirement removed successfully', 'success');
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Settings saved successfully!'
+              );
         }
-    });
+    );
 }
 
 // Show requirements preview
@@ -2955,14 +2971,12 @@ function saveRequirements() {
         localStorage.setItem('documentRequirements', JSON.stringify(documentRequirements));
         requirementsChanged = false;
         
-        Swal.fire({
-            title: 'Requirements Saved!',
-            text: `Requirements for ${currentDocTypeForRequirements} have been saved successfully.`,
-            icon: 'success',
-            timer: 3000,
-            showConfirmButton: false
-        });
-        
+        showProgressToast(
+          'Saving Changes',           // Progress title
+          'Please wait...',           // Progress subtitle  
+          'Changes Saved',            // Success title
+          'All changes have been saved successfully'  // Success subtitle
+        );
         renderRequirementsList();
     } catch (error) {
         console.error('Error saving requirements:', error);
@@ -2997,7 +3011,13 @@ function resetRequirements() {
             documentRequirements[currentDocTypeForRequirements] = [...defaultRequirements[currentDocTypeForRequirements]];
             requirementsChanged = true;
             renderRequirementsList();
-            showToast('Requirements reset to default', 'success');
+            // showToast('Requirements reset to default', 'success');
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Requirements reset to default'
+              );
+
         }
     });
 }
@@ -3077,7 +3097,12 @@ function confirmSaveSettings() {
     
     // Show success toast if save was successful
     if (saveResult !== false) {
-        showToast('Settings saved successfully!', 'success');
+        // showToast('Settings saved successfully!', 'success');
+              showProgressToast(
+                'Saving Changes',
+                'Please wait...',
+                'Settings saved successfully!'
+              );
         
         // Close modal and clear input after short delay
         setTimeout(() => {
@@ -3235,7 +3260,11 @@ function showLogoutConfirmation() {
         'Cancel',
         () => {
             // Show logout toast and perform logout
-            showLogoutToast();
+              showProgressToast(
+                'Logging Out',
+                'Please wait...',
+                'Bye!'
+              );
             // Call the actual logout function after a brief delay
             setTimeout(() => {
                 logoutAdmin();
@@ -3365,9 +3394,9 @@ function showLogoutToast() {
 // Your existing logout function (keep as is)
 function logoutAdmin() {
     // Your existing logout logic here
-    console.log('Admin logged out');
+    // console.log('Admin logged out');
     // Example: redirect to login page
-    // window.location.href = 'login.html';
+     window.location.href = '../Log-In_and_Reg/adminLogIn.html';
 }
 
 
