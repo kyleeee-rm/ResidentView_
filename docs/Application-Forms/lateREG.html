@@ -381,16 +381,56 @@
             pointer-events: auto;
         }
 
-        .affirmation-section h4, .penalty-warning h5 {
-            color: #2B3209;
+       .affirmation-section {
+
+            background-color: #fff8dc;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .affirmation-section h4 {
+            color: #721313;
             margin-bottom: 15px;
         }
 
-        .penalty-warning h5 {
-            color: #BD8F42; /* Adjust color if needed to match previous interaction */
-            font-size: 1.25rem; /* Adjust font size if needed to match previous interaction */
-            font-weight: bold;
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
         }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option label {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
     </style>
 </head>
 <body>
@@ -510,14 +550,24 @@
                         </select>
                         <input type="text" id="attended-by-other" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 mt-2 hidden" placeholder="Specify other attendant">
                     </div>
+
+                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        </div>
+                        
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
                 </div>
+
+               
 
                 <div class="affirmation-section">
                     <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-                    <div class="mb-4">
-                        <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-                        <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
-                    </div>
+                    
                     
                     <div class="checkbox-option mb-4">
                         <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required>

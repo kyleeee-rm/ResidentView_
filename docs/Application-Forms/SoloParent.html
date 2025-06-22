@@ -423,13 +423,56 @@
             margin-bottom: 15px;
         }
 
-        .affirmation-section, .penalty-warning {
-            margin: 20px 0;
-            padding: 15px 20px;
+       .affirmation-section {
+
+            background-color: #fff8dc;
             border: 2px solid #D0B564;
             border-radius: 10px;
-            background-color: #FFFFF0;
+            padding: 20px;
+            margin: 20px 0;
         }
+
+        .affirmation-section h4 {
+            color: #721313;
+            margin-bottom: 15px;
+        }
+
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option label {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
     </style>
 </head>
 <body>
@@ -495,39 +538,38 @@
                 </div>
                 </div>
 
-                <div class="full-width">
-                    <label for="relationship">Relationship to the applicant <span class="text-red-500">*</span></label>
-                    <select name="dropdown" id="relationship" size="1" required>
-                        <option value="" disabled selected>Select Relationship</option>
-                        <option value="self">Self</option>
-                        <option value="mother">Mother</option>
-                        <option value="father">Father</option>
-                        <option value="sibling">Sibling</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
 
                 <div class="hy">
                     <label for="child-count">Number of Children <span class="text-red-500">*</span></label>
-                    <input type="number" id="child-count" min="0" value="0" />
+                    <input type="number" id="child-count" min="1" value="1" />
                     <button id="enter-btn" class="bg-[#6A7337] text-white font-semibold py-1 px-2 rounded-lg border border-red-700 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-300">Enter</button>
             
                 <div id="child-error-popup" class="popup">
-                    <p class="text-sm">Please enter a valid number of children.</p>
+                    <p class="text-sm text-red-500 font-medium">Please enter a valid number of children.</p>
                 </div>
             
                     <div id="children-form">
                         <!-- Dynamic children inputs will be added here -->
                     </div>
                 </div>
-            
-                <!-- Affirmation Section -->
-                    <div class="affirmation-section mt-5">
-                        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-                        <div class="mb-4">
-                            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: <span class="text-red-500">*</span></label>
-                            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided regarding my family's income and household composition is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+
+                <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4 mt-5">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
+                        
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+            
+                
+                     <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold text-amber-800">Statement of Truth and Affirmation</h4>
+                        
                         
                         <div class="checkbox-option mb-4 flex">
                             <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
@@ -540,25 +582,23 @@
 
                     <!-- Penalty Warning Section -->
                     <div class="penalty-warning">
-                     <h5 class="text-red-500 font-bold">⚠️ WARNING: Penalties for False Information</h5>
-                        <div class="checkbox-option mb-4 flex">
+                        <h5>⚠️ WARNING: Penalties for Misdeclaration</h5>
+                        <div class="checkbox-option">
                             <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
-                            <label for="penalty-understanding" class="ml-3 text-sm sm:text-base">
-                                I understand and acknowledge that providing false information in this family income certificate application may result in the following penalties: <span class="text-red-500">*</span>
+                            <label for="penalty-understanding" class="text-sm sm:text-base">
+                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
                             </label>
                         </div>
-                        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
-                            <li>Criminal prosecution for perjury and falsification</li>
+                        <ul class="list-disc list-inside text-sm space-y-1 ml-6 mt-3">
+                            <li>Criminal prosecution under the Revised Penal Code</li>
+                            <li>Civil penalties and surcharges</li>
                             <li>Cancellation of the issued certificate</li>
-                            <li>Legal sanctions and penalties</li>
-                            <li>Disqualification from programs or benefits</li>
-                            <li>Civil and criminal liability</li>
+                            <li>Additional taxes and interest on unpaid amounts</li>
+                            <li>Legal action for tax evasion</li>
                         </ul>
                     </div>
-            
-            </div>
 
-            <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                       <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
                     <h3 class="text-lg sm:text-xl font-semibold mb-4">Required Documents to Bring:</h3>
                     <p class="mb-4 text-sm sm:text-base">Please bring the following documents when you visit the Civil Registry Office:</p>
 
@@ -567,11 +607,19 @@
                         <li>Affidavit of Solo Parent</li>
                         <li>Payment for registration fees and penalties</li>
                     </ul>
-                </div>
 
-            <div id="Submit" class="text-center">
+                    
+                </div>
+                
+                     <div id="Submit" class="text-center">
                 <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-[#4B5320] hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
-            </div>     
+            </div> 
+            
+            </div>
+
+         
+
+               
         </form>    
 
         <div id="toast" class="toast fixed top-8 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">Application submitted!</div>

@@ -241,6 +241,7 @@
         }
 
         .affirmation-section {
+
             background-color: #fff8dc;
             border: 2px solid #D0B564;
             border-radius: 10px;
@@ -249,7 +250,7 @@
         }
 
         .affirmation-section h4 {
-            color: #2B3209;
+            color: #721313;
             margin-bottom: 15px;
         }
 
@@ -446,20 +447,32 @@
                                 <span class="amount" id="display-total">₱5.00</span>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Affirmation Section -->
-                    <div class="affirmation-section">
-                        <h4 class="text-lg font-bold mb-4">Statement of Truth and Affirmation</h4>
-                        <div class="mb-4">
-                            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-                            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
+                        
+                    </div>
+                    <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required>
-                            <label for="truth-affirmation" class="text-sm sm:text-base font-medium">
-                                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+
+                    
+                     <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold text-amber-800">Statement of Truth and Affirmation</h4>
+                        
+                        
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
+                            <label for="truth-affirmation" class="ml-3 text-sm sm:text-base font-medium">
+                                
+                                I solemnly affirm that all information provided regarding my family's income and household composition is true and correct. I understand that providing false information is punishable by law. <span class="text-red-500">*</span>
                             </label>
                         </div>
                     </div>
@@ -481,10 +494,11 @@
                             <li>Legal action for tax evasion</li>
                         </ul>
                     </div>
-                </div>
+                
 
                 <div id="Submit" class="text-center">
                     <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
+                </div>
                 </div>
             </form>
         </div>

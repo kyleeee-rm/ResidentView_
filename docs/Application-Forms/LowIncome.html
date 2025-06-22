@@ -414,6 +414,55 @@
             display: none;
             margin-top: 15px;
         }
+.affirmation-section {
+
+            background-color: #fff8dc;
+            border: 2px solid #D0B564;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .affirmation-section h4 {
+            color: #721313;
+            margin-bottom: 15px;
+        }
+
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-option label {
+            flex: 1;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
     </style>
   
 </head>
@@ -468,10 +517,7 @@
                 <div class="fields">
                     <!-- Number of Income Earners -->
                      <div class="fields">
-                    <!-- Educational Information -->
-                    <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
-                        <h4 class="text-lg font-semibold text-green-800 mb-2">Household Income Information</h4>
-                    </div>
+                    
                         <div class="mb-4">
                             <label for="num-earners" class="block text-sm sm:text-base font-medium mb-2">Number of Income Earners in the Household: *</label>
                             <input type="number" id="num-earners" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="1" max="10" required>
@@ -505,119 +551,98 @@
                         </div>
                     </div>
 
-                    <!-- Purpose of Request -->
-                    <div class="mb-6">
-                        <h4 class="text-lg font-semibold mb-4 text-amber-800">Purpose of Request</h4>
-                        <div class="type">
-                            <label class="type-label block text-sm sm:text-base font-medium mb-2">What is the purpose of this certificate? *</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="scholarship" required>
-                                    Scholarship Application
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="medical-aid" required>
-                                    Medical Aid/Financial Assistance
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="government-program" required>
-                                    Government Program/Benefits
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="loan-application" required>
-                                    Loan Application
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="employment" required>
-                                    Employment Requirement
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="legal-proceeding" required>
-                                    Legal Proceeding
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="purpose" value="other" id="purpose-other" required>
-                                    Other (please specify)
-                                </label>
-                            </div>
+                <!-- Purpose of Request -->
+                   
+                <div class="inline-group">
+                <div class="inline">    
+                    <label for="Purpose" class="block text-sm sm:text-base font-medium mb-2">Purpose <span class="text-red-500">*</span></label>
+                    <select name="dropdown" id="Purpose" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
+                        <option value="" disabled selected>Select Purpose</option>
+                        <option value="FinancialAssistance">Scholarship Application</option>
+                        <option value="MedicalAssistance">Medical Aid/ Financial Assistance</option>
+                        <option value="VotersCertification">Government Program/Benefits</option>
+                        <option value="Scholarship">Loan Application</option>
+                        <option value="Scholarship">Employment Requirement</option>
+                        <option value="Scholarship">Legal Proceeding</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+
+                    <div class="inline" id="othersContainer"> 
+                    <label for="others" class="block text-sm sm:text-base font-medium mb-2" >If Others, please specify <span class="text-red-500">*</span></label>
+                    <input type="text" id="others" placeholder="Specify the purpose">
+                    </div>
+                </div>
+
+                    </div>
+                         <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
+                        <div class="flex-1">
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
+                            <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
-
-                          <!-- Affirmation Section -->
-                                         <div class="affirmation-section">
-        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
-        <div class="mb-4">
-            <label for="truth-statement" class="block text-sm sm:text-base font-medium mb-2">Statement affirming the truth of information provided: *</label>
-            <textarea id="truth-statement" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="4" placeholder="I hereby certify that the information provided in this application is true, correct, and complete to the best of my knowledge and belief. I understand that any false statement may subject me to criminal prosecution and civil penalties." required></textarea>
-        </div>
-        
-        <div class="checkbox-option mb-4 flex items-center gap-3">
-            <input type="checkbox" id="truth-affirmation" name="truth-affirmation" required 
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
-            <label for="truth-affirmation" class="text-sm sm:text-base font-medium leading-relaxed">
-                I solemnly affirm that all information provided in this form is true and correct. I understand that providing false information is punishable by law. *
-            </label>
-        </div>
-    </div>
-
-    <!-- Penalty Warning Section -->
-    <div class="penalty-warning mt-6">
-        <h5 class="text-lg font-semibold mb-4 text-red-700">⚠️ WARNING: Penalties for Misdeclaration</h5>
-        <div class="checkbox-option mb-4 flex items-center gap-3">
-            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
-            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
-                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
-            </label>
-        </div>
-        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
-            <li>Criminal prosecution under the Revised Penal Code</li>
-            <li>Civil penalties and surcharges</li>
-            <li>Cancellation of the issued certificate</li>
-            <li>Additional taxes and interest on unpaid amounts</li>
-            <li>Legal action for tax evasion</li>
-        </ul>
-    </div>
-                  
-
                         
-                        <div id="purpose-details-container" class="mt-4">
-                            <label for="purpose-details" class="block text-sm sm:text-base font-medium mb-2">Specific Purpose/Details: *</label>
-                            <textarea id="purpose-details" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Please specify the other purpose for this certificate"></textarea>
+                        <div class="flex-1">
+                            <!-- Empty div to maintain layout -->
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                            
+                        
+
+                         <!-- Affirmation Section -->
+                    <div class="affirmation-section">
+                        <h4 class="text-lg font-bold mb-4 text-amber-800">Statement of Truth and Affirmation</h4>
+
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="truth-affirmation" name="truth-affirmation"  required>
+                            <label for="truth-affirmation" class="ml-3 text-sm sm:text-base font-medium">
+                                
+                                I solemnly affirm that all information provided regarding my family's income and household composition is true and correct. I understand that providing false information is punishable by law. <span class="text-red-500">*</span>
+                            </label>
                         </div>
                     </div>
 
-                    <!-- Required Documents -->
-                      <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
-        <div class="checkbox-option mb-5 flex items-center gap-3">
-            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required 
-                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0">
-            <label for="penalty-understanding" class="text-sm sm:text-base leading-relaxed">
-                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
-            </label>
-        </div>
-        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
-            <li>Criminal prosecution under the Revised Penal Code</li>
-            <li>Civil penalties and surcharges</li>
-            <li>Cancellation of the issued certificate</li>
-            <li>Additional taxes and interest on unpaid amounts</li>
-            <li>Legal action for tax evasion</li>
-        </ul>
-    </div>
-                         
-                         
-                         
-                         
-                         
-          
-                 
+                    <!-- Penalty Warning Section -->
+                     <div class="penalty-warning">
+                     <h5 class="text-red-500 font-bold">⚠️ WARNING: Penalties for False Information</h5>
+                        <div class="checkbox-option mb-4 flex">
+                            <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
+                            <label for="penalty-understanding" class="ml-3 text-sm sm:text-base">
+                                I understand and acknowledge that providing false information in this family income certificate application may result in the following penalties: <span class="text-red-500">*</span>
+                            </label>
+                        </div>
+                        <ul class="list-disc list-inside text-sm space-y-1 ml-6">
+                            <li>Criminal prosecution for perjury and falsification</li>
+                            <li>Cancellation of the issued certificate</li>
+                            <li>Legal sanctions and penalties</li>
+                            <li>Disqualification from programs or benefits</li>
+                            <li>Civil and criminal liability</li>
+                        </ul>
+                    </div>
 
-                        
-                       
+                     <div class="other-reqs p-4 sm:p-6 bg-gray-50 border border-black rounded-lg mb-6">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-4">Required Documents to Bring:</h3>
+                    <p class="mb-4 text-sm sm:text-base">Please bring the following documents when you visit the Civil Registry Office:</p>
+
+                    <ul class="list-disc list-inside space-y-2 text-sm sm:text-base pl-4">
+                        <li>Valid Government-Issued ID </li>
+                        <li>Payment for registration fees and penalties</li>
+                    </ul>
+                </div>
+
                 <div id="Submit" class="text-center">
                     <input type="submit" value="Submit" class="w-full sm:w-auto px-8 py-3 bg-yellow-400 hover:bg-red-800 hover:text-white text-black font-semibold rounded-full border border-gray-300 transition-all duration-300 cursor-pointer text-base sm:text-lg">
                 </div>
+            </div>
+
+        
             </form>
-        </div>
+        
+
+        
     </main>
 
     <footer class="bg-yellow-100 px-4 sm:px-6 lg:px-8 py-8">
@@ -651,6 +676,31 @@
 
 
      <script>
+              const purposeDropdown = document.getElementById('Purpose');
+        const othersContainer = document.getElementById('othersContainer');
+
+        // Initially hide the others input field
+        othersContainer.style.display = 'none';
+
+        // Now you can use purposeDropdown
+        purposeDropdown.addEventListener('change', function() {
+        const selectedValue = this.value;
+    
+        if (selectedValue === 'Other') {
+        // Show the others input field
+        othersContainer.style.display = 'block';
+        // Make the input required when shown
+        document.getElementById('others').setAttribute('required', 'required');
+    } else {
+        // Hide the others input field
+        othersContainer.style.display = 'none';
+        // Remove required attribute when hidden
+        document.getElementById('others').removeAttribute('required');
+        // Clear the input value when hidden
+        document.getElementById('others').value = '';
+    }
+});
+        
         // Handle number of earners input
         document.getElementById('num-earners').addEventListener('input', function() {
             const numEarners = parseInt(this.value);

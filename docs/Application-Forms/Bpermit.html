@@ -360,6 +360,15 @@
             }
         }
 
+         .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+            accent-color: #BD8F42;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+
         .toast {
             position: fixed;
             top: 30px;
@@ -383,6 +392,20 @@
 
         .signature-section h4 {
             color: #2B3209;
+            margin-bottom: 15px;
+        }
+
+        .penalty-warning {
+            background-color: #fff2f2;
+            border: 2px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .penalty-warning h5 {
+            color: #d63031;
+            font-weight: bold;
             margin-bottom: 15px;
         }
     </style>
@@ -458,11 +481,11 @@
                     <!-- Common Fields -->
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
                         <div class="flex-1">
-                            <label for="business-name" class="block text-sm sm:text-base font-medium mb-2">Business Name: *</label>
+                            <label for="business-name" class="block text-sm sm:text-base font-medium mb-2">Business Name <span class="text-red-500">*</span></label>
                             <input type="text" id="business-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         <div class="flex-1">
-                            <label for="owner-name" class="block text-sm sm:text-base font-medium mb-2">Owner's Full Name: *</label>
+                            <label for="owner-name" class="block text-sm sm:text-base font-medium mb-2">Owner's Full Name <span class="text-red-500">*</span></label>
                             <input type="text" id="owner-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                     </div>
@@ -474,22 +497,22 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="business-type" class="block text-sm sm:text-base font-medium mb-2">Type of Business (Nature of Operation): *</label>
+                            <label for="business-type" class="block text-sm sm:text-base font-medium mb-2">Type of Business (Nature of Operation) <span class="text-red-500">*</span></label>
                             <input type="text" id="business-type" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="e.g., Retail Store, Restaurant, Services">
                         </div>
 
                         <div class="mb-4">
-                            <label for="business-address" class="block text-sm sm:text-base font-medium mb-2">Business Address: *</label>
+                            <label for="business-address" class="block text-sm sm:text-base font-medium mb-2">Business Address <span class="text-red-500">*</span></label>
                             <input type="text" id="business-address" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200">
                         </div>
 
                         <div class="mb-4">
-                            <label for="location-sketch" class="block text-sm sm:text-base font-medium mb-2">Sketch of Location: *</label>
+                            <label for="location-sketch" class="block text-sm sm:text-base font-medium mb-2">Sketch of Location <span class="text-red-500">*</span></label>
                             <textarea id="location-sketch" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Describe the location and nearby landmarks (attachment required at Barangay Hall)"></textarea>
                         </div>
 
                         <div class="mb-4">
-                            <label for="property-document" class="block text-sm sm:text-base font-medium mb-2">Lease Contract / Land Ownership Document: *</label>
+                            <label for="property-document" class="block text-sm sm:text-base font-medium mb-2">Lease Contract / Land Ownership Document <span class="text-red-500">*</span></label>
                             <select id="property-document" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200">
                                 <option value="">Select document type</option>
                                 <option value="lease-contract">Lease Contract</option>
@@ -511,12 +534,12 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="last-permit" class="block text-sm sm:text-base font-medium mb-2">Last Year's Barangay Business Permit Number: *</label>
+                            <label for="last-permit" class="block text-sm sm:text-base font-medium mb-2">Last Year's Barangay Business Permit Number <span class="text-red-500">*</span></label>
                             <input type="text" id="last-permit" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter previous permit number">
                         </div>
 
                         <div class="mb-4">
-                            <label for="dti-sec-updated" class="block text-sm sm:text-base font-medium mb-2">Updated DTI/SEC Documents:</label>
+                            <label for="dti-sec-updated" class="block text-sm sm:text-base font-medium mb-2">Updated DTI/SEC Documents <span class="text-red-500">*</span></label>
                             <div class="space-y-2">
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" id="dti-updated" class="w-4 h-4 text-red-600 focus:ring-red-500">
@@ -527,7 +550,7 @@
                         </div>
 
                         <div class="type mb-4 p-4 sm:p-6 bg-gray-50 border-2 border-gray-200 rounded-lg">
-                            <label class="type-label block text-sm sm:text-base font-medium mb-4">Have your business details changed since last year? *</label>
+                            <label class="type-label block text-sm sm:text-base font-medium mb-4">Have your business details changed since last year? <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <label class="radio-option flex items-center space-x-2 cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200">
                                     <input type="radio" name="details-changed" value="yes" class="w-4 h-4 text-red-600 focus:ring-red-500" onchange="toggleDetailsSection()"> 
@@ -542,7 +565,7 @@
 
                         <div id="changed-details-section" style="display: none;">
                             <div class="mb-4">
-                                <label for="changes-description" class="block text-sm sm:text-base font-medium mb-2">Please describe what has changed:</label>
+                                <label for="changes-description" class="block text-sm sm:text-base font-medium mb-2">Please describe what has changed <span class="text-red-500">*</span></label>
                                 <textarea id="changes-description" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Describe any changes in business address, nature of operation, ownership, etc."></textarea>
                             </div>
                         </div>
@@ -550,18 +573,18 @@
 
                     <!-- Additional Information -->
                     <div class="mb-4">
-                        <label for="contact-number" class="block text-sm sm:text-base font-medium mb-2">Business Contact Number: *</label>
+                        <label for="contact-number" class="block text-sm sm:text-base font-medium mb-2">Business Contact Number <span class="text-red-500">*</span></label>
                         <input type="tel" id="contact-number" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="email" class="block text-sm sm:text-base font-medium mb-2">Email Address:</label>
+                        <label for="email" class="block text-sm sm:text-base font-medium mb-2">Email Address <span class="text-red-500">*</span></label>
                         <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Optional">
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 mb-4">
                         <div class="flex-1">
-                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Filing: *</label>
+                            <label for="filing-date" class="block text-sm sm:text-base font-medium mb-2">Date of Application <span class="text-red-500">*</span> </label>
                             <input type="date" id="filing-date" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" required>
                         </div>
                         
