@@ -519,13 +519,13 @@
             
                 <div class="fields">
                     <div class="mb-4">
-                        <label for="full-name" class="block text-sm sm:text-base font-medium mb-2">Full Name of Person Involved: *</label>
+                        <label for="full-name" class="block text-sm sm:text-base font-medium mb-2">Full Name of Person Involved<span class="text-red-500">*</span></label>
                         <input type="text" id="full-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter the full name of the person involved in the case" required>
                         <p class="text-xs text-gray-600 mt-1">This should be the name of the accused or person involved in the legal case</p>
                     </div>
 
                     <div class="type">
-                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Relation to the Accused: *</label>
+                        <label class="type-label block text-sm sm:text-base font-medium mb-2">Relation to the Accused <span class="text-red-500">*</span></label>
                         <div class="radio-group">
                             <label class="radio-option">
                                 <input type="radio" name="relation" value="self" required>
@@ -555,19 +555,19 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="case-number" class="block text-sm sm:text-base font-medium mb-2">Case Number: *</label>
+                        <label for="case-number" class="block text-sm sm:text-base font-medium mb-2">Case Number <span class="text-red-500">*</span></label>
                         <input type="text" id="case-number" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter the official case number from the court" required>
                         <p class="text-xs text-gray-600 mt-1">This is the unique identifier for your case in the court records.</p>
                     </div>
 
                     <div class="mb-4">
-                        <label for="court-name" class="block text-sm sm:text-base font-medium mb-2">Court Name: *</label>
+                        <label for="court-name" class="block text-sm sm:text-base font-medium mb-2">Court Name <span class="text-red-500">*</span></label>
                         <input type="text" id="court-name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" placeholder="Enter the full name of the court where the case is filed" required>
                         <p class="text-xs text-gray-600 mt-1">e.g., Regional Trial Court Branch 123, Municipal Trial Court in Cities Branch 1</p>
                     </div>
 
                     <div class="mb-4">
-                        <label for="nature-of-case" class="block text-sm sm:text-base font-medium mb-2">Nature of the Case: *</label>
+                        <label for="nature-of-case" class="block text-sm sm:text-base font-medium mb-2">Nature of the Case <span class="text-red-500">*</span></label>
                         <textarea id="nature-of-case" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200 resize-vertical" rows="3" placeholder="Briefly describe the nature of the case (e.g., Estafa, Physical Injuries, Theft)" required></textarea>
                         <p class="text-xs text-gray-600 mt-1">Provide a concise description of the criminal offense or legal matter.</p>
                     </div>
@@ -603,7 +603,7 @@
                         <div class="checkbox-option">
                             <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
                             <label for="penalty-understanding" class="text-sm sm:text-base">
-                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties <span class="text-red-500">*</span>
                             </label>
                         </div>
                         <ul class="list-disc list-inside text-sm space-y-1 ml-6 mt-3">

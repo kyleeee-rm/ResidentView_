@@ -399,14 +399,16 @@
 
         <div id="Forms" class="mx-auto max-w-7xl">
             <form action="" id="Submit-form">
-                <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please provide accurate information for your Community Tax Certificate application. <br></h3>
-                
-                <div id="icon" class="hover:scale-110 transition-transform duration-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"></path>
-                    </svg>
-                </div>            
-        
-                <p id="instruction" class="text-sm sm:text-base mb-6">All fields marked with asterisk (*) are required. Ensure all information is accurate to avoid penalties.</p>
+        <form action="" id="ApplicationForm">
+            <h3 id="instruction" class="text-lg sm:text-xl mb-4">Please collect all the necessary requirements before applying then provide the required information. <br></h3>
+
+        <div id="icon" class="hover:scale-110 transition-transform duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 9.5C12.8284 9.5 13.5 8.82843 13.5 8C13.5 7.17157 12.8284 6.5 12 6.5C11.1716 6.5 10.5 7.17157 10.5 8C10.5 8.82843 11.1716 9.5 12 9.5ZM14 15H13V10.5H10V12.5H11V15H10V17H14V15Z"/>
+        </svg>
+        </div>          
+    
+        <p id="instruction" class="text-sm sm:text-base mb-6"> Your registration details will be used to complete the basic information required for the application. If you wish to update or make changes to your information, please proceed to the Barangay Hall for assistance.</p>
             
                 <div class="fields">
                     <!-- Tax Calculation Section -->
@@ -415,14 +417,14 @@
                         
                         <!-- Additional Tax Based On Income -->
                         <div class="mb-4">
-                            <label for="gross-income" class="block text-sm sm:text-base font-medium mb-2">Gross Receipts/Earnings from Business/Profession (Annual): *</label>
+                            <label for="gross-income" class="block text-sm sm:text-base font-medium mb-2">Gross Receipts/Earnings from Business/Profession (Annual) <span class="text-red-500">*</span></label>
                             <input type="number" id="gross-income" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="0" step="1" oninput="calculateTax()" required>
                             <p class="text-xs text-gray-600 mt-1">Enter your total annual income from all sources</p>
                         </div>
 
                         <!-- Additional Tax Based On Real Property -->
                         <div class="mb-4">
-                            <label for="property-value" class="block text-sm sm:text-base font-medium mb-2">Real Property Owned (Assessed Value): *</label>
+                            <label for="property-value" class="block text-sm sm:text-base font-medium mb-2">Real Property Owned (Assessed Value) <span class="text-red-500">*</span></label>
                             <input type="number" id="property-value" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="0" step="1" oninput="calculateTax()" required>
                             <p class="text-xs text-gray-600 mt-1">Enter the total assessed value of all real properties you own</p>
                         </div>
@@ -483,7 +485,7 @@
                         <div class="checkbox-option">
                             <input type="checkbox" id="penalty-understanding" name="penalty-understanding" required>
                             <label for="penalty-understanding" class="text-sm sm:text-base">
-                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties: *
+                                I understand and acknowledge that misdeclaration or providing false information in this tax form may result in the following penalties <span class="text-red-500">*</span>
                             </label>
                         </div>
                         <ul class="list-disc list-inside text-sm space-y-1 ml-6 mt-3">

@@ -521,7 +521,7 @@
                      <div class="fields">
                     
                         <div class="mb-4">
-                            <label for="num-earners" class="block text-sm sm:text-base font-medium mb-2">Number of Income Earners in the Household: *</label>
+                            <label for="num-earners" class="block text-sm sm:text-base font-medium mb-2">Number of Income Earners in the Household <span class="text-red-500">*</span></label>
                             <input type="number" id="num-earners" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 transition-all duration-200" min="1" max="10" required>
                         </div>
                     </div>
@@ -723,11 +723,11 @@
                         <h5>Income Earner ${i}</h5>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="occupation-${i}" class="block text-sm font-medium mb-2">Occupation: *</label>
+                                <label for="occupation-${i}" class="block text-sm font-medium mb-2">Occupation <span class="text-red-500">*</span></label>
                                 <input type="text" id="occupation-${i}" name="occupation-${i}" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400" required>
                             </div>
                             <div>
-                                <label for="monthly-income-${i}" class="block text-sm font-medium mb-2">Monthly Income (₱): *</label>
+                                <label for="monthly-income-${i}" class="block text-sm font-medium mb-2">Monthly Income (₱) <span class="text-red-500">*</span></label>
                                 <input type="number" id="monthly-income-${i}" name="monthly-income-${i}" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-300 focus:border-red-400 monthly-income-input" min="0" step="0.01" required>
                             </div>
                         </div>
