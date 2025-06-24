@@ -4,72 +4,146 @@
     const rejected = [2, 3, 2, 4, 3, 2, 4, 3, 5, 2, 1, 3];
 
    // Data storage for applicants and their checklist states - ALL SET TO PENDING BY DEFAULT
-    let applicantsData = [
-      {
-        name: 'Juan Dela Cruz',
-        docType: 'Barangay Clearance',
-        status: 'Pending',
-        tempStatus: 'Pending', // ADD THIS LINE
-        purpose: 'Employment purposes',
-      },
-      {
-        name: 'Maria Santos',
-        docType: 'Certificate of Indigency',
-        status: 'Pending',
-        tempStatus: 'Pending', // ADD THIS LINE
-        purpose: 'Medical assistance',
-      },
-      {
-        name: 'Pedro Rodriguez',
-        docType: 'Business Permit',
-        status: 'Pending',
-        tempStatus: 'Pending', // ADD THIS LINE
-        purpose: 'Start new business',
-      },
-      {
-        name: 'Ana Garcia',
-        docType: 'Barangay ID',
-        status: 'Pending',
-        tempStatus: 'Pending', // ADD THIS LINE
-        purpose: 'Identification purposes',
-      },
-      {
-        name: 'Carlos Mendoza',
-        docType: 'Certificate of Residency',
-        status: 'Pending',
-        tempStatus: 'Pending', // ADD THIS LINE
-        purpose: 'School enrollment',
-      }
-    ];
+let applicantsData = [
+  {
+    name: 'Juan Dela Cruz',
+    age: 28,
+    address: '123 Main St, Barangay Market Area',
+    birthplace: 'Manila, Philippines',
+    civilStatus: 'Single',
+    requestedBy: 'Juan Dela Cruz',
+    placeIssued: 'Barangay Market Area',
+    dateIssued: '2025-06-24',
+    docType: 'Barangay Clearance',
+    status: 'Pending',
+    tempStatus: 'Pending',
+    purpose: 'Employment purposes',
+    ctcnum: 'CTC-001-2025'
+  },
+  {
+    name: 'Maria Santos',
+    age: 32,
+    address: '456 Oak Ave, Barangay Market Area',
+    birthplace: 'Quezon City, Philippines',
+    civilStatus: 'Married',
+    requestedBy: 'Maria Santos',
+    placeIssued: 'Barangay Market Area',
+    dateIssued: '2025-06-24',
+    docType: 'Certificate of Indigency',
+    status: 'Pending',
+    tempStatus: 'Pending',
+    purpose: 'Medical assistance',
+    ctcnum: ''
+  },
+  {
+    name: 'Pedro Rodriguez',
+    age: 45,
+    address: '789 Pine St, Barangay Market Area',
+    birthplace: 'Caloocan, Philippines',
+    civilStatus: 'Married',
+    requestedBy: 'Pedro Rodriguez',
+    placeIssued: 'Barangay Market Area',
+    dateIssued: '2025-06-24',
+    docType: 'Business Permit',
+    status: 'Pending',
+    tempStatus: 'Pending',
+    purpose: 'Start new business',
+    ctcnum: ''
+  },
+  {
+    name: 'Ana Garcia',
+    age: 29,
+    address: '321 Elm St, Barangay Market Area',
+    birthplace: 'Pasig, Philippines',
+    civilStatus: 'Single',
+    requestedBy: 'Ana Garcia',
+    placeIssued: 'Barangay Market Area',
+    dateIssued: '2025-06-24',
+    docType: 'Barangay ID',
+    status: 'Pending',
+    tempStatus: 'Pending',
+    purpose: 'Identification purposes',
+    ctcnum: ''
+  },
+  {
+    name: 'Carlos Mendoza',
+    age: 23,
+    address: '654 Maple Ave, Barangay Market Area',
+    birthplace: 'Marikina, Philippines',
+    civilStatus: 'Single',
+    requestedBy: 'Carlos Mendoza',
+    placeIssued: 'Barangay Market Area',
+    dateIssued: '2025-06-24',
+    docType: 'Certificate of Residency',
+    status: 'Pending',
+    tempStatus: 'Pending',
+    purpose: 'School enrollment',
+    ctcnum: ''
+  }
+];
 
-    let residentsData = [
-      {
-        id: 1,
-        fullName: 'Juan Dela Cruz',
-        sex: 'Male',
-        address: '123 Main St, Barangay Centro',
-        birthday: '1985-05-15',
-        birthplace: 'Manila, Philippines',
-        age: 38,
-        civilStatus: 'Married',
-        contactNumber: '09171234567'
-      },
-      {
-        id: 2,
-        fullName: 'Maria Santos',
-        sex: 'Female',
-        address: '456 Oak Ave, Barangay Norte',
-        birthday: '1992-03-22',
-        birthplace: 'Quezon City, Philippines',
-        age: 31,
-        civilStatus: 'Single',
-        contactNumber: '09189876543'
-      }
-      // Add more sample data as needed
-    ];
+let votersData = [
+  {
+    id: 1,
+    fullName: 'Juan Dela Cruz',
+    sex: 'Male',
+    address: '123 Main St, Barangay Market Area',
+    birthday: '1996-06-24', // Calculated from age 28
+    birthplace: 'Manila, Philippines',
+    age: 28,
+    civilStatus: 'Single',
+    contactNumber: '09171234567'
+  },
+  {
+    id: 2,
+    fullName: 'Maria Santos',
+    sex: 'Female',
+    address: '456 Oak Ave, Barangay Market Area',
+    birthday: '1992-06-24', // Calculated from age 32
+    birthplace: 'Quezon City, Philippines',
+    age: 32,
+    civilStatus: 'Married',
+    contactNumber: '09189876543'
+  },
+  {
+    id: 3,
+    fullName: 'Pedro Rodriguez',
+    sex: 'Male',
+    address: '789 Pine St, Barangay Market Area',
+    birthday: '1979-06-24', // Calculated from age 45
+    birthplace: 'Caloocan, Philippines',
+    age: 45,
+    civilStatus: 'Married',
+    contactNumber: '09171234568'
+  },
+  {
+    id: 4,
+    fullName: 'Ana Garcia',
+    sex: 'Female',
+    address: '321 Elm St, Barangay Market Area',
+    birthday: '1995-06-24', // Calculated from age 29
+    birthplace: 'Pasig, Philippines',
+    age: 29,
+    civilStatus: 'Single',
+    contactNumber: '09189876544'
+  },
+  {
+    id: 5,
+    fullName: 'Carlos Mendoza',
+    sex: 'Male',
+    address: '654 Maple Ave, Barangay Market Area',
+    birthday: '2001-06-24', // Calculated from age 23
+    birthplace: 'Marikina, Philippines',
+    age: 23,
+    civilStatus: 'Single',
+    contactNumber: '09171234569'
+  }
+];
         // Initialize dashboard counts and hide completed applications
 updateDashboardCounts();
-updateDocumentRequestsTable();
+window.addEventListener('DOMContentLoaded', function() {
+     updateDocumentRequestsTable(); // or whatever function initializes your table
+});
 
     // Load saved data on page load
     loadDataFromStorage();
@@ -100,6 +174,7 @@ updateDocumentRequestsTable();
     let lastActivity = Date.now();
     let isWarningShown = false;
     let sessionStartTime = Date.now();
+    let selectedApprovedRows = new Set();
 
     // ADD new admin settings variables
 let adminSettings = {
@@ -134,6 +209,9 @@ const documentRequirements = {
 
 let currentDocTypeForRequirements = '';
 let requirementsChanged = false;
+
+
+
 
 function initializeChecklistStates() {
   applicantsData.forEach(applicant => {
@@ -334,7 +412,7 @@ function resetAccessStates() {
     isEditMode = false;
     
     // Clear any displayed password modals
-    const modals = ['residentsPasswordModal', 'adminPasswordModal', 'passwordModal', 'movePasswordModal'];
+    const modals = ['adminPasswordModal', 'passwordModal', 'movePasswordModal'];
     modals.forEach(modalId => {
         const modal = document.getElementById(modalId);
         if (modal) modal.style.display = 'none';
@@ -343,7 +421,9 @@ function resetAccessStates() {
 
 // Call this when page loads
 window.addEventListener('load', resetAccessStates);
-
+document.addEventListener('DOMContentLoaded', function() {
+  populateVotersTable();
+});
 
 
     // Update dashboard counts - now all will start as pending
@@ -422,7 +502,7 @@ function showSection(id) {
   document.getElementById('approvedDocuments').style.display = 'none';
   document.getElementById('releasedDocuments').style.display = 'none';
   document.getElementById('rejectedDocuments').style.display = 'none';
-  document.getElementById('residents').style.display = 'none';
+  document.getElementById('voters').style.display = 'none';
   document.getElementById('adminSettings').style.display = 'none';
   
   // Remove active class from ALL sidebar links first (this ensures only one tab is active at a time)
@@ -437,19 +517,12 @@ function showSection(id) {
     activeItem.classList.add('active');
   }
   
-  // Check if trying to access residents section
-  if (id === 'residents') {
-    if (!isResidentsAccessGranted) {
-      // Show password modal for residents access
-      document.getElementById('residentsPasswordModal').style.display = 'flex';
-      document.getElementById('residentsPasswordInput').focus();
-      return; // Don't show the section yet
-    } else {
-      // Access already granted, show residents section
+  // Check if trying to access voters section
+  if (id === 'voters') {
+      // Access already granted, show voters section
       document.getElementById(id).style.display = 'block';
-      residentsTableBody();
-    }
-  } else {
+      populateVotersTable();
+  }else {
     // For other sections, show normally
     document.getElementById(id).style.display = 'block';
     
@@ -645,12 +718,26 @@ function showSection(id) {
       }
     });
 
-    function showApplicantModal(index, name, documentType, status, purpose) {
+function updateCTCNum() {
+  const ctcValue = document.getElementById('ctcnumInput').value;
+  applicantsData[currentApplicantIndex].ctcnum = ctcValue;
+}
+
+    function showApplicantModal(index, name, age, address,birthplace,civilStatus,requestedBy,placeIssued,dateIssued, documentType, purpose) {
       currentApplicantIndex = index;
       document.getElementById('applicantName').textContent = name;
+      document.getElementById('age').textContent = age;
+      document.getElementById('address').textContent = address;
+      document.getElementById('birthplace').textContent = birthplace;
+      document.getElementById('civilStatus').textContent = civilStatus;
+      document.getElementById('requestedBy').textContent = requestedBy;
+      document.getElementById('placeIssued').textContent = placeIssued;
+      document.getElementById('dateIssued').textContent = dateIssued;
       document.getElementById('docType').textContent = documentType;
-      document.getElementById('status').textContent = status;
+      // document.getElementById('status').textContent = status;
       document.getElementById('purpose').textContent = purpose;
+      document.getElementById('ctcnumInput').value = applicantsData[index].ctcnum || '';
+      
       
       const checklistDiv = document.getElementById('checklist');
       checklistDiv.innerHTML = '';
@@ -667,7 +754,7 @@ function showSection(id) {
         applicantsData[index].tempChecklistStates = [...applicantsData[index].checklistStates];
       }
       if (checklist.length === 0) {
-        document.getElementById('approveBtn').disabled = false;
+        document.getElementById('printbtn').disabled = false;
       } else {
         checklist.forEach((item, i) => {
           const label = document.createElement('label');
@@ -707,8 +794,21 @@ function showSection(id) {
       updateGlobalChangesState();
       saveDataToStorage(); // Add this line
     }
-
-    function arraysEqual(arr1, arr2) {
+    function toggleRequestReleased(applicantIndex, isChecked) {
+      const applicant = applicantsData[applicantIndex];
+      if (applicant.tempIsReleased === undefined) {
+        applicant.tempIsReleased = applicant.isReleased || false;
+      }
+      applicant.tempIsReleased = isChecked;
+      
+      const hasChanges = (applicant.tempIsReleased !== (applicant.isReleased || false)) ||
+                        !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
+                        applicant.status !== applicant.tempStatus;
+      
+      updateRowIndicator(applicantIndex, hasChanges);
+      updateGlobalChangesState();
+    }
+        function arraysEqual(arr1, arr2) {
       if (arr1.length !== arr2.length) return false;
       for (let i = 0; i < arr1.length; i++) {
         if (arr1[i] !== arr2[i]) return false;
@@ -732,7 +832,8 @@ function showSection(id) {
 function updateGlobalChangesState() {
   hasUnsavedChanges = applicantsData.some(applicant => 
     !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
-    applicant.status !== applicant.tempStatus
+    applicant.status !== applicant.tempStatus ||
+    (applicant.tempIsReleased !== undefined && applicant.tempIsReleased !== (applicant.isReleased || false)) // ADD THIS
   );
   
   const saveButton = document.getElementById('saveButton');
@@ -765,18 +866,31 @@ function saveAllChanges() {
         
         // Clear temporary status after applying
         applicant.tempStatus = applicant.status;
+        
+        // Handle Released checkbox logic FIRST - regardless of current status
+        if (applicant.tempIsReleased !== undefined) {
+          const wasReleased = applicant.isReleased || false;
+          applicant.isReleased = applicant.tempIsReleased;
+          
+          // If Released checkbox is checked, change status to Released
+          if (!wasReleased && applicant.tempIsReleased) {
+            applicant.status = 'Released';
+            applicant.releaseDate = new Date().toISOString().split('T')[0];
+          }
+          
+          // Reset temp value
+          applicant.tempIsReleased = applicant.isReleased;
+        }
+        
         // Set approval date when status changes to Approved
         if (oldStatus !== 'Approved' && applicant.status === 'Approved') {
           applicant.approvalDate = new Date().toISOString().split('T')[0];
         }
+        
         // Set rejection date when status changes to Rejected
         if (oldStatus !== 'Rejected' && applicant.status === 'Rejected') {
           applicant.rejectionDate = new Date().toISOString().split('T')[0];
         }
-        
-        // Update status based on checklist completion
-        const allCompleted = applicant.checklistStates.every(state => state === true);
-        const hasAnyCompleted = applicant.checklistStates.some(state => state === true);
         
         // Update status based on checklist completion - only for non-final statuses
         if (applicant.status !== 'Approved' && applicant.status !== 'Released' && applicant.status !== 'Rejected') {
@@ -802,9 +916,14 @@ function saveAllChanges() {
       updateGlobalChangesState();
       updateDashboardCounts();
       updateDocumentRequestsTable();
+      updateDocumentRequestsTable();
       // If approved tab is currently shown, refresh it
       if (document.getElementById('approvedDocuments').style.display === 'block') {
         populateApprovedTable();
+      }
+      // ADD THIS: If released tab is currently shown, refresh it
+      if (document.getElementById('releasedDocuments').style.display === 'block') {
+        populateReleasedTable();
       }
       
               showProgressToast(
@@ -930,7 +1049,7 @@ function updateTableRowStatus(applicantIndex) {
   const viewButton = row.cells[4].querySelector('.view-button');
   if (viewButton) {
     // Reconstruct the onclick with all the correct parameters
-    const newOnClick = `showApplicantModal(${applicantIndex}, '${applicant.name}', '${applicant.docType}', '${applicant.status}', '${applicant.purpose}', ${JSON.stringify(applicant.checklist).replace(/"/g, "'")})`;
+    const newOnClick = `showApplicantModal(${applicantIndex}, '${applicant.name}','${applicant.age}', '${applicant.address}', '${applicant.birthplace}', '${applicant.civilStatus}', '${applicant.requestedBy}','${applicant.placeIssued}','${applicant.dateIssued}','${applicant.purpose}','${applicant.ctcnum}', ${JSON.stringify(applicant.checklist).replace(/"/g, "'")})`;
     viewButton.setAttribute('onclick', newOnClick);
   }
 }
@@ -941,9 +1060,9 @@ function updateTableRowStatus(applicantIndex) {
 
     function updateChecklistStatus() {
       const checklistItems = document.querySelectorAll('#checklist input[type="checkbox"]');
-      const approveBtn = document.getElementById('approveBtn');
+      const printbtn = document.getElementById('printbtn');
       const allChecked = [...checklistItems].every(checkbox => checkbox.checked);
-      approveBtn.disabled = checklistItems.length > 0 && !allChecked;
+      printbtn.disabled = checklistItems.length > 0 && !allChecked;
     }
 
 function approveApplication() {
@@ -1016,30 +1135,30 @@ function approveApplication() {
     });
 
     // Approved Documents Functions
-    function populateApprovedTable() {
-      const approvedApplicants = applicantsData.filter(app => app.status === 'Approved');
-      const tableBody = document.getElementById('approvedTableBody');
-      tableBody.innerHTML = '';
-      
-      approvedApplicants.forEach((applicant, index) => {
-        const actualIndex = applicantsData.indexOf(applicant);
-        const invoiceNumber = `INV-${(actualIndex + 1).toString().padStart(4, '0')}`;
-        const approvalDate = applicant.approvalDate || new Date().toISOString().split('T')[0];
-        
-        const row = document.createElement('tr');
-        const isReleased = applicant.isReleased || false;
-        row.id = `approved-row-${actualIndex}`;
-        row.innerHTML = `
-          <td>${invoiceNumber}</td>
-          <td>${applicant.name}<span class="change-indicator" id="approved-indicator-${actualIndex}" style="display:none;">*</span></td>
-          <td>${applicant.docType}</td>
-          <td>${approvalDate}</td>
-          <td><button class="print-button" onclick="printDocument('${applicant.name}', '${applicant.docType}', '${invoiceNumber}')">Print</button></td>
-          <td><input type="checkbox" class="checklist resident-checkbox" ${(applicant.tempIsReleased !== undefined ? applicant.tempIsReleased : isReleased) ? 'checked' : ''} onchange="toggleReleased(${actualIndex}, this.checked)"></td>
-        `;
-        tableBody.appendChild(row);
-      });
-    }
+function populateApprovedTable() {
+  // Only show applications with status 'Approved' (Released ones are filtered out by status)
+  const approvedApplicants = applicantsData.filter(app => app.status === 'Approved');
+  const tableBody = document.getElementById('approvedTableBody');
+  tableBody.innerHTML = '';
+ 
+  approvedApplicants.forEach((applicant, index) => {
+    const actualIndex = applicantsData.indexOf(applicant);
+    const invoiceNumber = `INV-${(actualIndex + 1).toString().padStart(4, '0')}`;
+    const approvalDate = applicant.approvalDate || new Date().toISOString().split('T')[0];
+   
+    const row = document.createElement('tr');
+    row.id = `approved-row-${actualIndex}`;
+    row.innerHTML = `
+      <td>${invoiceNumber}</td>
+      <td>${applicant.name}<span class="change-indicator" id="approved-indicator-${actualIndex}" style="display:none;">*</span></td>
+      <td>${applicant.docType}</td>
+      <td>${approvalDate}</td>
+      <td><button class="print-button" onclick="printDocument('${applicant.name}', '${applicant.docType}', '${invoiceNumber}')">Print</button></td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+}
 
     function toggleApprovedSearch() {
       const searchInput = document.getElementById('approvedSearchInput');
@@ -1168,73 +1287,49 @@ function approveApplication() {
       }
     }
 
+function printDocumentFromModal() {
+    const docType = document.getElementById('docType').textContent;
     
+    // Call the existing printDocument function with docType only
+    printDocument(docType);
+}
 
-    function printDocument(name, docType, invoiceNumber) {
-      // Swal.fire({
-      //   title: 'Print Document',
-      //   html: `
-      //     <p><strong>Invoice:</strong> ${invoiceNumber}</p>
-      //     <p><strong>Name:</strong> ${name}</p>
-      //     <p><strong>Document:</strong> ${docType}</p>
-      //     <p>Ready to print this document?</p>
-      //   `,
-      //   icon: 'info',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#6c757d',
-      //   confirmButtonText: 'Print',
-      //   cancelButtonText: 'Cancel'
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-          
-          // Map document types to their respective HTML files
-          const documentTemplates = {
-            'Barangay Clearance': '../Admin/Cert-Admin/up-clear.html',
-            'Certificate of Residency': '../Admin/Cert-Admin/up-reside.html',
-            'First Time Job Seeker': '/Cert-Admin/up-jobseek.html',
-            'Death Certificate': 'print-death-certificate.html',
-            'Business Permit': 'print-business-permit.html',
-            'Cedula': 'print-cedula.html'
-          };
+function printDocument(docType) {
+    // Map document types to their respective HTML files
+    const documentTemplates = {
+        'Barangay Clearance': '../Admin/Cert-Admin/up-clear.html',
+        'Certificate of Residency': '../Admin/Cert-Admin/up-reside.html',
+        'First Time Job Seeker': '/Cert-Admin/up-jobseek.html',
+        'Death Certificate': 'print-death-certificate.html',
+        'Business Permit': 'print-business-permit.html',
+        'Cedula': 'print-cedula.html'
+    };
 
-          const templateFile = documentTemplates[docType];
+    const templateFile = documentTemplates[docType];
 
-          if (templateFile) {
-            const printUrl = `${templateFile}?name=${encodeURIComponent(name)}&docType=${encodeURIComponent(docType)}&invoice=${encodeURIComponent(invoiceNumber)}`;
-            window.open(printUrl, '_blank');
-          } else {
-            // Fallback to generic template
-            const printUrl = `print-generic.html?name=${encodeURIComponent(name)}&docType=${encodeURIComponent(docType)}&invoice=${encodeURIComponent(invoiceNumber)}`;
-            window.open(printUrl, '_blank');
-          }
-                    
-          // Swal.fire({
-          //   icon: 'success',
-          //   title: 'Document Opened',
-          //   text: `${docType} for ${name} has been opened for printing.`,
-          //   timer: 2000,
-          //   timerProgressBar: true
-          // });
-        }
-    //   });
-    // }
+    if (templateFile) {
+        window.open(templateFile, '_blank');
+    } else {
+        // Fallback to generic template
+        window.open('print-generic.html', '_blank');
+    }
+}
 
-    function toggleReleased(applicantIndex, isChecked) {
-      // Store the temporary state instead of immediately applying
-      applicantsData[applicantIndex].tempIsReleased = isChecked;
-      
-      // Check if this creates a change
-      const currentReleased = applicantsData[applicantIndex].isReleased || false;
-      const hasChanges = currentReleased !== isChecked;
-      
-      // Update visual indicators
-      updateApprovedRowIndicator(applicantIndex, hasChanges);
-      // Update global approved changes state
-      updateApprovedChangesState();
-      saveDataToStorage(); // Add this line
-    } 
-
+function toggleRequestReleased(applicantIndex, isChecked) {
+  const applicant = applicantsData[applicantIndex];
+  
+  if (applicant.tempIsReleased === undefined) {
+    applicant.tempIsReleased = applicant.isReleased || false;
+  }
+  applicant.tempIsReleased = isChecked;
+  
+  const hasChanges = (applicant.tempIsReleased !== (applicant.isReleased || false)) ||
+                     !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
+                     applicant.status !== applicant.tempStatus;
+  
+  updateRowIndicator(applicantIndex, hasChanges);
+  updateGlobalChangesState();
+}
     function updateApprovedChangesState() {
       hasUnsavedApprovedChanges = applicantsData.some(applicant => {
         const currentReleased = applicant.isReleased || false;
@@ -1536,12 +1631,12 @@ function toggleReleasedDocTypeDropdown() {
 function updateDocumentRequestsTable() {
   const tableBody = document.getElementById('applicantsTableBody');
   const rows = tableBody.getElementsByTagName('tr');
-  
+
   // Hide rows where status is 'Approved', 'Released', or 'Rejected'
   for (let i = 0; i < rows.length; i++) {
     const applicantIndex = parseInt(rows[i].id.split('-')[1]);
     const applicant = applicantsData[applicantIndex];
-    
+
     if (applicant && (applicant.status === 'Approved' || applicant.status === 'Released' || applicant.status === 'Rejected')) {
       rows[i].style.display = 'none';
     } else {
@@ -1549,7 +1644,6 @@ function updateDocumentRequestsTable() {
     }
   }
 }
-
 // Rejected Documents - Reuse Released Functions
 function populateRejectedTable() {
   const rejectedApplicants = applicantsData.filter(app => app.status === 'Rejected');
@@ -1713,7 +1807,7 @@ function toggleRowSelection(tabType, applicantIndex, isChecked) {
 
 function showMoveConfirmation(tabType) {
   const selectedRows = tabType === 'released' ? selectedReleasedRows : selectedRejectedRows;
-  const buttonId = tabType === 'released' ? 'releasedMoveButton' : 'rejectedMoveButton';
+  const buttonId = tabType === 'released' ? 'releasedMoveButton' : (tabType === 'rejected' ? 'rejectedMoveButton' : 'approvedMoveButton');
   const button = document.getElementById(buttonId);
   
   if (selectedRows.size === 0) {
@@ -1727,7 +1821,7 @@ function showMoveConfirmation(tabType) {
   button.classList.add('processing');
   button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
-  const targetTab = tabType === 'released' ? 'Approved' : 'Document Requests';
+  const targetTab = tabType === 'released' ? 'Document Requests' : 'Document Requests';
   
   // Show password modal instead of SweetAlert
   showMovePasswordModal(tabType, selectedRows.size, targetTab);
@@ -1814,10 +1908,10 @@ function cancelMovePassword() {
 }
 
 function resetMoveButton(tabType) {
-  const buttonId = tabType === 'released' ? 'releasedMoveButton' : 'rejectedMoveButton';
+  const buttonId = tabType === 'released' ? 'releasedMoveButton' : (tabType === 'rejected' ? 'rejectedMoveButton' : 'approvedMoveButton');
   const button = document.getElementById(buttonId);
-  const targetText = tabType === 'released' ? 'Move to Approved' : 'Move to Document Requests';
-  const icon = tabType === 'released' ? 'fas fa-arrow-right' : 'fas fa-undo';
+  const targetText = tabType === 'released' ? 'Move to Requests' : 'Move to Document Requests';
+  const icon = tabType === 'released' ? 'fas fa-arrow-right' : (tabType === 'rejected' ? 'fas fa-undo' : 'fas fa-undo');
   
   button.disabled = false;
   button.classList.remove('processing');
@@ -1825,8 +1919,8 @@ function resetMoveButton(tabType) {
 }
 
 function moveSelectedApplications(tabType) {
-  const selectedRows = tabType === 'released' ? selectedReleasedRows : selectedRejectedRows;
-  const targetStatus = tabType === 'released' ? 'Approved' : 'Pending';
+  const selectedRows = tabType === 'released' ? selectedReleasedRows : (tabType === 'rejected' ? selectedRejectedRows : selectedApprovedRows);
+  const targetStatus = tabType === 'released' ? 'Pending' : 'Pending';
   
   // Move applications
   selectedRows.forEach(applicantIndex => {
@@ -1844,21 +1938,21 @@ function moveSelectedApplications(tabType) {
     }
   });
   
-  // Clear selections
   const selectedCount = selectedRows.size;
   if (tabType === 'released') {
     selectedReleasedRows.clear();
-  } else {
+  } else if (tabType === 'rejected') {
     selectedRejectedRows.clear();
+  } else {
+    selectedApprovedRows.clear();
   }
   
   // Update UI
   updateDashboardCounts();
   updateDocumentRequestsTable();
-  
+
   if (tabType === 'released') {
     populateReleasedTable();
-    populateApprovedTable();
   } else {
     populateRejectedTable();
   }
@@ -1898,84 +1992,35 @@ document.addEventListener('keydown', function(event) {
     cancelPassword();
   }
   
-  // NEW: Residents password modal handling
-  if (event.key === 'Enter' && document.getElementById('residentsPasswordModal').style.display === 'flex') {
-    confirmResidentsPassword();
-  }
-  
-  if (event.key === 'Escape' && document.getElementById('residentsPasswordModal').style.display === 'flex') {
-    cancelResidentsPassword();
-  }
+
 });
 
 
-
-
-
-
-// passw function for residency tab
-function confirmResidentsPassword() {
-  const password = document.getElementById('residentsPasswordInput').value;
-  if (password === adminSettings.residentsPassword) {
-    isResidentsAccessGranted = true;
-    document.getElementById('residentsPasswordModal').style.display = 'none';
-    document.getElementById('residentsPasswordInput').value = '';
-    
-    // Now show the residents section
-    document.getElementById('residents').style.display = 'block';
-    residentsTableBody();
-    
-    // showToast('Access granted! Welcome to Residents Management.', 'success');
-    showProgressToast(
-  'Signing in',
-  'Please wait...',
-  'Access granted!',
-  'Welcome to Residents Management.',
-  600
-);
-  } else {
-    showToast('Incorrect password! Please try again.', 'error');
-    document.getElementById('residentsPasswordInput').value = '';
-    document.getElementById('residentsPasswordInput').focus();
-  }
-}
-
-function cancelResidentsPassword() {
-  document.getElementById('residentsPasswordModal').style.display = 'none';
-  document.getElementById('residentsPasswordInput').value = '';
-  
-  // Return to dashboard since access was denied
-  showSection('dashboard');
-  
-  showToast('Access denied. Returning to dashboard.', 'info');
-}
-
-// Fixed Residents filter and search functions
-function toggleResidentsFilter() {
-  const panel = document.getElementById('residentsFilterPanel');
+// Fixed voters filter and search functions
+function toggleVotersFilter() {
+  const panel = document.getElementById('votersFilterPanel');
   if (panel) {
     panel.classList.toggle('active');
   }
 }
 
-function toggleResidentsSearch() {
-  const searchInput = document.getElementById('residentsSearchInput');
+function toggleVotersSearch() {
+  const searchInput = document.getElementById('votersSearchInput');
   if (searchInput) {
     if (searchInput.style.display === 'block') {
       searchInput.style.display = 'none';
       searchInput.value = '';
-      filterResidentsTable('');
+      populateVotersTable('');
     } else {
       searchInput.style.display = 'block';
       searchInput.focus();
     }
   }
 }
-
-// Updated residents filter functions with debugging
-function filterResidentsTable(searchTerm) {
+// Updated voters filter functions with debugging
+function filterVotersTable(searchTerm) {
   console.log('Search term:', searchTerm);
-  const tbody = document.getElementById('residentsTableBody');
+  const tbody = document.getElementById('votersTableBody');
   if (!tbody) {
     console.log('Table body not found');
     return;
@@ -1989,16 +2034,15 @@ function filterResidentsTable(searchTerm) {
     const cells = row.getElementsByTagName('td');
     
     if (cells.length > 0) {
-      // Correct column mapping based on your HTML structure:
-// NEW - Correct column indices (accounting for checkbox in cells[0])
-      const name = cells[1] ? cells[1].textContent.toLowerCase() : '';          // Full Name
-      const sex = cells[2] ? cells[2].textContent.toLowerCase() : '';           // Sex
-      const address = cells[3] ? cells[3].textContent.toLowerCase() : '';       // Complete Address
-      const birthday = cells[4] ? cells[4].textContent.toLowerCase() : '';      // Birthday
-      const birthplace = cells[5] ? cells[5].textContent.toLowerCase() : '';    // Birthplace
-      const age = cells[6] ? cells[6].textContent.toLowerCase() : '';           // Age
-      const civilStatus = cells[7] ? cells[7].textContent.toLowerCase() : '';   // Civil Status
-      const phone = cells[8] ? cells[8].textContent.toLowerCase() : '';         // Contact Number
+      // Correct column indices (no checkbox column)
+      const name = cells[0] ? cells[0].textContent.toLowerCase() : '';          // Full Name
+      const sex = cells[1] ? cells[1].textContent.toLowerCase() : '';           // Sex
+      const address = cells[2] ? cells[2].textContent.toLowerCase() : '';       // Complete Address
+      const birthday = cells[3] ? cells[3].textContent.toLowerCase() : '';      // Birthday
+      const birthplace = cells[4] ? cells[4].textContent.toLowerCase() : '';    // Birthplace
+      const age = cells[5] ? cells[5].textContent.toLowerCase() : '';           // Age
+      const civilStatus = cells[6] ? cells[6].textContent.toLowerCase() : '';   // Civil Status
+      const phone = cells[7] ? cells[7].textContent.toLowerCase() : '';         // Contact Number
 
       const searchLower = searchTerm.toLowerCase();
       
@@ -2018,23 +2062,21 @@ function filterResidentsTable(searchTerm) {
     }
   }
   
-  // If there's an active search, don't apply other filters
   if (searchTerm === '') {
-    applyResidentsFilters();
+    applyVotersFilters();
   }
 }
 
-function applyResidentsFilters() {
-  console.log('Applying residents filters...');
-  const tbody = document.getElementById('residentsTableBody');
+function applyVotersFilters() {
+  console.log('Applying voters filters...');
+  const tbody = document.getElementById('votersTableBody');
   if (!tbody) {
-    console.log('Table body not found in applyResidentsFilters');
+    console.log('Table body not found in applyVotersFilters');
     return;
   }
   
-  // Get selected filters
-  const sexCheckboxes = document.querySelectorAll('#residentsFilterPanel input[type="checkbox"][data-filter="sex"]:checked');
-  const civilStatusCheckboxes = document.querySelectorAll('#residentsFilterPanel input[type="checkbox"][data-filter="civilStatus"]:checked');
+  const sexCheckboxes = document.querySelectorAll('#votersFilterPanel input[type="checkbox"][data-filter="sex"]:checked');
+  const civilStatusCheckboxes = document.querySelectorAll('#votersFilterPanel input[type="checkbox"][data-filter="civilStatus"]:checked');
 
   const selectedSex = Array.from(sexCheckboxes).map(cb => cb.value);
   const selectedCivilStatus = Array.from(civilStatusCheckboxes).map(cb => cb.value);
@@ -2055,85 +2097,68 @@ function applyResidentsFilters() {
     const cells = row.getElementsByTagName('td');
     
     if (cells.length > 0) {
-      // Correct column indices (no checkbox column in table body)
-      // NEW - Correct column indices (accounting for checkbox in cells[0])
-      const sex = cells[2] ? cells[2].textContent.trim() : '';           // Sex column
-      const ageText = cells[6] ? cells[6].textContent.trim() : '';       // Age column
+      // Correct column indices (no checkbox column)
+      const sex = cells[1] ? cells[1].textContent.trim() : '';           // Sex column
+      const ageText = cells[5] ? cells[5].textContent.trim() : '';       // Age column
       const age = parseInt(ageText) || 0;
-      const civilStatus = cells[7] ? cells[7].textContent.trim() : '';   // Civil Status column
-            // Debug logging for first row      
+      const civilStatus = cells[6] ? cells[6].textContent.trim() : '';   // Civil Status column
+      
       if (i === 0) {
         console.log('First row data:');
         console.log('- Sex value:', `"${sex}"`);
         console.log('- Age value:', `"${ageText}"`, 'parsed:', age);
         console.log('- Civil Status value:', `"${civilStatus}"`);
-        console.log('- All cell contents:', Array.from(cells).map(cell => `"${cell.textContent.trim()}"`));
       }
       
       let showRow = true;
       
-      // Filter by sex
       if (selectedSex.length > 0 && !selectedSex.includes(sex)) {
-        console.log(`Row ${i}: Sex "${sex}" not in selected filters [${selectedSex.join(', ')}]`);
         showRow = false;
       }
       
-      // Filter by civil status
       if (selectedCivilStatus.length > 0 && !selectedCivilStatus.includes(civilStatus)) {
-        console.log(`Row ${i}: Civil Status "${civilStatus}" not in selected filters [${selectedCivilStatus.join(', ')}]`);
         showRow = false;
       }
       
-      // Filter by age range
       if (ageFrom && age < parseInt(ageFrom)) {
-        console.log(`Row ${i}: Age ${age} is less than minimum ${ageFrom}`);
         showRow = false;
       }
       
       if (ageTo && age > parseInt(ageTo)) {
-        console.log(`Row ${i}: Age ${age} is greater than maximum ${ageTo}`);
         showRow = false;
       }
       
       row.style.display = showRow ? '' : 'none';
       if (showRow) visibleCount++;
-      
-      console.log(`Row ${i}: ${showRow ? 'VISIBLE' : 'HIDDEN'}`);
     }
   }
   
   console.log('Visible rows after filtering:', visibleCount);
 }
 
-// Missing functions that your HTML is calling
-function updateResidentsSexFilter() {
-  applyResidentsFilters();
+function updateVotersSexFilter() {
+  applyVotersFilters();
 }
 
-function updateResidentsCivilStatusFilter() {
-  applyResidentsFilters();
+function updateVoterssCivilStatusFilter() {
+  applyVotersFilters();
 }
 
-function clearResidentsFilters() {
-  console.log('Clearing residents filters...');
+function clearVotersFilters() {
+  console.log('Clearing voters filters...');
   
-  // Clear all checkboxes
-  const checkboxes = document.querySelectorAll('#residentsFilterPanel input[type="checkbox"]');
-  console.log('Found checkboxes:', checkboxes.length);
+  const checkboxes = document.querySelectorAll('#votersFilterPanel input[type="checkbox"]');
   checkboxes.forEach(cb => cb.checked = false);
   
-  // Clear age inputs
   const ageFromInput = document.getElementById('ageFrom');
   const ageToInput = document.getElementById('ageTo');
   if (ageFromInput) ageFromInput.value = '';
   if (ageToInput) ageToInput.value = '';
   
-  // Clear search input
-  const searchInput = document.getElementById('residentsSearchInput');
+  const searchInput = document.getElementById('votersSearchInput');
   if (searchInput) searchInput.value = '';
   
-  // Show all rows
-  const tbody = document.getElementById('residentsTableBody');
+  const tbody = document.getElementById('votersTableBody');
   if (tbody) {
     const rows = tbody.getElementsByTagName('tr');
     for (let i = 0; i < rows.length; i++) {
@@ -2144,33 +2169,22 @@ function clearResidentsFilters() {
 }
 
 // Function to toggle residents filter panel
-function toggleResidentsFilter() {
-  const filterPanel = document.getElementById('residentsFilterPanel');
+function toggleVotersFilter() {
+  const filterPanel = document.getElementById('votersFilterPanel');
   if (filterPanel) {
     filterPanel.classList.toggle('active');
     console.log('Filter panel toggled, active:', filterPanel.classList.contains('active'));
   } else {
-    console.log('Residents filter panel not found');
+    console.log('voters filter panel not found');
   }
 }
 
-// Function for the select all checkbox functionality
-function toggleSelectAllResidents() {
-  const selectAllCheckbox = document.getElementById('selectAllResidents');
-  const tbody = document.getElementById('residentsTableBody');
-  
-  if (selectAllCheckbox && tbody) {
-    const rowCheckboxes = tbody.querySelectorAll('input[type="checkbox"]');
-    rowCheckboxes.forEach(checkbox => {
-      checkbox.checked = selectAllCheckbox.checked;
-    });
-  }
-}
+
 
 // Close filter panel when clicking outside
 document.addEventListener('click', function(event) {
-  const filterPanel = document.getElementById('residentsFilterPanel');
-  const filterButton = document.querySelector('[onclick="toggleResidentsFilter()"]');
+  const filterPanel = document.getElementById('votersFilterPanel');
+  const filterButton = document.querySelector('[onclick="toggleVotersFilter()"]');
   
   if (filterPanel && filterButton && 
       !filterPanel.contains(event.target) && 
@@ -2224,160 +2238,21 @@ document.addEventListener('click', function(event) {
 
 
 
-// ====== password for residents
-// Add these variables at the top with your other variables
-
-//const EDIT_PASSWORD = "admin123"; // Change this to your desired password
-
-// Add these functions to your residents JavaScript
-function toggleEditMode() {
-    if (!isEditMode && !isEditAccessGranted) {
-      // Show password modal
-      document.getElementById('passwordModal').style.display = 'flex';
-      document.getElementById('passwordInput').focus();
-    } else if (isEditAccessGranted && !isEditMode) {
-    // Already authenticated, just enable edit mode
-      enableEditMode();
-    } else {
-        // Exit edit mode
-        exitEditMode();
-      }
-}
-
-function confirmPassword() {
-  const password = document.getElementById('passwordInput').value;
-  if (password === adminSettings.editPassword) {
-    isEditAccessGranted = true; // Grant access for this session
-    enableEditMode();
-    document.getElementById('passwordModal').style.display = 'none';
-    document.getElementById('passwordInput').value = '';
-    showProgressToast(
-  'Signing in',
-  'Please wait...',
-  'Edit mode enabled!',
-  'You can now modify resident details.',
-);
-    // showToast('Edit mode enabled! You can now modify resident details.', 'success');
-  } else {
-    showToast('Incorrect password! Please try again.', 'error');
-    document.getElementById('passwordInput').value = '';
-    document.getElementById('passwordInput').focus();
-  }
-}
-
-function cancelPassword() {
-  document.getElementById('passwordModal').style.display = 'none';
-  document.getElementById('passwordInput').value = '';
-  showToast('Edit mode cancelled.', 'info');
-}
-
-function enableEditMode() {
-  isEditMode = true;
-  const editBtn = document.getElementById('editResidentsBtn');
-  editBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
-  editBtn.classList.add('active');
-  
-  // Make table cells editable (exclude first column if you don't want name editable)
-  const tbody = document.getElementById('residentsTableBody');
-  const rows = tbody.getElementsByTagName('tr');
-  
-  for (let i = 0; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName('td');
-    // Make all cells editable except any you want to exclude
-    for (let j = 0; j < cells.length; j++) {
-      cells[j].contentEditable = true;
-      cells[j].classList.add('editable');
-    }
-  }
-}
-
-function exitEditMode() {
-  isEditMode = false;
-    //isEditAccessGranted = false; // Reset edit access when exiting
-  const editBtn = document.getElementById('editResidentsBtn');
-  editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit Residents';
-  editBtn.classList.remove('active');
-  
-  // Remove editable properties
-  const tbody = document.getElementById('residentsTableBody');
-  const rows = tbody.getElementsByTagName('tr');
-  
-  for (let i = 0; i < rows.length; i++) {
-    const cells = rows[i].getElementsByTagName('td');
-    for (let j = 0; j < cells.length; j++) {
-      cells[j].contentEditable = false;
-      cells[j].classList.remove('editable');
-    }
+function populateVotersTable() {
+  const tbody = document.getElementById('votersTableBody');
+  if (!tbody) {
+    console.log('Table body not found');
+    return;
   }
   
-  // Here you can add code to save changes to your data storage
-  saveResidentsChanges();
-}
-
-function saveResidentsChanges() {
-  if (isEditMode) {
-    // Get all table rows and update residentsData
-    const tbody = document.getElementById('residentsTableBody');
-    const rows = tbody.getElementsByTagName('tr');
-    
-    for (let i = 0; i < rows.length; i++) {
-      const cells = rows[i].getElementsByTagName('td');
-      if (cells.length > 1) { // Skip if not enough cells
-        const checkbox = cells[0].querySelector('.resident-checkbox');
-        const residentId = parseInt(checkbox.dataset.id);
-        const resident = residentsData.find(r => r.id === residentId);
-        
-        if (resident) {
-          resident.fullName = cells[1].textContent.trim();
-          resident.sex = cells[2].textContent.trim();
-          resident.address = cells[3].textContent.trim();
-          resident.birthday = cells[4].textContent.trim();
-          resident.birthplace = cells[5].textContent.trim();
-          resident.age = parseInt(cells[6].textContent.trim()) || 0;
-          resident.civilStatus = cells[7].textContent.trim();
-          resident.contactNumber = cells[8].textContent.trim();
-        }
-      }
-    }
-  }
-  
-  saveResidentsToStorage();
-  showProgressToast(
-    'Saving Changes',
-    'Please wait...',
-    'Changes Saved',
-    'All changes have been saved successfully'
-  );
-  // showToast('Residents data saved successfully!', 'success');
-}
-
-// Handle Enter key in password modal
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter' && document.getElementById('passwordModal').style.display === 'flex') {
-    confirmPassword();
-  }
-});
-
-// Handle Escape key to close modal
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape' && document.getElementById('passwordModal').style.display === 'flex') {
-    cancelPassword();
-  }
-});
-
-
-// add delete 
-function residentsTableBody() {
-  const tbody = document.getElementById('residentsTableBody');
-  if (!tbody) return;
-  
+  // Clear existing content
   tbody.innerHTML = '';
   
-  residentsData.forEach((resident, index) => {
+  // Add each resident as a row
+  votersData.forEach((resident, index) => {
     const row = document.createElement('tr');
     
     row.innerHTML = `
-      <td><input type="checkbox" class="resident-checkbox" data-id="${resident.id}"></td>
       <td>${resident.fullName}</td>
       <td>${resident.sex}</td>
       <td>${resident.address}</td>
@@ -2390,138 +2265,10 @@ function residentsTableBody() {
     
     tbody.appendChild(row);
   });
+  
+  console.log('Table populated with', votersData.length, 'voters');
 }
 
-function showAddResidentModal() {
-  document.getElementById('addResidentModal').style.display = 'flex';
-  // Clear form
-  document.getElementById('addResidentForm').reset();
-}
-
-function hideAddResidentModal() {
-  document.getElementById('addResidentModal').style.display = 'none';
-}
-
-function addResident() {
-  const form = document.getElementById('addResidentForm');
-  const formData = new FormData(form);
-  
-  // Validate required fields
-  const requiredFields = ['fullName', 'sex', 'address', 'birthday', 'birthplace', 'civilStatus'];
-  let isValid = true;
-  
-  requiredFields.forEach(field => {
-    if (!formData.get(field) || formData.get(field).trim() === '') {
-      isValid = false;
-    }
-  });
-  
-  if (!isValid) {
-    showToast('Please fill in all required fields.', 'error');
-    return;
-  }
-  
-  // Calculate age from birthday
-  const birthday = new Date(formData.get('birthday'));
-  const today = new Date();
-  let age = today.getFullYear() - birthday.getFullYear();
-  const monthDiff = today.getMonth() - birthday.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
-    age--;
-  }
-  
-  // Create new resident object
-  const newResident = {
-    id: Date.now(), // Simple ID generation
-    fullName: formData.get('fullName').trim(),
-    sex: formData.get('sex'),
-    address: formData.get('address').trim(),
-    birthday: formData.get('birthday'),
-    birthplace: formData.get('birthplace').trim(),
-    age: age,
-    civilStatus: formData.get('civilStatus'),
-    contactNumber: formData.get('contactNumber').trim() || 'N/A'
-  };
-  
-  // Add to residents data
-  residentsData.push(newResident);
-  
-  // Update table
-  residentsTableBody();
-  
-  // Close modal
-  hideAddResidentModal();
-  
-  // Save to storage
-  saveResidentsToStorage();
-  
-  // showToast('Resident added successfully!', 'success');
-    showProgressToast(
-    'Saving Changes',
-    'Please wait...',
-    'Resident added successfully!',
-    // 'All changes have been saved successfully'
-  );
-}
-function showDeleteConfirmation() {
-    const checkboxes = document.querySelectorAll('.resident-checkbox:checked');
-    
-    if (checkboxes.length === 0) {
-        showToast('Please select residents to delete.', 'error');
-        return;
-    }
-    
-    const residentCount = checkboxes.length;
-    const residentText = residentCount === 1 ? 'resident' : 'residents';
-    
-    showConfirmationModal(
-        'Confirm Deletion',
-        `Are you sure you want to delete ${residentCount} ${residentText}? This action cannot be undone.`,
-        'Delete',
-        'Cancel',
-        () => {
-            // setTimeout(() => {
-                deleteSelectedResidents();
-              showProgressToast(
-                'Saving Changes',
-                'Please wait...',
-                'Settings saved successfully!'
-              );
-            // }, 500);
-        }
-    );
-
-}
-
-function deleteSelectedResidents() {
-    const checkboxes = document.querySelectorAll('.resident-checkbox:checked');
-    
-    // Get IDs of selected residents
-    const idsToDelete = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
-    
-    // Remove from residentsData
-    residentsData = residentsData.filter(resident => !idsToDelete.includes(resident.id));
-    
-    // Update table
-    residentsTableBody();
-    
-    // Save to storage
-    saveResidentsToStorage();
-    
-    const residentText = checkboxes.length === 1 ? 'resident' : 'residents';
-    // showToast(`${checkboxes.length} ${residentText} deleted successfully!`, 'success');
-    
-}
-
-
-function toggleSelectAllResidents() {
-  const selectAllCheckbox = document.getElementById('selectAllResidents');
-  const checkboxes = document.querySelectorAll('.resident-checkbox');
-  
-  checkboxes.forEach(checkbox => {
-    checkbox.checked = selectAllCheckbox.checked;
-  });
-}
 
 // =========== Admin Settings Functions
 function showAdminLogin() {
@@ -2639,9 +2386,6 @@ function changeSpecificPassword(passwordType) {
         case 'Admin':
             actualCurrentPassword = adminSettings.loginPassword;
             break;
-        case 'Residents':
-            actualCurrentPassword = adminSettings.residentsPassword;
-            break;
         case 'Move':
             actualCurrentPassword = adminSettings.movePassword;
             break;
@@ -2666,9 +2410,6 @@ function changeSpecificPassword(passwordType) {
     switch(passwordType) {
         case 'Admin':
             adminSettings.loginPassword = newPassword;
-            break;
-        case 'Residents':
-            adminSettings.residentsPassword = newPassword;
             break;
         case 'Move':
             adminSettings.movePassword = newPassword;
@@ -3046,7 +2787,7 @@ function getRequirementsForDocType(docType) {
 }
 
 // Update the existing showApplicantModal function to use dynamic requirements
-function updateApplicantModalWithDynamicRequirements(index, name, docType, status, purpose, requirements) {
+function updateApplicantModalWithDynamicRequirements(index, name, age, address,birthplace,civilStatus,requestedBy,placeIssued,dateIssued, docType, status, purpose,ctcnum, requirements) {
     // Get dynamic requirements instead of using hardcoded ones
     const dynamicRequirements = getRequirementsForDocType(docType);
     
@@ -3054,14 +2795,14 @@ function updateApplicantModalWithDynamicRequirements(index, name, docType, statu
     const finalRequirements = dynamicRequirements.length > 0 ? dynamicRequirements : requirements;
     
     // Call the original function with updated requirements
-    showApplicantModal(index, name, docType, status, purpose, finalRequirements);
+    showApplicantModal(index, name, age, address,birthplace,civilStatus,requestedBy,placeIssued,dateIssued, docType, status, purpose, ctcnum, finalRequirements);
 }
 
 function loadAdminSettings() {
     // Load current settings into form fields
     document.getElementById('loginUsername').value = adminSettings.loginUsername;
     document.getElementById('loginPassword').value = adminSettings.loginPassword;
-    document.getElementById('residentsPassword').value = adminSettings.residentsPassword;
+    
     document.getElementById('movePassword').value = adminSettings.movePassword;
     document.getElementById('editPassword').value = adminSettings.editPassword;
     document.getElementById('releaseDuration').value = adminSettings.releaseArchiveDuration;
@@ -3129,7 +2870,7 @@ function saveAdminSettings(adminPassword) {
         // Save all settings
         adminSettings.loginUsername = document.getElementById('loginUsername').value;
         adminSettings.loginPassword = document.getElementById('loginPassword').value;
-        adminSettings.residentsPassword = document.getElementById('residentsPassword').value;
+      
         adminSettings.movePassword = document.getElementById('movePassword').value;
         adminSettings.editPassword = document.getElementById('editPassword').value;
         adminSettings.releaseArchiveDuration = parseInt(document.getElementById('releaseDuration').value);
@@ -3591,14 +3332,14 @@ document.getElementById('enableSessionWarning').addEventListener('change', funct
 });
 
 // Data persistence functions
-function saveResidentsToStorage() {
-  localStorage.setItem('residentsData', JSON.stringify(residentsData));
+function saveVotersToStorage() {
+  localStorage.setItem('votersData', JSON.stringify(votersData));
 }
 
-function loadResidentsFromStorage() {
-  const savedData = localStorage.getItem('residentsData');
+function loadVotersFromStorage() {
+  const savedData = localStorage.getItem('votersData');
   if (savedData) {
-    residentsData = JSON.parse(savedData);
+    votersData = JSON.parse(savedData);
   }
 }
 
@@ -3623,6 +3364,6 @@ function loadDataFromStorage() {
     });
   }
 
-    loadResidentsFromStorage();
+    loadVotersFromStorage();
 }
 syncApplicantChecklists();
