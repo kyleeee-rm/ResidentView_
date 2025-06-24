@@ -31,16 +31,9 @@ body {
 #selectAllResidents td, #selectAllResidents th {
   width: 5px; /* Adjust this value as needed */
 }
-.residents-table th:first-child,
-.residents-table td:first-child {
-  width: 80px;
-  text-align: center;
-  margin: 0;
-}
 
-.resident-checkbox {
-  margin: 0;
-}
+
+
 
 
 /* Enhanced Sidebar */
@@ -673,6 +666,85 @@ table tbody tr {
       max-width: 600px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    #applicantModal .modal-content {
+      position: relative;
+      background-color: white;
+      margin: 5px auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 800px;
+      height: fit-content;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 1px !important;
+  padding: 20px;
+}
+
+.info-row {
+  display: flex;
+  flex: 0 0 calc(50% - 5px); /* Takes half width minus gap */
+  align-items: center;
+  text-align: left;
+  margin-bottom: 1px !important;
+  border: 1px solid var(--primary-medium);
+  border-radius: 10px;
+
+}
+/* #applicantsTableBody tr {
+  display: table-row !important;
+  background-color: yellow !important; /* Temporary - to see if rows exist 
+} */
+.info-row label {
+  min-width: 100px; /* Reduced from 120px to fit better */
+  font-weight: bold;
+  margin-right: 8px;
+  padding-left: 30px;
+  align-items: center;
+}
+
+.info-row span {
+  flex: 1;
+}
+
+.info-row input {
+  flex: 1;
+  padding: 5px;
+  background:rgba(225, 196, 78, 0.782);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  border-radius: 3px;
+  margin-right: 20px;
+
+}
+
+.checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  margin-left: 60px;
+  transform: scale(1.3);
+    accent-color: var(--accent-gold);
+    cursor: pointer;
+}
+
+.checklist label {
+  display: flex;
+  align-items: center;
+  flex: 0 0 calc(50% - 5px); /* Takes half width minus gap */
+  margin-bottom: 5px;
+}
+
+.checklist input[type="checkbox"] {
+  margin-left: 10px;
+  flex-shrink: 0;
+}
 
 /* @keyframes modalSlideIn {
   from {
@@ -1285,10 +1357,11 @@ table tbody tr {
   gap: 8px;
   margin-top: 12px;
   white-space: nowrap;
-  padding: 8px;
-  background: linear-gradient(135deg, var(--cream), #f8f9f0);
+  padding-right: 8px;
+  padding-left: 0;
+  /* background: linear-gradient(135deg, var(--cream), #f8f9f0); */
   border-radius: 12px;
-  box-shadow: inset 0 2px 4px var(--shadow);
+  /* box-shadow: inset 0 2px 4px var(--shadow); */
 }
 
 .status-checkbox-item {
@@ -1475,7 +1548,7 @@ table tbody tr {
 }
 
 /* Enhanced Toast Notifications */
-.toast-container {
+/* .toast-container {
   position: fixed;
   top: 24px;
   right: 24px;
@@ -1600,6 +1673,307 @@ table tbody tr {
 
 .toast.slide-out {
   animation: slideOutToast 0.3s ease forwards;
+} */
+
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  background: linear-gradient(135deg, var(--cream) 0%, #f8f8f0 100%);
+  color: var(--primary-dark);
+  padding: 18px 24px;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(138, 154, 91, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 320px;
+  transform: translateX(100%);
+  animation: slideInToast 0.4s ease-out forwards;
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid var(--accent-gold);
+  backdrop-filter: blur(10px);
+}
+
+.progressing{
+  background: linear-gradient(100deg, var(--cream) 0%, #f8f8f0 100%);
+  border-left: 4px solid #176c2b;
+  color: var(--cream);
+  box-shadow: 
+    0 10px 25px rgba(40, 167, 69, 0.15),
+    0 0 0 1px rgba(40, 167, 69, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.toast.success {
+  background: linear-gradient(100deg, var(--accent-green) 0%, #f8f8f0 110%);
+  border-left: 4px solid #176c2b;
+  color: var(--cream);
+  box-shadow: 
+    0 10px 25px rgba(40, 167, 69, 0.15),
+    0 0 0 1px rgba(40, 167, 69, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.toast.error {
+  background: linear-gradient(100deg, #eb5867 0%, #f8f8f0 130%);
+  border-left: 4px solid #a42733;
+  color: var(--primary-dark);
+  box-shadow: 
+    0 10px 25px rgba(220, 53, 69, 0.15),
+    0 0 0 1px rgba(220, 53, 69, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.toast.info {
+  background: linear-gradient(100deg, #4fadbc 0%, #f8f8f0 110%);
+  border-left: 4px solid #106c7a;
+  color: var(--primary-dark);
+  box-shadow: 
+    0 10px 25px rgba(23, 162, 184, 0.15),
+    0 0 0 1px rgba(23, 162, 184, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.toast.warning {
+  background: linear-gradient(100deg, #ffc107 0%, #f8f8f0 100%);
+  border-left: 4px solid #ab830b;
+  color: var(--primary-dark);
+  box-shadow: 
+    0 10px 25px rgba(255, 193, 7, 0.15),
+    0 0 0 1px rgba(255, 193, 7, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+         .toast.success .toast-icon::after {
+           content: '✓';
+           color: #28a745;
+           font-size: 20px;
+           font-weight: bold;
+         }
+
+.toast-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  padding: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.toast-close {
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(138, 154, 91, 0.3) 0%, 
+    rgba(138, 154, 91, 0.6) 50%, 
+    rgba(138, 154, 91, 0.3) 100%
+  );
+  animation: progress 3s linear forwards;
+  border-radius: 0 0 12px 12px;
+}
+
+.toast.success .toast-progress {
+  background: linear-gradient(90deg, 
+    rgba(40, 167, 69, 0.3) 0%, 
+    rgba(40, 167, 69, 0.6) 50%, 
+    rgba(40, 167, 69, 0.3) 100%
+  );
+}
+
+.toast.error .toast-progress {
+  background: linear-gradient(90deg, 
+    rgba(220, 53, 69, 0.3) 0%, 
+    rgba(220, 53, 69, 0.6) 50%, 
+    rgba(220, 53, 69, 0.3) 100%
+  );
+}
+
+.toast.info .toast-progress {
+  background: linear-gradient(90deg, 
+    rgba(23, 162, 184, 0.3) 0%, 
+    rgba(23, 162, 184, 0.6) 50%, 
+    rgba(23, 162, 184, 0.3) 100%
+  );
+}
+
+.toast.warning .toast-progress {
+  background: linear-gradient(90deg, 
+    rgba(255, 193, 7, 0.3) 0%, 
+    rgba(127, 96, 3, 0.6) 50%, 
+    rgba(255, 193, 7, 0.3) 100%
+  );
+}
+
+/* Progress Toast Styles */
+.toast.progress {
+  background: linear-gradient(135deg, var(--cream) 0%, #f8f8f0 100%);
+  border-left: 4px solid var(--primary-medium);
+  color: var(--primary-dark);
+  box-shadow: 
+    0 10px 25px rgba(138, 154, 91, 0.15),
+    0 0 0 1px rgba(138, 154, 91, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.toast.progress .toast-progress {
+  background: linear-gradient(90deg, 
+    rgba(138, 154, 91, 0.3) 0%, 
+    rgba(138, 154, 91, 0.6) 50%, 
+    rgba(138, 154, 91, 0.3) 100%
+  );
+}
+
+.toast-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(138, 154, 91, 0.2);
+  border-top: 2px solid var(--primary-medium);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+.toast-message-container {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-dark);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.toast-subtitle {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Success state for progress toast */
+.toast.progress.success .toast-spinner {
+  display: none;
+}
+
+.toast.progress.success .toast-icon::after {
+  content: '✓';
+  color: #28a745;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.toast.progress.success {
+  border-left-color: #28a745;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToast {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.toast.slide-out {
+  animation: slideOutToast 0.3s ease forwards;
+}
+
+/* Ensure toasts stack properly without overlaying */
+.toast-container .toast:not(:first-child) {
+  margin-top: 0; /* Remove any additional margin since gap handles spacing */
+}
+
+/* Add subtle entrance stagger for multiple toasts */
+.toast-container .toast:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.toast-container .toast:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.toast-container .toast:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.toast-container .toast:nth-child(n+5) {
+  animation-delay: 0.4s;
 }
 
 /* Additional enhancements */
@@ -1664,30 +2038,9 @@ table tbody tr {
 }
 
 /* Editable cell styles */
-.residents-table td.editable {
-    background: linear-gradient(135deg, var(--cream) 0%, #f8f9f0 100%);
-    cursor: text;
-    position: relative;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-}
 
-.residents-table td.editable:hover {
-    background: linear-gradient(135deg, var(--accent-green) 0%, #9aab6b 100%);
-    color: white;
-    transform: scale(1.02);
-    box-shadow: 0 4px 15px var(--shadow-medium);
-}
 
-.residents-table td.editable:focus {
-    outline: none;
-    color: var(--primary-dark);
-    background: var(--accent-gold-light);
-    border: 2px solid var(--accent-gold);
-    box-shadow: 0 0 0 3px rgba(189, 143, 66, 0.1);
-    transform: scale(1.02);
-}
+
 
 /* Password Modal Styles */
 /* .password-modal {
@@ -1962,15 +2315,7 @@ table tbody tr {
     cursor: pointer;
 }
 
-#selectAllResidents {
-    transform: scale(1.3);
-    margin: 0;
-    width: auto;
-    background-color: transparent;
-    border: none;
-    accent-color: var(--accent-gold);
-    cursor: pointer;
-}
+
 
 /* Table header and cell styling */
 th:first-child,
@@ -2036,29 +2381,6 @@ td:first-child {
 } */
 
 /* Delete Resident Button - Keep original red/orange colors */
-.btn-delete-residents {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: .7rem 1rem;
-    color: white;
-    border: none;
-    border-radius: 12px;
-  font-weight: 600;
-  font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
-    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-}
-
-.btn-delete-residents:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #c82333 0%, #e67e22 100%);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
-}
 /* 
 .btn-delete-residents:active {
     transform: translateY(-1px);
@@ -2112,19 +2434,6 @@ td:first-child {
     box-shadow: 0 4px 15px rgba(189, 143, 66, 0.3);
 }
 
-/* Residents Password Modal Styling */
-#residentsPasswordModal .modal-content {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-medium) 100%);
-    color: var(--accent-light-gold);
-    border: none;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-
-#residentsPasswordModal .modal-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(208, 181, 100, 0.2);
-  padding-bottom: 20px;
-}
 
 .lock-icon {
   width: 60px;
@@ -2138,17 +2447,7 @@ td:first-child {
   font-size: 24px;
 }
 
-#residentsPasswordModal .modal-header h3 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: 600;
-}
 
-#residentsPasswordModal .modal-header p {
-  margin: 0;
-  opacity: 0.8;
-  font-size: 14px;
-}
 
 /* add modal */
         .add-modal {
