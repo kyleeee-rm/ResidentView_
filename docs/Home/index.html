@@ -162,7 +162,7 @@
             class="fixed top-0 left-0 right-0 z-50 px-4 md:px-10 lg:px-24 backdrop-blur-md bg-[#0B121580] border-b border-[#FFFFF020] transition-transform duration-300">
             <nav class="container mx-auto p-4 flex items-center justify-between">
                 <!-- Logo and Text -->
-                <a href="../Home/index.html" onclick="smoothRefresh(event)" id="navbar-right" class="flex items-center"
+                <a href="index.html" onclick="smoothRefresh(event)" id="navbar-right" class="flex items-center"
                     aria-label="Refresh page">
                     <img src="../assets/seal.png" alt="Barangay Logo" class="navbar-logo w-10 md:w-14 h-auto">
                     <span
@@ -177,10 +177,10 @@
                 </button>
 
                 <!-- Desktop Menu -->
-                <div id="navbar-menu" class="hidden lg:flex items-center space-x-4 lg:space-x-6">
+                <div id="navbar-menu" class="hidden lg:flex items-center space-x-4 lg:space-x-6 ml-10">
                     <ul class="flex space-x-4 lg:space-x-6 relative">
                         <li>
-                            <a href="../Home/index.html"
+                            <a href="index.html"
                                 class="nav-link-active flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
                                 Home
                             </a>
@@ -262,9 +262,16 @@
                         </li>
                         <!-- About Barangay -->
                         <li>
-                            <a href="../Home/about.html"
+                            <a href="about.html"
                                 class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
                                 About Barangay
+                            </a>
+                        </li>
+                        <!--Account Security-->
+                        <li>
+                            <a href="accSec.html"
+                                class="flex items-center py-2 font-semibold text-base lg:text-md text-[#FFFFF0] hover:text-[#D0B564] transition-colors duration-300">
+                                Account Security
                             </a>
                         </li>
                     </ul>
@@ -285,13 +292,13 @@
 
             <!-- Menu Items -->
             <nav class="flex flex-col space-y-3 mt-3">
-                <a href="../Home/index.html"
+                <a href="index.html"
                     class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group border-b-2 border-[#D0B564] pb-2">
                     <i class="ri-home-4-line mr-3 text-[#D0B564] text-base"></i>
                     Home
                 </a>
 
-                <a href="../Home/about.html"
+                <a href="about.html"
                     class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
                     <i class="ri-information-line mr-3 text-[#D0B564] text-base"></i>
                     About Barangay
@@ -328,6 +335,12 @@
                     class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
                     <i class="ri-contacts-line mr-3 text-[#D0B564] text-base"></i>
                     Contact Us
+                </a>
+
+                <a href="accSec.html"
+                    class="text-white text-sm sm:text-lg font-medium hover:text-[#D0B564] py-1.5 flex items-center group">
+                    <i class="ri-lock-line mr-3 text-[#D0B564] text-base"></i>
+                    Account Security
                 </a>
 
                 <a href="../Log-In_and_Reg/login.html"
