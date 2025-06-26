@@ -506,6 +506,9 @@ document.addEventListener('click', function(event) {
         sidebar.classList.remove('active');
     }
 });
+function initializeSelectAllButton() {
+  updateSelectAllButtonState();
+}
   
 function showSection(id) {
   // Hide all sections
@@ -573,7 +576,10 @@ function showSection(id) {
         searchInput.focus();
       }
     }
-
+    function onFiltersApplied() {
+      // Call this after any filter operation (search, dropdown filters, etc.)
+      updateSelectAllButtonState();
+    }
     function filterTable(searchTerm) {
       const tableBody = document.getElementById('applicantsTableBody');
       const rows = tableBody.getElementsByTagName('tr');
@@ -836,28 +842,225 @@ function updatePrintButtonStatus() {
     printBtn.style.color = allInputRequirementsMet ? '' : '#666666';
   }
 }
-    function toggleRequestReleased(applicantIndex, isChecked) {
-      const applicant = applicantsData[applicantIndex];
+function toggleRequestReleased(applicantIndex, isChecked) {
+  const applicant = applicantsData[applicantIndex];
+  if (applicant.tempIsReleased === undefined) {
+    applicant.tempIsReleased = applicant.isReleased || false;
+  }
+  applicant.tempIsReleased = isChecked;
+  
+  const hasChanges = (applicant.tempIsReleased !== (applicant.isReleased || false)) ||
+                    !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
+                    applicant.status !== applicant.tempStatus;
+  
+  updateRowIndicator(applicantIndex, hasChanges);
+  updateGlobalChangesState();
+  
+  // Update the Select All button text based on current state of VISIBLE rows
+  updateSelectAllButtonState();
+}
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+function getVisibleApplicantIndices() {
+  const tableBody = document.getElementById('applicantsTableBody');
+  const rows = tableBody.getElementsByTagName('tr');
+  const visibleIndices = [];
+  
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    // Check if row is visible (not hidden by filters)
+    if (row.style.display !== 'none') {
+      // Extract index from row id (assuming format "row-{index}")
+      const rowId = row.id;
+      const index = parseInt(rowId.split('-')[1]);
+      if (!isNaN(index)) {
+        visibleIndices.push(index);
+      }
+    }
+  }
+  
+  return visibleIndices;
+}
+function toggleSelectAllRequest() {
+  // Get DOM elements with safety checks
+  const selectAllBtn = document.getElementById('selectAllRequestBtn');
+  const checkboxes = document.querySelectorAll('.resident-checkbox');
+  
+  // Add safety checks
+  if (!selectAllBtn) {
+    console.error('Select All button not found');
+    return;
+  }
+  
+  if (checkboxes.length === 0) {
+    console.error('No checkboxes found');
+    return;
+  }
+  
+  // Enhanced check for applicantsData with multiple fallbacks
+  let dataSource = null;
+  
+  // Try different ways to access the data
+  if (window.applicantsData && Array.isArray(window.applicantsData)) {
+    dataSource = window.applicantsData;
+  } else if (typeof applicantsData !== 'undefined' && Array.isArray(applicantsData)) {
+    dataSource = applicantsData;
+  } else {
+    console.error('applicantsData not found or not an array');
+    console.log('window.applicantsData:', window.applicantsData);
+    console.log('typeof applicantsData:', typeof applicantsData);
+    
+    // Try to wait a bit and retry (in case data is still loading)
+    setTimeout(() => {
+      if (window.applicantsData && Array.isArray(window.applicantsData)) {
+        console.log('Data found after delay, retrying...');
+        toggleSelectAllRequest();
+      } else {
+        console.error('applicantsData still not available after retry');
+      }
+    }, 100);
+    return;
+  }
+  
+  // GET ONLY VISIBLE APPLICANT INDICES
+  const visibleIndices = getVisibleApplicantIndices();
+  
+  if (visibleIndices.length === 0) {
+    console.log('No visible applicants to select/deselect');
+    return;
+  }
+  
+  // Determine the new state based on button text
+  const currentButtonText = selectAllBtn.textContent.trim();
+  const isCurrentlySelectAll = currentButtonText === 'Select All';
+  
+  console.log('Current button text:', currentButtonText);
+  console.log('Is currently Select All:', isCurrentlySelectAll);
+  console.log('Visible indices:', visibleIndices);
+  
+  if (isCurrentlySelectAll) {
+    // SELECT ALL: Set only visible checkboxes to checked
+    visibleIndices.forEach((index) => {
+      const applicant = dataSource[index];
       if (applicant.tempIsReleased === undefined) {
         applicant.tempIsReleased = applicant.isReleased || false;
       }
-      applicant.tempIsReleased = isChecked;
+      applicant.tempIsReleased = true;
       
+      // Update checkbox visual state
+      const checkbox = checkboxes[index];
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+      
+      // Check if this row has changes
       const hasChanges = (applicant.tempIsReleased !== (applicant.isReleased || false)) ||
                         !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
                         applicant.status !== applicant.tempStatus;
       
-      updateRowIndicator(applicantIndex, hasChanges);
-      updateGlobalChangesState();
-    }
-        function arraysEqual(arr1, arr2) {
-      if (arr1.length !== arr2.length) return false;
-      for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) return false;
+      // Update row indicator
+      updateRowIndicator(index, hasChanges);
+    });
+    
+    console.log(`Selected ${visibleIndices.length} visible checkboxes`);
+    
+  } else {
+    // DESELECT ALL: Reset only visible applicants to original state
+    visibleIndices.forEach((index) => {
+      const applicant = dataSource[index];
+      // Reset tempIsReleased to original value
+      applicant.tempIsReleased = applicant.isReleased || false;
+      
+      // Update checkbox visual state
+      const checkbox = checkboxes[index];
+      if (checkbox) {
+        checkbox.checked = applicant.tempIsReleased;
       }
-      return true;
-    }
+      
+      // Check if this row has changes (should be false after reset)
+      const hasChanges = (applicant.tempIsReleased !== (applicant.isReleased || false)) ||
+                        !arraysEqual(applicant.checklistStates, applicant.tempChecklistStates) ||
+                        applicant.status !== applicant.tempStatus;
+      
+      // Update row indicator
+      updateRowIndicator(index, hasChanges);
+    });
+    
+    console.log(`Deselected ${visibleIndices.length} visible checkboxes`);
+  }
+  
+  // Update button text based on visible checkboxes state
+  updateSelectAllButtonState();
+  
+  // Update global state and save button - this will handle all changes at once
+  updateGlobalChangesState();
+  console.log('Function completed');
+}
+// function safeToggleSelectAllRequest() {
+//   // Check if data is ready
+//   if (!window.applicantsData || !Array.isArray(window.applicantsData)) {
+//     console.log('Data not ready, waiting...');
+    
+//     // Try a few times with increasing delays
+//     let attempts = 0;
+//     const maxAttempts = 5;
+    
+//     const checkData = () => {
+//       attempts++;
+//       if (window.applicantsData && Array.isArray(window.applicantsData)) {
+//         console.log('Data ready after', attempts, 'attempts');
+//         toggleSelectAllRequest();
+//       } else if (attempts < maxAttempts) {
+//         setTimeout(checkData, 100 * attempts); // Increasing delay
+//       } else {
+//         console.error('Failed to find applicantsData after', maxAttempts, 'attempts');
+//         alert('Error: Application data not loaded. Please refresh the page.');
+//       }
+//     };
+    
+//     checkData();
+//   } else {
+//     toggleSelectAllRequest();
+//   }
+// }
 
+function updateSelectAllButtonState() {
+  const selectAllBtn = document.getElementById('selectAllRequestBtn');
+  const visibleIndices = getVisibleApplicantIndices();
+  
+  if (visibleIndices.length === 0) {
+    selectAllBtn.textContent = 'Select All';
+    return;
+  }
+  
+  // Check only visible checkboxes
+  const visibleCheckboxes = visibleIndices.map(index => {
+    const checkboxes = document.querySelectorAll('.resident-checkbox');
+    return checkboxes[index];
+  }).filter(checkbox => checkbox !== undefined);
+  
+  if (visibleCheckboxes.length === 0) {
+    selectAllBtn.textContent = 'Select All';
+    return;
+  }
+  
+  const allVisibleChecked = visibleCheckboxes.every(checkbox => checkbox.checked);
+  const noneVisibleChecked = visibleCheckboxes.every(checkbox => !checkbox.checked);
+  
+  if (allVisibleChecked) {
+    selectAllBtn.textContent = 'Deselect All';
+  } else {
+    selectAllBtn.textContent = 'Select All';
+  }
+}
     function updateRowIndicator(applicantIndex, hasChanges) {
       const row = document.getElementById(`row-${applicantIndex}`);
       const indicator = document.getElementById(`indicator-${applicantIndex}`);
@@ -881,9 +1084,10 @@ function updateGlobalChangesState() {
   if (hasUnsavedChanges) {
     saveButton.classList.add('has-changes');
     saveButton.textContent = 'Save Changes';
-  } else {
+  } 
+  else {
     saveButton.classList.remove('has-changes');
-    saveButton.textContent = 'Save';
+    saveButton.innerHTML = '<i class="fas fa-save"></i>Save';
   }
 }
 function saveAllChanges() {
@@ -899,68 +1103,79 @@ function saveAllChanges() {
     'Save Changes',
     'Cancel',
     () => {
+      console.log('Starting to save changes...');
+      
       // Apply all temporary states to actual states and update status
       applicantsData.forEach((applicant, index) => {
+        console.log(`Processing applicant ${index}:`, applicant.name);
+        console.log('Before changes:', {
+          status: applicant.status,
+          tempStatus: applicant.tempStatus,
+          isReleased: applicant.isReleased,
+          tempIsReleased: applicant.tempIsReleased,
+          ctcnum: applicant.ctcnum,
+          originalCtcnum: applicant.originalCtcnum
+        });
+        
         applicant.checklistStates = [...applicant.tempChecklistStates];
         const oldStatus = applicant.status;
         
-        // Handle Released checkbox logic FIRST - this takes precedence
+        // Save CTC number changes
+        if (applicant.ctcnum !== (applicant.originalCtcnum || '')) {
+          applicant.originalCtcnum = applicant.ctcnum;
+          console.log(`Saved CTC for ${applicant.name}: ${applicant.ctcnum}`);
+        }
+        
+        // Handle status changes from tempStatus
+        if (applicant.tempStatus && applicant.tempStatus !== applicant.status) {
+          applicant.status = applicant.tempStatus;
+          console.log(`Status changed from ${oldStatus} to ${applicant.status}`);
+        }
+        
+        // Handle Released checkbox - this overrides everything
         if (applicant.tempIsReleased !== undefined) {
-          const wasReleased = applicant.isReleased || false;
           applicant.isReleased = applicant.tempIsReleased;
           
-          // If Released checkbox is checked, change status to Released
-          if (!wasReleased && applicant.tempIsReleased) {
+          if (applicant.tempIsReleased === true) {
+            // Force status to Released when checkbox is checked
             applicant.status = 'Released';
-            applicant.tempStatus = 'Released'; // Update temp status too
-            applicant.releaseDate = new Date().toISOString().split('T')[0];
-          }
-          // If Released checkbox is unchecked, revert to previous status logic
-          else if (wasReleased && !applicant.tempIsReleased) {
-            // Don't automatically change status - let the user choose
-            // Just remove the released flag
+            if (!applicant.releaseDate) {
+              applicant.releaseDate = new Date().toISOString().split('T')[0];
+            }
+            console.log(`${applicant.name} marked as Released`);
+          } else if (applicant.tempIsReleased === false && (applicant.isReleased || oldStatus === 'Released')) {
+            // Unchecked - remove release status
             applicant.releaseDate = null;
-            // Keep the current tempStatus as the new status
-            applicant.status = applicant.tempStatus;
+            applicant.status = applicant.tempStatus || 'Pending';
+            console.log(`${applicant.name} unmarked from Released, new status: ${applicant.status}`);
           }
           
           // Reset temp value
-          applicant.tempIsReleased = applicant.isReleased;
+          applicant.tempIsReleased = undefined;
         }
         
-        // Only update status from tempStatus if NOT marked as Released
-        if (!applicant.isReleased) {
-          applicant.status = applicant.tempStatus;
-        }
-        
-        // Clear temporary status after applying
-        applicant.tempStatus = applicant.status;
-        
-        // Set approval date when status changes to Approved
-        if (oldStatus !== 'Approved' && applicant.status === 'Approved') {
+        // Set dates based on status changes
+        if (oldStatus !== 'Approved' && applicant.status === 'Approved' && !applicant.approvalDate) {
           applicant.approvalDate = new Date().toISOString().split('T')[0];
         }
         
-        // Set rejection date when status changes to Rejected
-        if (oldStatus !== 'Rejected' && applicant.status === 'Rejected') {
+        if (oldStatus !== 'Rejected' && applicant.status === 'Rejected' && !applicant.rejectionDate) {
           applicant.rejectionDate = new Date().toISOString().split('T')[0];
         }
         
-        // Update status based on checklist completion - ONLY for non-Released applications
-        if (applicant.status !== 'Released' && applicant.status !== 'Approved' && applicant.status !== 'Rejected') {
-          const allCompleted = applicant.checklistStates.every(state => state === true);
-          const hasAnyCompleted = applicant.checklistStates.some(state => state === true);
-
-          if (applicant.status === 'Pending' || applicant.status === 'In Progress' || applicant.status === 'Ready for Approval') {
-            if (allCompleted && applicant.checklist.length > 0) {
-              applicant.status = 'Ready for Approval';
-            } else if (hasAnyCompleted) {
-              applicant.status = 'In Progress';
-            } else {
-              applicant.status = 'Pending';
-            }
-          }
+        if (oldStatus !== 'Released' && applicant.status === 'Released' && !applicant.releaseDate) {
+          applicant.releaseDate = new Date().toISOString().split('T')[0];
         }
+        
+        // Clear temporary status
+        applicant.tempStatus = applicant.status;
+        
+        console.log('After changes:', {
+          status: applicant.status,
+          tempStatus: applicant.tempStatus,
+          isReleased: applicant.isReleased,
+          tempIsReleased: applicant.tempIsReleased
+        });
         
         updateRowIndicator(index, false);
         updateTableRowStatus(index);
@@ -971,15 +1186,7 @@ function saveAllChanges() {
       updateDashboardCounts();
       updateDocumentRequestsTable();
       
-      // If approved tab is currently shown, refresh it
-      if (document.getElementById('approvedDocuments').style.display === 'block') {
-        populateApprovedTable();
-      }
-      
-      // If released tab is currently shown, refresh it
-      if (document.getElementById('releasedDocuments').style.display === 'block') {
-        populateReleasedTable();
-      }
+      console.log('Save completed, refreshing tables...');
       
       showProgressToast(
         'Saving Changes',
@@ -989,6 +1196,12 @@ function saveAllChanges() {
       saveDataToStorage();
     }
   );
+}
+function debugApplicantData() {
+  console.log('Current applicant data:');
+  applicantsData.forEach((applicant, index) => {
+    console.log(`${index}: ${applicant.name} - Status: ${applicant.status}, Released: ${applicant.isReleased}, TempStatus: ${applicant.tempStatus}, TempReleased: ${applicant.tempIsReleased}`);
+  });
 }
 
 // Modal confirmation function
@@ -1096,19 +1309,43 @@ function updateTableRowStatus(applicantIndex) {
   const row = document.getElementById(`row-${applicantIndex}`);
   const applicant = applicantsData[applicantIndex];
   
+  if (!row || !applicant) {
+    console.error(`Row or applicant not found for index ${applicantIndex}`);
+    return;
+  }
+  
   // Update the status cell (4th column, index 3)
   const statusCell = row.cells[3];
-  statusCell.innerHTML = `<span class="status-${applicant.status.toLowerCase().replace(/\s+/g, '-')}">${applicant.status}</span>`;
+  if (statusCell) {
+    statusCell.innerHTML = `<span class="status-${applicant.status.toLowerCase().replace(/\s+/g, '-')}">${applicant.status}</span>`;
+  }
   
-  // Rebuild the view button with correct parameters
-  const viewButton = row.cells[4].querySelector('.view-button');
-  if (viewButton) {
-    // Reconstruct the onclick with all the correct parameters
-    const newOnClick = `showApplicantModal(${applicantIndex}, '${applicant.name}','${applicant.age}', '${applicant.address}', '${applicant.birthplace}', '${applicant.civilStatus}', '${applicant.requestedBy}','${applicant.placeIssued}','${applicant.dateIssued}','${applicant.purpose}','${applicant.ctcnum}', ${JSON.stringify(applicant.checklist).replace(/"/g, "'")})`;
+  // Update the Released checkbox to reflect current state
+  const checkbox = row.cells[5] ? row.cells[5].querySelector('.resident-checkbox') : null;
+  if (checkbox) {
+    checkbox.checked = applicant.tempIsReleased !== undefined ? applicant.tempIsReleased : (applicant.isReleased || false);
+  }
+  
+  // Rebuild the view button with correct parameters - with safety checks
+  const viewButton = row.cells[4] ? row.cells[4].querySelector('.view-button') : null;
+  if (viewButton && applicant.name && applicant.address && applicant.birthplace) {
+    // Escape single quotes in the data to prevent JavaScript errors - with null checks
+    const escapedName = (applicant.name || '').replace(/'/g, "\\'");
+    const escapedAddress = (applicant.address || '').replace(/'/g, "\\'");
+    const escapedBirthplace = (applicant.birthplace || '').replace(/'/g, "\\'");
+    const escapedCivilStatus = (applicant.civilStatus || '').replace(/'/g, "\\'");
+    const escapedRequestedBy = (applicant.requestedBy || '').replace(/'/g, "\\'");
+    const escapedPlaceIssued = (applicant.placeIssued || '').replace(/'/g, "\\'");
+    const escapedPurpose = (applicant.purpose || '').replace(/'/g, "\\'");
+    const escapedDocumentType = (applicant.documentType || '').replace(/'/g, "\\'");
+    
+    const newOnClick = `showApplicantModal(${applicantIndex}, '${escapedName}', ${applicant.age || 0}, '${escapedAddress}', '${escapedBirthplace}', '${escapedCivilStatus}', '${escapedRequestedBy}', '${escapedPlaceIssued}', '${applicant.dateIssued || ''}', '${escapedDocumentType}', '${escapedPurpose}')`;
     viewButton.setAttribute('onclick', newOnClick);
   }
+  
+  // Update Select All button state after any row update
+  updateSelectAllButtonState();
 }
-
     function closeModal() {
       document.getElementById('applicantModal').style.display = 'none';
     }
@@ -1357,9 +1594,8 @@ function printDocument(docType) {
         'Barangay Clearance': '../Admin/Cert-Admin/up-clear.html',
         'Certificate of Residency': '../Admin/Cert-Admin/up-reside.html',
         'First Time Job Seeker': '/Cert-Admin/up-jobseek.html',
-        'Death Certificate': 'print-death-certificate.html',
-        'Business Permit': 'print-business-permit.html',
-        'Cedula': 'print-cedula.html'
+        'Certificate of Indigency': '../Admin/Cert-Admin/up-ind.html',
+        'Business Permit': '../Admin/Cert-Admin/up-bpermit.html'
     };
     
     const templateUrl = documentTemplates[docType];
@@ -1514,18 +1750,34 @@ function populateReleasedTable() {
     });
 }
 
-
-
 function toggleSelectAll(button, tableType) {
     const checkboxClass = tableType === 'released' ? '.released-checkbox' : '.rejected-checkbox';
-    const allCheckboxes = document.querySelectorAll(checkboxClass);
+    const tableBodyId = tableType === 'released' ? 'releasedTableBody' : 'rejectedTableBody';
+    const tableBody = document.getElementById(tableBodyId);
+    
+    // Get only visible checkboxes (not hidden by filters)
+    const visibleCheckboxes = [];
+    const rows = tableBody.getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        // Check if row is visible (not hidden by filters)
+        if (row.style.display !== 'none') {
+            const checkbox = row.querySelector(checkboxClass);
+            if (checkbox) {
+                visibleCheckboxes.push(checkbox);
+            }
+        }
+    }
+    
+    // Determine if we should select all or deselect all based on visible checkboxes
     const isSelectAll = button.textContent === 'Select All';
     
     // Toggle button text
     button.textContent = isSelectAll ? 'Deselect All' : 'Select All';
     
-    // Toggle all checkboxes for this table type
-    allCheckboxes.forEach(checkbox => {
+    // Toggle only visible checkboxes
+    visibleCheckboxes.forEach(checkbox => {
         if (checkbox.checked !== isSelectAll) {
             checkbox.checked = isSelectAll;
             // Trigger the onchange event to update selections
@@ -1539,16 +1791,39 @@ function updateSelectAllButton(tableType) {
     if (!selectAllBtn) return;
     
     const checkboxClass = tableType === 'released' ? '.released-checkbox' : '.rejected-checkbox';
-    const allCheckboxes = document.querySelectorAll(checkboxClass);
-    const checkedCheckboxes = document.querySelectorAll(checkboxClass + ':checked');
+    const tableBodyId = tableType === 'released' ? 'releasedTableBody' : 'rejectedTableBody';
+    const tableBody = document.getElementById(tableBodyId);
     
-    if (checkedCheckboxes.length === 0) {
+    // Get only visible checkboxes (not hidden by filters)
+    const visibleCheckboxes = [];
+    const visibleCheckedCheckboxes = [];
+    const rows = tableBody.getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        // Check if row is visible (not hidden by filters)
+        if (row.style.display !== 'none') {
+            const checkbox = row.querySelector(checkboxClass);
+            if (checkbox) {
+                visibleCheckboxes.push(checkbox);
+                if (checkbox.checked) {
+                    visibleCheckedCheckboxes.push(checkbox);
+                }
+            }
+        }
+    }
+    
+    // Update button text based on visible checkboxes only
+    if (visibleCheckedCheckboxes.length === 0) {
         selectAllBtn.textContent = 'Select All';
-    } else if (checkedCheckboxes.length === allCheckboxes.length) {
+    } else if (visibleCheckedCheckboxes.length === visibleCheckboxes.length) {
         selectAllBtn.textContent = 'Deselect All';
     } else {
         selectAllBtn.textContent = 'Select All';
     }
+}
+function updateSelectAllAfterFilter(tableType) {
+    updateSelectAllButton(tableType);
 }
 
 function toggleReleasedSearch() {
@@ -1601,6 +1876,10 @@ function filterReleasedTable(searchTerm) {
   
   if (searchTerm === '') {
     applyReleasedFilters();
+  } else {
+    // ADD: Update select all button after search filtering
+    const tableType = currentSection === 'rejectedDocuments' ? 'rejected' : 'released';
+    updateSelectAllAfterFilter(tableType);
   }
 }
 
@@ -1688,31 +1967,31 @@ function applyReleasedFilters() {
     
     row.style.display = showRow ? '' : 'none';
   }
+  
+  // ADD: Update select all button after filtering
+  updateSelectAllAfterFilter('released');
 }
 
 function clearReleasedFilters() {
+  // Clear document type filters
   const currentSection = document.querySelector('[style*="display: block"]').id;
   const dropdownId = currentSection === 'rejectedDocuments' ? 'rejectedDocTypeDropdown' : 'releasedDocTypeDropdown';
-  const displayId = currentSection === 'rejectedDocuments' ? 'rejectedDocTypeDisplay' : 'releasedDocTypeDisplay';
-  const dateFromId = currentSection === 'rejectedDocuments' ? 'rejectedDateFrom' : 'releasedDateFrom';
-  const dateToId = currentSection === 'rejectedDocuments' ? 'rejectedDateTo' : 'releasedDateTo';
-  const tableBodyId = currentSection === 'rejectedDocuments' ? 'rejectedTableBody' : 'releasedTableBody';
-  
-  // Clear document type filters
-  const docTypeCheckboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
-  docTypeCheckboxes.forEach(cb => cb.checked = false);
-  document.getElementById(displayId).textContent = 'All Types';
+  const checkboxes = document.querySelectorAll(`#${dropdownId} input[type="checkbox"]`);
+  checkboxes.forEach(checkbox => checkbox.checked = false);
   
   // Clear date filters
-  document.getElementById(dateFromId).value = '';
-  document.getElementById(dateToId).value = '';
+  document.getElementById('releasedDateFrom').value = '';
+  document.getElementById('releasedDateTo').value = '';
   
-  // Show all rows
-  const tableBody = document.getElementById(tableBodyId);
-  const rows = tableBody.getElementsByTagName('tr');
-  for (let i = 0; i < rows.length; i++) {
-    rows[i].style.display = '';
-  }
+  // Update display
+  const displayId = currentSection === 'rejectedDocuments' ? 'rejectedDocTypeDisplay' : 'releasedDocTypeDisplay';
+  document.getElementById(displayId).textContent = 'All Types';
+  
+  // Apply filters (which will show all rows)
+  applyReleasedFilters();
+  
+  // Update select all button
+  updateSelectAllAfterFilter('released');
 }
 
     function saveReleasedChanges() {
@@ -1795,7 +2074,7 @@ function populateRejectedTable() {
         const actualIndex = applicantsData.indexOf(applicant);
         
         // Add ID to the row for updateRowIndicator function
-        row.id = `row-${actualIndex}`;
+        row.id = `rejected-row-${actualIndex}`; 
         
         row.innerHTML = `
             <td>
@@ -1810,6 +2089,7 @@ function populateRejectedTable() {
         
         tableBody.appendChild(row);
     });
+    updateSelectAllButton('released');
 }
 
 function updateRejectedDocTypeFilter() {
@@ -1869,6 +2149,7 @@ function applyRejectedFilters() {
     
     row.style.display = showRow ? '' : 'none';
   }
+     updateSelectAllButton('rejected');
 }
 
 function clearRejectedFilters() {
@@ -1884,6 +2165,7 @@ function clearRejectedFilters() {
   for (let i = 0; i < rows.length; i++) {
     rows[i].style.display = '';
   }
+     updateSelectAllButton('rejected');
 }
 
 // Dedicated functions for rejected documents
@@ -1921,6 +2203,7 @@ function filterRejectedTable(searchTerm) {
   if (searchTerm === '') {
     applyRejectedFilters();
   }
+     updateSelectAllButton('rejected');
 }
 
 function toggleRejectedFilter() {
@@ -1949,7 +2232,36 @@ function toggleRowSelection(tabType, applicantIndex, isChecked) {
       selectedRejectedRows.delete(applicantIndex);
     }
   }
+  
+  // Update row visual indicator
+  rowIndicator(tabType, applicantIndex, isChecked);
 }
+
+function rowIndicator(tabType, applicantIndex, isSelected) {
+  const rowId = `${tabType}-row-${applicantIndex}`;
+  const row = document.getElementById(rowId);
+  
+  if (row) {
+    if (tabType === 'released') {
+      if (isSelected) {
+        // row.style.backgroundColor = '#fff3cd'; // Light yellow for selected
+        row.classList.add('selected-released');
+      } else {
+        // row.style.backgroundColor = '#fffbf0'; // Very light yellow for released (unselected)
+        row.classList.remove('selected-released');
+      }
+    } else if (tabType === 'rejected') {
+      if (isSelected) {
+        // row.style.backgroundColor = '#f8d7da'; // Light red for selected rejected
+        row.classList.add('selected-rejected');
+      } else {
+        // row.style.backgroundColor = ''; // Default background
+        row.classList.remove('selected-rejected');
+      }
+    }
+  }
+}
+
 
 // Updated password protection for move buttons with styling and toasts
 //const MOVE_PASSWORD = "admin123"; // Password for move operations
@@ -2059,7 +2371,8 @@ function cancelMovePassword() {
 function resetMoveButton(tabType) {
   const buttonId = tabType === 'released' ? 'releasedMoveButton' : (tabType === 'rejected' ? 'rejectedMoveButton' : 'approvedMoveButton');
   const button = document.getElementById(buttonId);
-  const targetText = tabType === 'released' ? 'Move to Requests' : 'Move to Document Requests';
+  const targetText = tabType === 'released' ? 'Move to Requests' : 'Move to Requests';
+  // const targetText = tabType === 'released' ? 'Move to Requests' : 'Move to Document Requests';
   const icon = tabType === 'released' ? 'fas fa-arrow-right' : (tabType === 'rejected' ? 'fas fa-undo' : 'fas fa-undo');
   
   button.disabled = false;

@@ -308,7 +308,7 @@
 
 [data-theme="dark"] .modal-content div {
   margin-bottom: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0ZZ;
 }
 
 [data-theme="dark"] .checklist {
@@ -557,14 +557,15 @@
     border-radius: 50%;
     cursor: pointer;
     width: 55px;
-    height: 67px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px var(--shadow);
     font-size: 18px;
-    margin-top: 11rem;
+    position: absolute;
+    bottom: 20px;
     margin-left: 20px;
 }
 
@@ -1351,6 +1352,23 @@ table tr {
   border-left: 4px solid #ffc107;
   box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
 }
+.released-row {
+    background-color: #fffbf0 !important; /* Very light yellow */
+    transition: background-color 0.2s ease;
+}
+
+.selected-released {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+  border-left: 4px solid #ffc107;
+  box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
+}
+
+.selected-rejected {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7) !important;
+  border-left: 4px solid #ffc107;
+  box-shadow: 0 2px 10px rgba(255, 193, 7, 0.2);
+}
+
 
 .change-indicator {
   color: #ffc107;
@@ -3597,6 +3615,18 @@ td:first-child {
     font-size: 0.95rem;
     border: none;
 }
+.selectAllbtn{
+  padding: 4px 2px;
+  border-radius: 5px;
+  font-weight:900;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+      border: 1px solid var(--accent-gold);
+    background: var(--accent-gold);
+    color: var(--cream);
+}
 #selectAllReleasedBtn, #selectAllRejectedBtn {
     padding: 0.4rem .5rem;
     border-radius: 12px;
@@ -3608,7 +3638,7 @@ td:first-child {
     background: var(--accent-gold);
     color: var(--cream);
 }
-#selectAllReleasedBtn:hover, #selectAllRejectedBtn:hover {
+#selectAllReleasedBtn:hover, #selectAllRejectedBtn:hover, .selectAllbtn:hover {
     color: var(--primary-medium);
 }
 
