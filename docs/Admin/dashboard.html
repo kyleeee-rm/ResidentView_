@@ -11,8 +11,14 @@
 </head>
 
 <body>
-    <div class="sidebar">
-      <h2>Admin Panel</h2>
+    <div class="menu-bar">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+            <span style="margin-left: 10px;"></span>
+        </button>
+    </div>
+    <div class="sidebar" id="sidebar">
+      <h2>Clearance Panel</h2>
       <a onclick="showSection('dashboard')">
         <i class="fas fa-tachometer-alt"></i>
         Dashboard
@@ -20,10 +26,6 @@
       <a onclick="showSection('documentRequests')">
         <i class="fas fa-file-alt"></i>
         Document Requests
-      </a>
-      <a onclick="showSection('approvedDocuments')">
-        <i class="fas fa-check-circle"></i>
-        Approved Documents
       </a>
       <a onclick="showSection('releasedDocuments')">
         <i class="fas fa-paper-plane"></i>
@@ -39,8 +41,12 @@
       </a>
       <a href="#" onclick="showSection('adminSettings')">
         <i class="fas fa-cog"></i>
-        Admin Settings
+        Settings
       </a>
+<button class="theme-toggle" id="themeToggle">
+    <span class="moon-icon">☀️</span>
+    <span class="sun-icon">🌙</span>
+</button>
     </div>
 
   <div class="main">
@@ -64,10 +70,6 @@
           <p id="pendingCount">0</p>
           <h3>Pending Requests</h3>
         </div>
-        <div class="status-box approved">
-          <p id="approvedCount">0</p>
-          <h3>Approved Documents</h3>
-        </div>
         <div class="status-box released">
           <p id="releasedCount">0</p>
           <h3>Released Documents</h3>
@@ -83,7 +85,7 @@
           <canvas id="statusChart"></canvas>
         </div>
       </div>
-    </div>
+</div>
 
     <div class="content" id="documentRequests" style="display: none;">
       <h2>Document Requests</h2>
@@ -153,7 +155,7 @@
             </div>
 
 
-            <!-- main tabkle -->
+            <!-- main table -->
             <div class="table-container">
             <table class="requestTab">
                 <thead>
@@ -173,7 +175,7 @@
                   <td>2025-06-01</td>
                   <td><span class="status-pending">Pending</span></td>
                   <td><button class="view-button" onclick="showApplicantModal(0, 'Juan Dela Cruz', 28, '123 Main St, Barangay Market Area', 'Manila, Philippines','Single','Juan Dela Cruz','Barangay Market Area','2025-06-24', 'Barangay Clearance', 'Employment purposes')">View</button></td>
-                  <td><input type="checkbox" class="checklist" onchange="toggleRequestReleased(0, this.checked)"></td>
+                  <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRequestReleased(0, this.checked)"></td>
                 </tr>
                 <tr id="row-1">
                   <td>Maria Santos<span class="change-indicator" id="indicator-1" style="display:none;">*</span></td>
@@ -181,36 +183,37 @@
                   <td>2025-06-02</td>
                   <td><span class="status-pending">Pending</span></td>
                   <td><button class="view-button" onclick="showApplicantModal(1, 'Maria Santos', 32, '456 Oak Ave, Barangay Market Area', 'Quezon City, Philippines','Married','Maria Santos','Barangay Market Area','2025-06-24', 'Certificate of Indigency','Medical assistance')">View</button></td>
-                  <td><input type="checkbox" class="checklist" onchange="toggleRequestReleased(1, this.checked)"></td>
+                  <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRequestReleased(1, this.checked)"></td>
                 </tr>
                 <tr id="row-2">
                   <td>Pedro Rodriguez<span class="change-indicator" id="indicator-2" style="display:none;">*</span></td>
                   <td>Business Permit</td>
                   <td>2025-06-03</td>
                   <td><span class="status-pending">Pending</span></td>
-                  <td><button class="view-button" onclick="showApplicantModal(2, 'Pedro Rodriguez', 45,'789 Pine St, Barangay Market Area','Caloocan, Philippines','Married','Pedro Rodriguez', 'Business Permit', 'Start new business')">View</button></td>
-                  <td><input type="checkbox" class="checklist" onchange="toggleRequestReleased(2, this.checked)"></td>
+                  <td><button class="view-button" onclick="showApplicantModal(2, 'Pedro Rodriguez', 45,'789 Pine St, Barangay Market Area','Caloocan, Philippines','Married','Pedro Rodriguez','Barangay Market Area','2025-06-24', 'Business Permit', 'Start new business')">View</button></td>
+                  <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRequestReleased(2, this.checked)"></td>
                 </tr>
                 <tr id="row-3">
                   <td>Ana Garcia<span class="change-indicator" id="indicator-3" style="display:none;">*</span></td>
                   <td>Barangay ID</td>
                   <td>2025-06-04</td>
                   <td><span class="status-pending">Pending</span></td>
-                  <td><button class="view-button" onclick="showApplicantModal(3, 'Ana Garcia', 29,'321 Elm St, Barangay Market Area','Pasig, Philippines','Single','Ana Garcia', 'Barangay ID', 'Identification purposes')">View</button></td>
-                  <td><input type="checkbox" class="checklist" onchange="toggleRequestReleased(3, this.checked)"></td>
+                  <td><button class="view-button" onclick="showApplicantModal(3, 'Ana Garcia', 29,'321 Elm St, Barangay Market Area','Pasig, Philippines','Single','Ana Garcia','Barangay Market Area','2025-06-24', 'Barangay ID', 'Identification purposes')">View</button></td>
+                  <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRequestReleased(3, this.checked)"></td>
                 </tr>
                 <tr id="row-4">
                   <td>Carlos Mendoza<span class="change-indicator" id="indicator-4" style="display:none;">*</span></td>
                   <td>Certificate of Residency</td>
                   <td>2025-06-05</td>
                   <td><span class="status-pending">Pending</span></td>
-                  <td><button class="view-button" onclick="showApplicantModal(4, 'Carlos Mendoza', 23,'654 Maple Ave, Barangay Market Area','Marikina, Philippines','Single','Carlos Mendoza', 'Certificate of Residency','School enrollment')">View</button></td>
-                  <td><input type="checkbox" class="checklist" onchange="toggleRequestReleased(4, this.checked)"></td>
+                  <td><button class="view-button" onclick="showApplicantModal(4, 'Carlos Mendoza', 23,'654 Maple Ave, Barangay Market Area','Marikina, Philippines','Single','Carlos Mendoza','Barangay Market Area','2025-06-24', 'Certificate of Residency','School enrollment')">View</button></td>
+                  <td><input type="checkbox" class="checklist resident-checkbox" onchange="toggleRequestReleased(4, this.checked)"></td>
                 </tr>
               </tbody>
             </table>
             <button class="save-button btn" id="saveButton" onclick="saveAllChanges()"><i class="fas fa-save"></i>Save</button>
-          </div></div>
+          </div>
+        </div>
 
 <!-- approved tab -->
           <div class="content" id="approvedDocuments" style="display: none;">
@@ -348,10 +351,14 @@
 
         <!-- Released Documents Table -->
       <div class="table-container">
-        <table>
+        <table class="table">
           <thead>
             <tr>
-              <th>Select</th>
+              <th>
+                <button id="selectAllReleasedBtn" onclick="toggleSelectAll(this, 'released')" class="select-all-btn">
+                    Select All
+                </button>
+              </th>
               <th>Invoice</th>
               <th>Name</th>
               <th>Document Type</th>
@@ -364,7 +371,7 @@
         </table>
         <div class="button-container">
           <button id="releasedMoveButton" class="move-button move-to-approved btn" onclick="showMoveConfirmation('released')">
-            <i class="fas fa-check-circle"></i>Move to Approved
+            <i class="fas fa-check-circle"></i>Move to Requests
           </button>
         </div>
       </div>
@@ -428,10 +435,14 @@
 
         <!-- Rejected Documents Table -->
       <div class="table-container">
-        <table>
+        <table class="table">
           <thead>
             <tr>
-              <th>Select</th>
+              <th>
+                <button id="selectAllRejectedBtn" onclick="toggleSelectAll(this, 'rejected')" class="select-all-btn">
+                    Select All
+                </button>
+              </th>
               <th>Name</th>
               <th>Document Type</th>
               <th>Rejection Date</th>
@@ -541,16 +552,15 @@
       </div>
 
 <!-- admin -->
-<!-- Replace your existing admin section with this corrected version -->
 
 <!-- Admin Settings Section - Fixed ID and Structure -->
 <div class="content" id="adminSettings" style="display: none;">
-    <div class="admin-settings-container fade-in">
+    <div class="content admin-settings-container fade-in">
         <div class="content">
-            <h2><i class="fas fa-cog"></i> Admin Settings</h2>
+            <h2><i class="fas fa-cog"></i>Settings</h2>
         </div>
 
-        <div class="settings-content">
+        <div class="content settings-content">
             <!-- Navigation Tabs -->
             <div class="settings-nav">
                 <button class="nav-tab active" onclick="showTab('security')">
@@ -571,7 +581,7 @@
                     <p>Manage authentication, passwords, and access permissions</p>
                 </div> -->
 
-                <div class="settings-row">
+                <div class="content settings-row">
                     <!-- Primary Admin Credentials -->
                     <div class="settings-group priority-high">
                         <div class="group-header">
@@ -603,23 +613,15 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="residentsPassword">
-                                    <i class="fas fa-users"></i> Residents Management
+                                    <i class="fas fa-users"></i> Voter's List
                                 </label>
-                                <input type="password" id="residentsPassword" placeholder="Password for residents section">
+                                <input type="password" id="residentsPassword" placeholder="Password for voters section">
                             </div>
                             <div class="form-group">
                                 <label for="movePassword">
                                     <i class="fas fa-arrows-alt"></i> Move Operations
                                 </label>
                                 <input type="password" id="movePassword" placeholder="Password for moving applications">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="editPassword">
-                                    <i class="fas fa-edit"></i> Edit Mode Access
-                                </label>
-                                <input type="password" id="editPassword" placeholder="Password for edit mode">
                             </div>
                         </div>
 
@@ -910,7 +912,6 @@
 </div>
 
 
-
 <!-- admin modal -->
 <div id="adminPasswordModal" class="passwordmodal" style="display: none;">
     <div class="passwordmodal-content">
@@ -934,7 +935,7 @@
                 </button>
             </div>
             <div class="forgot-password-section" >
-                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                <button type="button" onclick="showForgotPasswordModal('Admin')" class="btn-forgot">
                     Forgot Password?
                 </button>
             </div>
@@ -992,7 +993,7 @@
                 <button class="btn btn-primary confirm" onclick="confirmMovePassword()">Move Applications</button>
           </div>
             <div class="forgot-password-section" >
-                <button type="button" onclick="showForgotPasswordModal('Residents')" class="btn-forgot">
+                <button type="button" onclick="showForgotPasswordModal('Voters List')" class="btn-forgot">
                     Forgot Password?
                 </button>
             </div>
@@ -1015,8 +1016,8 @@
         </div>
       </div>
       <div class="modal-footer">
-            <button onclick="processForgotPassword()" class="btn btn-primary">Send Recovery Email</button>
             <button onclick="closeForgotPasswordModal()" class="btn btn-secondary cancel">Cancel</button>
+            <button onclick="processForgotPassword()" class="btn btn-primary">Send Recovery Email</button>
         </div>
     </div>
 </div>
@@ -1052,18 +1053,17 @@
         </div>
     </div>
 
-<!-- session warning -->
 <!-- Session Warning Modal -->
-<div id="sessionWarningModal" class="modal" style="z-index: 9999;">
-    <div class="modal-content" style="max-width: 450px; text-align: center;">
-        <div class="modal-header">
-            <div class="warning-icon" style="color: #ff6b35; font-size: 48px; margin-bottom: 15px;">
+<div id="sessionWarningModal" class="passwordmodal" style="z-index: 9999;">
+    <div class="passwordmodal-content" style="max-width: 450px; text-align: center;">
+        <div class="passwordmodal-header">
+            <div class="warning-icon" style="color: #FFFFF0; font-size: 48px; margin-bottom: 15px;">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
             <h3 style="color: #ff6b35;">Session Timeout Warning</h3>
-            <p>Your session will expire in <span id="warningCountdown" style="font-weight: bold; color: #ff6b35;">5:00</span></p>
+            <p>Your session will expire in <span id="warningCountdown" style="font-weight: bold; color: #FFFFF0">5:00</span></p>
         </div>
-        <div class="modal-body">
+        <div class="passwordmodal-body">
             <p>You will be automatically logged out due to inactivity.</p>
             <p>Click "Stay Logged In" to continue your session.</p>
         </div>
@@ -1097,7 +1097,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
   <script src="../Admin/dashboard.js">
    
   </script>
